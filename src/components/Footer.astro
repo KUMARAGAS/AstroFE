@@ -1,0 +1,202 @@
+---
+interface Props {
+  site: any;
+  business: any;
+}
+
+const { site, business } = Astro.props;
+
+const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
+const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN;
+
+function asset(id: string | null | undefined): string {
+  if (!id) return '';
+  return `${DIRECTUS_URL}/assets/${id}?access_token=${DIRECTUS_TOKEN}`;
+}
+---
+
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        
+<a href="/" class="footer-logo">
+  {site?.core_logo_dark ? (
+    <img
+      src={asset(site.core_logo_dark)}
+      alt={site.core_site_name}
+      height="40"
+    />
+  ) : (
+    <span>{site?.core_site_name}</span>
+  )}
+</a>
+
+
+<p class="footer-tagline">Bold flavors. Street style. Premium quality.</p>
+        <div class="footer-social">
+          {business.core_instagram_url && (
+            <a href={business.core_instagram_url} target="_blank" rel="noopener noreferrer">Instagram</a>
+          )}
+          {business.core_facebook_url && (
+            <a href={business.core_facebook_url} target="_blank" rel="noopener noreferrer">Facebook</a>
+          )}
+          {business.core_x_url && (
+            <a href={business.core_x_url} target="_blank" rel="noopener noreferrer">X</a>
+          )}
+        </div>
+      </div>
+
+      <div class="footer-contact">
+        <span class="footer-heading">Contact</span>
+        {business.core_email && (
+          <a href={`mailto:${business.core_email}`}>{business.core_email}</a>
+        )}
+        {business.core_contact_number && (
+          <a href={`tel:${business.core_contact_number}`}>{business.core_contact_number}</a>
+        )}
+        {business.core_address && (
+          <p>{business.core_address}</p>
+        )}
+        {business.core_business_hours && (
+          <p>{business.core_business_hours}</p>
+        )}
+      </div>
+
+      <div class="footer-links">
+        <span class="footer-heading">Quick Links</span>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-service">Terms of Service</a>
+      </div>
+
+      <div class="footer-order">
+        <span class="footer-heading">Order Now</span>
+        {business.core_whatsapp_url && (
+          <a href={business.core_whatsapp_url} target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+            WhatsApp Order
+          </a>
+        )}
+        <a href="/contact" class="contact-btn">Contact Us</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {new Date().getFullYear()} {site.core_site_name}. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="/privacy-policy">Privacy</a>
+        <a href="/terms-of-service">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #050505;
+    border-top: 1px solid #1a1a1a;
+    padding: 80px 0 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .footer-name {
+    font-size: 24px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .footer-tagline {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .footer-social { display: flex; gap: 16px; }
+  .footer-social a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-social a:hover { color: var(--gold); }
+  .footer-heading {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-contact, .footer-links, .footer-order {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-contact a, .footer-contact p,
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  .footer-contact a:hover, .footer-links a:hover { color: var(--gold); }
+  .whatsapp-btn {
+    background: #25D366;
+    color: #fff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: opacity 0.3s;
+  }
+  .whatsapp-btn:hover { opacity: 0.85; }
+  .contact-btn {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .contact-btn:hover { background: var(--gold); color: var(--dark); }
+  .footer-bottom {
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom p { color: var(--text-muted); font-size: 13px; }
+  .footer-legal { display: flex; gap: 20px; }
+  .footer-legal a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s;
+  }
+  .footer-legal a:hover { color: var(--gold); }
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>

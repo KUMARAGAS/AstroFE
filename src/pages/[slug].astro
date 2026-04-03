@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPages, getPageBySlug } from '../lib/directus.js';
+
+export async function getStaticPaths() {
+  const pages = await getPages();
+  return pages.map((page: { core_page_slug: string }) => ({ params: { slug: page.core_page_slug } }));
+}
+
+const { slug } = Astro.params;
+const page = await getPageBySlug(slug);
+if (!page) {
+  return Astro.redirect('/404', 404);
+}
+---
+
+<BaseLayout
+  title={page.core_seo_title || page.core_page_title}
+  description={page.core_seo_description}
+>
+  <section class="page-hero">
+    <h1>{page.core_page_title}</h1>
+  </section>
+  <section style="padding: 80px 0; background: var(--dark-2);">
+    <div class="container">
+      <p style="color: var(--text-muted); font-style: italic;">Content coming soon.</p>
+    </div>
+  </section>
+</BaseLayout>

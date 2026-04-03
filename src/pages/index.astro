@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteSettings, getBusinessDetails } from '../lib/directus.js';
+
+const site = await getSiteSettings();
+const business = await getBusinessDetails();
+---
+
+<BaseLayout>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="label">Welcome to</p>
+      <h1>{site.core_site_name}</h1>
+      <p class="hero-sub">Bold flavors. Street style. Premium quality.</p>
+      <div class="hero-btns">
+        <a href="/contact" class="btn-primary">Order Now</a>
+        <a href="/about" class="btn-secondary">Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          <h3>Fresh Daily</h3>
+          <p>Every item made fresh — no freezers, no shortcuts.</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          <h3>Bold Flavors</h3>
+          <p>Street food recipes perfected over generations.</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          <h3>Fast Service</h3>
+          <p>Premium quality, street food speed.</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          <h3>Order on WhatsApp</h3>
+          <p>Quick orders directly on WhatsApp — no app needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Snippet -->
+  <section class="about-snippet">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="label">Our Story</span>
+          <h2>Street Food, Elevated</h2>
+          <p>
+            Kade started as a humble street cart with one mission —
+            bring bold, authentic flavors to every plate.
+            Today we serve hundreds of happy customers daily,
+            never compromising on quality or taste.
+          </p>
+          <a href="/about" class="btn-secondary" style="margin-top: 24px;">Learn More</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num">5+</span>
+            <span class="stat-label">Years Serving</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">200+</span>
+            <span class="stat-label">Daily Orders</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">50+</span>
+            <span class="stat-label">Menu Items</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Fresh Always</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section class="cta">
+    <div class="container" style="text-align: center;">
+      <span class="label">Hungry?</span>
+      <h2>Order Now — We Deliver</h2>
+      <div class="cta-btns">
+        {business.core_whatsapp_url && (
+          <a href={business.core_whatsapp_url} target="_blank" rel="noopener noreferrer" class="btn-primary">
+            WhatsApp Order
+          </a>
+        )}
+        <a href="/contact" class="btn-secondary">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<meta name="google-site-verification" content="_u5mFeSegzF_CJ2Vu1cq1Xuc-MkZRHm8Cibdsx8940E" />
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.92)),
+      url('/hero-bg.jpg') center/cover no-repeat;
+  }
+  .hero-content { max-width: 700px; }
+  .hero h1 {
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 400;
+    letter-spacing: 4px;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 40px;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .features {
+    padding: 100px 0;
+    background: var(--dark-2);
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .feature {
+    background: var(--dark-3);
+    padding: 40px 28px;
+  }
+  .feature-icon { display: block; color: var(--gold); font-size: 20px; margin-bottom: 16px; }
+  .feature h3 { font-size: 16px; font-weight: 400; margin-bottom: 10px; }
+  .feature p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  .about-snippet { padding: 100px 0; background: var(--dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-text h2 { font-size: clamp(28px, 3vw, 42px); font-weight: 400; margin: 0 0 20px; }
+  .about-text p { color: var(--text-muted); line-height: 1.8; font-size: 16px; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .stat { background: var(--dark-3); padding: 36px 24px; }
+  .stat-num { display: block; font-size: 44px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+  .cta { padding: 100px 0; background: var(--dark-2); }
+  .cta h2 { font-size: clamp(28px, 3vw, 48px); font-weight: 400; margin: 0 0 40px; }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 768px) {
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+  @media (max-width: 480px) {
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>

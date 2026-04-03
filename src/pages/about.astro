@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPageBySlug, getBusinessDetails } from '../lib/directus.js';
+
+const page = await getPageBySlug('about');
+const business = await getBusinessDetails();
+if (!page) return Astro.redirect('/404');
+---
+
+<BaseLayout
+  title={page.core_seo_title || page.core_page_title}
+  description={page.core_seo_description}
+>
+  <section class="page-hero">
+    <span class="label">Who We Are</span>
+    <h1>{page.core_page_title}</h1>
+  </section>
+
+  <section class="story">
+    <div class="container">
+      <div class="story-grid">
+        <div>
+          <span class="label">Our Story</span>
+          <h2>Street Food, Elevated</h2>
+          <p>Kade started as a humble street cart with one mission — bring bold, authentic flavors to every plate. No shortcuts, no freezers, no compromises.</p>
+          <p style="margin-top: 16px;">Today we serve hundreds of happy customers daily, with the same passion and care that started it all.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years Serving</span></div>
+          <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Daily Orders</span></div>
+          <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Menu Items</span></div>
+          <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Fresh Always</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="container">
+      <span class="label" style="text-align:center; display:block;">What We Stand For</span>
+      <h2 style="text-align:center; font-size: clamp(28px,3vw,42px); font-weight:400; margin-bottom:60px;">Our Values</h2>
+      <div class="values-grid">
+        <div class="value"><span class="v-icon">✦</span><h3>Quality First</h3><p>Every ingredient sourced fresh daily. No exceptions.</p></div>
+        <div class="value"><span class="v-icon">✦</span><h3>Authenticity</h3><p>Recipes rooted in tradition, perfected over time.</p></div>
+        <div class="value"><span class="v-icon">✦</span><h3>Community</h3><p>We serve our neighborhood with pride every single day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container" style="text-align:center;">
+      <span class="label">Come Visit Us</span>
+      <h2>{business.core_address}</h2>
+      <p style="color: var(--text-muted); margin-bottom: 32px;">{business.core_business_hours}</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        {business.core_whatsapp_url && (
+          <a href={business.core_whatsapp_url} target="_blank" class="btn-primary">Order on WhatsApp</a>
+        )}
+        <a href="/contact" class="btn-secondary">Get Directions</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .story { padding: 100px 0; background: var(--dark-2); }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .story-grid h2 { font-size: clamp(28px,3vw,40px); font-weight: 400; margin-bottom: 20px; }
+  .story-grid p { color: var(--text-muted); line-height: 1.8; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .stat { background: var(--dark-3); padding: 32px 20px; }
+  .stat-num { display: block; font-size: 40px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .values { padding: 100px 0; background: var(--dark); }
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .value { background: var(--dark-3); padding: 40px 28px; }
+  .v-icon { display: block; color: var(--gold); font-size: 20px; margin-bottom: 16px; }
+  .value h3 { font-size: 16px; font-weight: 400; margin-bottom: 10px; }
+  .value p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .cta { padding: 100px 0; background: var(--dark-2); }
+  .cta h2 { font-size: clamp(20px,2vw,32px); font-weight: 400; margin-bottom: 12px; }
+  @media (max-width: 768px) {
+    .story-grid { grid-template-columns: 1fr; gap: 48px; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>

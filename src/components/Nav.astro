@@ -1,0 +1,270 @@
+---
+import { getNavigation } from '../lib/directus.js';
+
+type NavItem = {
+  core_label: string;
+  core_parent?: string | null;
+  core_url_nature: string;
+  core_external_url?: string;
+  core_open_in_new_tab?: boolean;
+  core_page?: {
+    core_page_slug: string;
+  };
+};
+
+type SiteSettings = {
+  core_logo_light?: string | null;
+  core_site_name?: string;
+};
+
+interface Props {
+  siteSettings: SiteSettings;
+}
+
+const { siteSettings } = Astro.props;
+
+const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
+
+console.log('Site Settings:', siteSettings);
+console.log('Directus URL:', DIRECTUS_URL);
+
+// Fetch navigation
+const items: NavItem[] = await getNavigation('header');
+
+// Top-level items
+const topLevel = items.filter((i: NavItem) => !i.core_parent);
+
+// helper function for Directus assets (include token for non-public assets)
+const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN;
+function asset(id: string | null | undefined): string {
+  if (!id) return '';
+  const url = `${DIRECTUS_URL}/assets/${id}?access_token=${DIRECTUS_TOKEN}`;
+  console.log('Asset URL:', url);
+  return url;
+}
+// URL builder
+function getUrl(item: NavItem): string {
+  if (item.core_url_nature === 'external') {
+    return item.core_external_url || '#';
+  }
+  return `/${item.core_page?.core_page_slug || ''}`;
+}
+
+// Current path
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="nav">
+  <div class="nav-inner">
+    
+    <!-- Logo -->
+  {siteSettings?.core_logo_light ? (
+      <img
+        src={asset(siteSettings.core_logo_light)}
+        alt={siteSettings.core_site_name}
+        height="40"
+      />
+    ) : (
+      <span class="nav-logo-text">{siteSettings?.core_site_name}</span>
+    )}
+
+    <!-- Desktop Menu -->
+    <ul class="nav-menu">
+      {topLevel.map((item: NavItem) => {
+        const url = getUrl(item);
+        return (
+          <li class="nav-item">
+            <a
+              href={url}
+              class={`nav-link ${currentPath === url ? 'active' : ''}`}
+              target={item.core_open_in_new_tab ? '_blank' : '_self'}
+            >
+              {item.core_label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <!-- CTA -->
+    <a href="/contact" class="nav-cta">Order Now</a>
+
+    <!-- Mobile Toggle -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="nav-mobile" id="navMobile">
+    <ul class="nav-mobile-menu">
+      {topLevel.map((item: NavItem) => (
+        <li>
+          <a
+            href={getUrl(item)}
+            class="nav-mobile-link"
+            target={item.core_open_in_new_tab ? '_blank' : '_self'}
+          >
+            {item.core_label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href="/contact" class="nav-mobile-cta">Order Now</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .nav-logo {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-text {
+    font-size: 22px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 8px 14px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--gold);
+  }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 10px 24px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-light);
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .nav-mobile {
+    display: none;
+    background: #111;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .nav-mobile.open {
+    display: block;
+  }
+
+  .nav-mobile-menu {
+    list-style: none;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-mobile-link {
+    display: block;
+    padding: 12px 0;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a1a1a;
+    transition: color 0.3s;
+  }
+
+  .nav-mobile-link:hover {
+    color: var(--gold);
+  }
+
+  .nav-mobile-cta {
+    display: block;
+    margin-top: 16px;
+    padding: 14px;
+    background: var(--gold);
+    color: var(--dark);
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .nav-menu,
+    .nav-cta {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  document.getElementById('navToggle')?.addEventListener('click', () => {
+    document.getElementById('navMobile')?.classList.toggle('open');
+  });
+</script>

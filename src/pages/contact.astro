@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPageBySlug, getBusinessDetails } from '../lib/directus.js';
+
+const page = await getPageBySlug('contact');
+const business = await getBusinessDetails();
+if (!page) return Astro.redirect('/404');
+---
+
+<BaseLayout
+  title={page.core_seo_title || page.core_page_title}
+  description={page.core_seo_description}
+>
+  <section class="page-hero">
+    <span class="label">Reach Out</span>
+    <h1>{page.core_page_title}</h1>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="info">
+          <span class="label">Contact Details</span>
+          <h2>Let's Connect</h2>
+          <div class="info-list">
+            {business.core_email && (
+              <a href={`mailto:${business.core_email}`} class="info-item">
+                <span class="icon">✉</span>
+                <div><span class="info-label">Email</span><span class="info-val">{business.core_email}</span></div>
+              </a>
+            )}
+            {business.core_contact_number && (
+              <a href={`tel:${business.core_contact_number}`} class="info-item">
+                <span class="icon">✆</span>
+                <div><span class="info-label">Phone</span><span class="info-val">{business.core_contact_number}</span></div>
+              </a>
+            )}
+            {business.core_address && (
+              <div class="info-item">
+                <span class="icon">◈</span>
+                <div><span class="info-label">Address</span><span class="info-val">{business.core_address}</span></div>
+              </div>
+            )}
+            {business.core_business_hours && (
+              <div class="info-item">
+                <span class="icon">◷</span>
+                <div><span class="info-label">Hours</span><span class="info-val">{business.core_business_hours}</span></div>
+              </div>
+            )}
+            {business.core_whatsapp_url && (
+              <a href={business.core_whatsapp_url} target="_blank" rel="noopener noreferrer" class="info-item whatsapp">
+                <span class="icon">💬</span>
+                <div><span class="info-label">WhatsApp</span><span class="info-val">Order directly</span></div>
+              </a>
+            )}
+          </div>
+          <div class="social">
+            {business.core_instagram_url && (<a href={business.core_instagram_url} target="_blank">Instagram</a>)}
+            {business.core_facebook_url && (<a href={business.core_facebook_url} target="_blank">Facebook</a>)}
+            {business.core_linkedin_url && (<a href={business.core_linkedin_url} target="_blank">LinkedIn</a>)}
+          </div>
+        </div>
+
+        {business.core_google_maps_url && (
+          <div class="map">
+            <iframe
+              src={business.core_google_maps_url}
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-section { padding: 100px 0; background: var(--dark-2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .info h2 { font-size: clamp(24px,3vw,36px); font-weight: 400; margin-bottom: 36px; }
+  .info-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .info-item {
+    display: flex; align-items: center; gap: 20px;
+    padding: 18px 20px; background: var(--dark-3);
+    text-decoration: none; color: var(--text);
+    border-left: 2px solid transparent; transition: border-color 0.3s;
+  }
+  .info-item:hover { border-left-color: var(--gold); }
+  .info-item.whatsapp:hover { border-left-color: #25D366; }
+  .icon { font-size: 18px; color: var(--gold); width: 24px; text-align: center; }
+  .info-item div { display: flex; flex-direction: column; gap: 3px; }
+  .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .info-val { font-size: 15px; }
+  .social { display: flex; gap: 20px; }
+  .social a { color: var(--text-muted); text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+  .social a:hover { color: var(--gold); }
+  .map { height: 500px; background: var(--dark-3); overflow: hidden; }
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .map { height: 300px; }
+  }
+</style>
