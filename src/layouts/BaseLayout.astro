@@ -25,29 +25,17 @@ function asset(id: string | null | undefined): string {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-   <!-- SEO -->
   <title>{title}</title>
   <meta name="description" content={description}/>
-
-<!<link rel="canonical" href={canonicalURL}/>/>
-
-   <!-- OG Tags -->
   <meta property="og:title" content={title}/>
   <meta property="og:description" content={description}/>
   <meta property="og:image" content={asset(ogImage)}/>
   <meta property="og:type" content="website"/>
-
-  <!-- Favicon -->
   <link rel="icon" href={asset(site.core_favicon_light)} media="(prefers-color-scheme: light)"/>
   <link rel="icon" href={asset(site.core_favicon_dark)} media="(prefers-color-scheme: dark)"/>
-  
-  <!-- Google Search Console -->
   {site.core_google_search_console_verification && (
     <meta name="google-site-verification" content={site.core_google_search_console_verification}/>
   )}
-
-  <!-- Google Analytics -->
   {site.core_google_analytics_id && (
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.core_google_analytics_id}`}></script>
@@ -58,32 +46,7 @@ function asset(id: string | null | undefined): string {
         gtag('config', gaId);
       </script>
     </>
-    
   )}
-
-
-<!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": site.core_site_name,
-    "description": site.core_meta_description,
-    "url": "https://kade.lk",
-    "telephone": business.core_contact_number,
-    "email": business.core_email,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": business.core_address
-    },
-    "openingHours": business.core_business_hours,
-    "sameAs": [
-      business.core_facebook_url,
-      business.core_instagram_url,
-      business.core_linkedin_url,
-      business.core_x_url
-    ].filter(Boolean)
-  })}/>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
