@@ -1,179 +1,504 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import { getSiteSettings, getBusinessDetails } from '../lib/directus.js';
 
 const site = await getSiteSettings();
 const business = await getBusinessDetails();
+
+const siteSettings = {
+  core_logo_light: site?.core_logo_light,
+  core_site_name: site?.core_site_name || 'HYDRA Dynamics'
+};
 ---
 
-<BaseLayout>
+<html lang="en" class="scroll-smooth scroll-pt-20">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydra Dynamics | Engineering Digital Permanence</title>
+    <script src="https://cdn.tailwindcss.com" is:inline></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
+    <style is:global>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="label">Welcome to</p>
-      <h1>{site.core_site_name}</h1>
-      <p class="hero-sub">Bold flavors. Street style. Premium quality.</p>
-      <div class="hero-btns">
-        <a href="/contact" class="btn-primary">Order Now</a>
-        <a href="/about" class="btn-secondary">Our Story</a>
-      </div>
+        /* Base Typography */
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-sans { font-family: 'Outfit', sans-serif; }
+
+        /* Custom Utilities & Animations */
+        ::selection {
+            background-color: #A50020;
+            color: #F5F4F2;
+        }
+
+        .hover-crimson-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-crimson-lift:hover {
+            box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
+            border-color: rgba(165, 0, 32, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .hover-btn-fill {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .hover-btn-fill::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #A50020;
+            z-index: -1;
+            clip-path: circle(0% at 50% 120%);
+            transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-btn-fill:hover::before {
+            clip-path: circle(150% at 50% 120%);
+        }
+        .hover-btn-fill:hover {
+            color: #F5F4F2 !important;
+            border-color: #A50020 !important;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-on-load {
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+
+    <!-- Marble Texture Overlay (Global) -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');">
     </div>
-  </section>
 
-  <!-- Features -->
-  <section class="features">
-    <div class="container">
-      <div class="features-grid">
-        <div class="feature">
-          <span class="feature-icon">✦</span>
-          <h3>Fresh Daily</h3>
-          <p>Every item made fresh — no freezers, no shortcuts.</p>
+    <Nav siteSettings={siteSettings} />
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex overflow-hidden border-black/10 border-b pt-20 relative items-center">
+        <!-- Background Image with Soft Blending -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80" alt="Architectural Structure" class="w-full h-full object-cover object-right opacity-25 mix-blend-multiply grayscale">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#FAFAF9] via-[#FAFAF9]/95 md:via-[#FAFAF9]/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FAFAF9]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#FAFAF9]/80"></div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">✦</span>
-          <h3>Bold Flavors</h3>
-          <p>Street food recipes perfected over generations.</p>
+        <div class="z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 relative">
+            <div class="max-w-3xl">
+                <div class="inline-flex animate-on-load mb-8 pt-2 pr-1 pb-2 pl-1 gap-x-3 gap-y-3 items-center">
+                    <p class="uppercase text-sm font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans">
+                        Engineering Imperial Standards
+                    </p>
+                </div>
+                <h1 class="font-serif text-6xl md:text-7xl lg:text-[6.5rem] leading-[1.05] tracking-tighter text-[#1A1A1A] font-normal mb-8 animate-on-load delay-100">
+                    Digital Permanence,<br>
+                    <span class="font-light italic text-[#A50020]">Engineered.</span>
+                </h1>
+                <p class="font-sans text-lg md:text-xl font-light text-[#4A4744] leading-relaxed mb-12 max-w-xl animate-on-load delay-200">
+                    Elite-grade engineering without the agency tax. From high-converting Astro landing pages to complex full-suite systems architected to outlast.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 animate-on-load delay-300">
+                    <a href="#contact" class="inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] tracking-widest uppercase bg-[#1A1A1A] border-[#1A1A1A] border rounded-sm py-4 px-10 shadow-lg hover:shadow-xl">Schedule a Call</a>
+                    <a href="#process" class="inline-flex items-center justify-center hover:bg-black/5 transition-all text-sm font-medium text-[#1A1A1A] tracking-widest uppercase bg-transparent border-black/20 border rounded-sm py-4 px-10 backdrop-blur-sm">
+                        Explore Methodology
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">✦</span>
-          <h3>Fast Service</h3>
-          <p>Premium quality, street food speed.</p>
+    </header>
+
+    <!-- Trust Bar -->
+    <section class="border-b bg-[#FAFAF9]/80 border-black/10 py-12 px-6 md:px-12 backdrop-blur-md relative overflow-hidden">
+        <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+            <p class="font-sans text-xs uppercase tracking-[0.3em] text-[#1A1A1A] font-semibold text-center md:text-left w-full md:w-auto">
+                Trusted by Visionaries
+            </p>
+            <div class="flex flex-wrap justify-center font-serif tracking-widest text-[#1A1A1A] uppercase text-lg gap-x-4 md:justify-end font-medium">
+                <span>SRI LANKA</span>
+                <span class="text-[#A50020]">◆</span>
+                <span>GLOBAL</span>
+            </div>
         </div>
-        <div class="feature">
-          <span class="feature-icon">✦</span>
-          <h3>Order on WhatsApp</h3>
-          <p>Quick orders directly on WhatsApp — no app needed.</p>
+    </section>
+
+    <!-- Services Section (Monumental Dark) -->
+    <section class="group/section overflow-hidden md:px-12 text-[#F5F4F2] bg-[#050505] pt-32 pr-6 pb-32 pl-6 relative" id="services" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');" style="--mouse-x: 231px; --mouse-y: 24px;">
+        <!-- Deep shadows and subtle structures -->
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <!-- Vercel-style Reactive Grid -->
+            <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+                <!-- Base Grid (Low Opacity) -->
+                <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+
+                <!-- Hover Grid (Follows Mouse) -->
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%);"></div>
+            </div>
+
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF3344] blur-[180px] opacity-[0.12] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.08] rounded-full"></div>
         </div>
-      </div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
+                <div class="">
+                    <p class="uppercase flex items-center gap-3 text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-5">
+                         The Arsenal
+                    </p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter font-normal text-white">
+                        Disciplines of <span class="italic text-[#FF3344]">Execution.</span>
+                    </h2>
+                </div>
+                <p class="font-sans text-base font-light text-white/60 max-w-md leading-relaxed">
+                    Every service is delivered with surgical precision. We build robust standalone products or full-suite systems, always offering an optional maintenance plan to ensure longevity.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:window-frame-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">Landing Pages &amp; Sites</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Blisteringly fast, highly optimized marketing surfaces built exclusively with Astro for maximum conversion and zero bloat.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="transition-all duration-500 hover-crimson-lift group overflow-hidden flex flex-col bg-black/40 border-white/10 border rounded-sm pt-10 pr-10 pb-10 pl-10 relative backdrop-blur-sm">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:cart-large-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">Ecommerce Stores</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Bespoke digital storefronts engineered for scale, speed, and seamless transactional flow. No generic templates.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:cpu-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">AI Chatbots (n8n)</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Intelligent, context-aware agents integrated via n8n to automate support, qualify leads, and elevate operations.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:laptop-minimalistic-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">Web Applications</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Complex, interactive platforms forged with Next.js. We turn intricate business logic into effortless user experiences.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:smartphone-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">Mobile Apps (Expo)</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Native-grade iOS and Android experiences built with Expo. Fluid animations, offline capabilities, uncompromising performance.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-14 h-14 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-[#FF3344]/50 transition-colors">
+                        <iconify-icon icon="solar:pen-new-square-linear" width="28" class="text-white group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    </div>
+                    <h3 class="font-serif text-2xl tracking-tight mb-4 text-white">Brand Identity</h3>
+                    <p class="font-sans text-sm font-light text-white/50 leading-relaxed">Logos, typography, and visual systems that project authority. We design brands that feel permanent.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section (Parchment & Marble) -->
+    <section class="bg-[#FAFAF9] pt-32 px-6 md:px-12 pb-32 relative border-b border-black/10" id="process">
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="text-center mb-24">
+                <p class="uppercase flex items-center justify-center gap-3 text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-5">
+                     Methodology
+                </p>
+                <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal">
+                    Precision in Every Phase.
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
+  <div class="relative z-10">
+    <div class="mb-8 bg-[#FAFAF9] inline-block pr-6">
+      <span class="inline-flex items-center justify-center w-12 h-12 bg-white border border-black/20 shadow-sm font-serif text-lg font-medium text-[#A50020]">I</span>
     </div>
-  </section>
+    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-3">Discovery &amp; Blueprint</h4>
+    <p class="font-sans text-sm font-light text-[#4A4744] leading-relaxed">We dissect your goals, map the technical
+      requirements, and define the architectural structure before a single line of code is written.</p>
+  </div>
 
-  <!-- About Snippet -->
-  <section class="about-snippet">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text">
-          <span class="label">Our Story</span>
-          <h2>Street Food, Elevated</h2>
-          <p>
-            Kade started as a humble street cart with one mission —
-            bring bold, authentic flavors to every plate.
-            Today we serve hundreds of happy customers daily,
-            never compromising on quality or taste.
-          </p>
-          <a href="/about" class="btn-secondary" style="margin-top: 24px;">Learn More</a>
-        </div>
-        <div class="about-stats">
-          <div class="stat">
-            <span class="stat-num">5+</span>
-            <span class="stat-label">Years Serving</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">200+</span>
-            <span class="stat-label">Daily Orders</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">50+</span>
-            <span class="stat-label">Menu Items</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">Fresh Always</span>
-          </div>
-        </div>
-      </div>
+  <div class="z-10 relative">
+    <div class="mb-8 bg-[#FAFAF9] inline-block pr-6">
+      <span class="inline-flex items-center justify-center w-12 h-12 bg-white border border-black/20 shadow-sm font-serif text-lg font-medium text-[#A50020]">II</span>
     </div>
-  </section>
+    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-3">Elite Engineering</h4>
+    <p class="font-sans text-sm font-light text-[#4A4744] leading-relaxed">Execution. Leveraging modern frameworks to
+      build fast, scalable, and secure products. Complete transparency throughout.</p>
+  </div>
 
-  <!-- Contact CTA -->
-  <section class="cta">
-    <div class="container" style="text-align: center;">
-      <span class="label">Hungry?</span>
-      <h2>Order Now — We Deliver</h2>
-      <div class="cta-btns">
-        {business.core_whatsapp_url && (
-          <a href={business.core_whatsapp_url} target="_blank" rel="noopener noreferrer" class="btn-primary">
-            WhatsApp Order
-          </a>
-        )}
-        <a href="/contact" class="btn-secondary">Contact Us</a>
-      </div>
+  <div class="relative z-10">
+    <div class="mb-8 bg-[#FAFAF9] inline-block pr-6">
+      <span class="inline-flex items-center justify-center w-12 h-12 bg-white border border-black/20 shadow-sm font-serif text-lg font-medium text-[#A50020]">III</span>
     </div>
-  </section>
+    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-3">Deployment &amp; QA</h4>
+    <p class="font-sans text-sm font-light text-[#4A4744] leading-relaxed">Rigorous testing across all devices. We
+      ensure deployment is flawless, performant, and ready for global traffic.</p>
+  </div>
 
-</BaseLayout>
+  <div class="relative z-10">
+    <div class="mb-8 bg-[#FAFAF9] inline-block pr-6">
+      <span class="inline-flex items-center justify-center w-12 h-12 bg-white border border-black/20 shadow-sm font-serif text-lg font-medium text-[#A50020]">IV</span>
+    </div>
+    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-3">Digital Permanence</h4>
+    <p class="font-sans text-sm font-light text-[#4A4744] leading-relaxed">Optional retention plans. We stand by our
+      work, providing ongoing updates, security patches, and strategic scaling.</p>
+  </div>
+</div>
+        </div>
+    </section>
 
-<meta name="google-site-verification" content="_u5mFeSegzF_CJ2Vu1cq1Xuc-MkZRHm8Cibdsx8940E" />
+    <!-- Tech Stack (Structured Grid) -->
+    <section class="bg-white py-24 px-6 md:px-12 border-b border-black/10">
+        <div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-16">
+            <div class="lg:w-1/3 text-center lg:text-left">
+                <p class="uppercase flex items-center justify-center lg:justify-start gap-3 text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-4">
+                     The Foundation
+                </p>
+                <h2 class="font-serif text-4xl tracking-tighter text-[#1A1A1A] mb-6">Unshakeable Infrastructure.</h2>
+                <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed mx-auto max-w-md lg:mx-0">We eschew dated monolithic platforms. We utilize modern, decoupled technologies that guarantee speed, autonomy, and an impeccable structural integrity.</p>
+            </div>
 
-<style>
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px 24px;
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.92)),
-      url('/hero-bg.jpg') center/cover no-repeat;
-  }
-  .hero-content { max-width: 700px; }
-  .hero h1 {
-    font-size: clamp(52px, 10vw, 110px);
-    font-weight: 400;
-    letter-spacing: 4px;
-    margin: 0 0 20px;
-    text-transform: uppercase;
-  }
-  .hero-sub {
-    font-size: 18px;
-    color: var(--text-muted);
-    font-style: italic;
-    margin-bottom: 40px;
-  }
-  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+            <div class="lg:w-2/3 w-full grid grid-cols-2 md:grid-cols-4 gap-0 border border-black/10">
+                <div class="p-8 bg-[#FAFAF9] border-b border-r border-black/10 hover:bg-white transition-colors group">
+                    <p class="font-serif text-2xl text-[#1A1A1A] tracking-tight mb-2 group-hover:text-[#A50020] transition-colors">Astro</p>
+                    <p class="font-sans text-xs text-[#4A4744] font-light uppercase tracking-widest">WebSites</p>
+                </div>
+                <div class="p-8 bg-[#FAFAF9] border-b md:border-r border-black/10 hover:bg-white transition-colors group">
+                    <p class="font-serif text-2xl text-[#1A1A1A] tracking-tight mb-2 group-hover:text-[#A50020] transition-colors">Next.js</p>
+                    <p class="font-sans text-xs text-[#4A4744] font-light uppercase tracking-widest">Applications</p>
+                </div>
+                <div class="p-8 bg-[#FAFAF9] border-b border-r md:border-b-0 border-black/10 hover:bg-white transition-colors group">
+                    <p class="font-serif text-2xl text-[#1A1A1A] tracking-tight mb-2 group-hover:text-[#A50020] transition-colors">Expo</p>
+                    <p class="font-sans text-xs text-[#4A4744] font-light uppercase tracking-widest">Mobile Apps</p>
+                </div>
+                <div class="p-8 bg-[#FAFAF9] border-black/10 hover:bg-white transition-colors group">
+                    <p class="font-serif text-2xl text-[#1A1A1A] tracking-tight mb-2 group-hover:text-[#A50020] transition-colors">n8n</p>
+                    <p class="font-sans text-xs text-[#4A4744] font-light uppercase tracking-widest">AI Chatbots</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  .features {
-    padding: 100px 0;
-    background: var(--dark-2);
-  }
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  .feature {
-    background: var(--dark-3);
-    padding: 40px 28px;
-  }
-  .feature-icon { display: block; color: var(--gold); font-size: 20px; margin-bottom: 16px; }
-  .feature h3 { font-size: 16px; font-weight: 400; margin-bottom: 10px; }
-  .feature p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    <!-- Testimonials (Monumental Dark) -->
+    <section class="group/section overflow-hidden text-[#F5F4F2] bg-[#050505] pt-32 px-6 md:px-12 pb-32 relative border-b border-white/10" id="testimonials" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <!-- Vercel-style Reactive Grid -->
+            <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+                <!-- Base Grid (Low Opacity) -->
+                <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
 
-  .about-snippet { padding: 100px 0; background: var(--dark); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .about-text h2 { font-size: clamp(28px, 3vw, 42px); font-weight: 400; margin: 0 0 20px; }
-  .about-text p { color: var(--text-muted); line-height: 1.8; font-size: 16px; }
-  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .stat { background: var(--dark-3); padding: 36px 24px; }
-  .stat-num { display: block; font-size: 44px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
-  .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+                <!-- Hover Grid (Follows Mouse) -->
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%);"></div>
+            </div>
 
-  .cta { padding: 100px 0; background: var(--dark-2); }
-  .cta h2 { font-size: clamp(28px, 3vw, 48px); font-weight: 400; margin: 0 0 40px; }
-  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF3344] blur-[180px] opacity-[0.12] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.08] rounded-full"></div>
+        </div>
 
-  @media (max-width: 768px) {
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  }
-  @media (max-width: 480px) {
-    .features-grid { grid-template-columns: 1fr; }
-  }
-</style>
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="text-center mb-24">
+                <p class="uppercase flex items-center justify-center gap-3 text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-5">
+                     Client Voices
+                </p>
+                <h2 class="text-5xl md:text-6xl font-normal text-white tracking-tighter font-serif">
+                    Let them do the <span class="italic text-[#FF3344]">talking.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col justify-between">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="">
+                        <div class="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10">
+                            <iconify-icon icon="solar:chat-round-line-linear" width="20" class="text-[#FF3344]"></iconify-icon>
+                        </div>
+                        <p class="font-serif text-xl font-light text-white/80 leading-relaxed mb-10 italic">
+                            "Hydra Dynamics didn't just build a website; they engineered a digital asset that drastically improved our conversion rates. The lack of agency bloat meant we moved twice as fast."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6 mt-auto">
+                        <div class="">
+                            <p class="font-sans text-sm tracking-widest text-white mb-1 uppercase font-medium">Marcus Sterling</p>
+                            <p class="font-sans text-xs text-white/40 uppercase tracking-[0.15em]">Founder, Sterling &amp; Co</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col justify-between">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="">
+                        <div class="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10">
+                            <iconify-icon icon="solar:chat-round-line-linear" width="20" class="text-[#FF3344]"></iconify-icon>
+                        </div>
+                        <p class="font-serif text-xl font-light text-white/80 leading-relaxed mb-10 italic">
+                            "Their technical prowess is unmatched. We needed a complex Next.js application built from the ground up. The architecture they provided was flawless and scale-ready from day one."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6 mt-auto">
+                        <div>
+                            <p class="font-sans text-sm tracking-widest text-white mb-1 uppercase font-medium">Elena Rostova</p>
+                            <p class="font-sans text-xs text-white/40 uppercase tracking-[0.15em]">CTO, Nexus Tech</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm transition-all duration-500 hover-crimson-lift group relative overflow-hidden rounded-sm flex flex-col justify-between">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="">
+                        <div class="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center mb-8 border border-white/10">
+                            <iconify-icon icon="solar:chat-round-line-linear" width="20" class="text-[#FF3344]"></iconify-icon>
+                        </div>
+                        <p class="font-serif text-xl font-light text-white/80 leading-relaxed mb-10 italic">
+                            "Uncompromising quality combined with accessible economics. Working with the team in Colombo gave us elite engineering at a fraction of the cost we were quoted in London."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6 mt-auto">
+                        <div class="">
+                            <p class="font-sans text-sm tracking-widest text-white mb-1 uppercase font-medium">James Alistair</p>
+                            <p class="font-sans text-xs text-white/40 uppercase tracking-[0.15em]">Director, Alistair Group</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Philosophy Banner -->
+    <section class="bg-[#FAFAF9] py-24 px-6 md:px-12 border-b border-black/10 relative overflow-hidden">
+
+        <div class="text-center max-w-[1440px] z-10 mr-auto ml-auto relative">
+            <h3 class="font-serif text-4xl md:text-5xl tracking-tighter text-[#1A1A1A] font-normal mb-6">
+                Uncompromising quality. <br><span class="italic text-[#A50020]">Accessible economics.</span>
+            </h3>
+            <p class="font-sans text-base font-light text-[#4A4744] max-w-2xl mx-auto leading-relaxed">
+                By operating out of Colombo, Sri Lanka, we bypass the immense overhead of Western agencies. You pay directly for elite engineering talent and meticulous craft—not ping-pong tables in San Francisco.
+            </p>
+        </div>
+    </section>
+
+    <!-- Final CTA (Monumental Scale) -->
+    <section class="group/section overflow-hidden flex md:px-12 bg-[#050505] border-white/10 border-b pt-40 pr-6 pb-40 pl-6 relative items-center justify-center" id="contact" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <!-- Vercel-style Reactive Grid -->
+            <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+                <!-- Base Grid (Low Opacity) -->
+                <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+
+                <!-- Hover Grid (Follows Mouse) -->
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%);"></div>
+            </div>
+
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF3344] blur-[180px] opacity-[0.12] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.08] rounded-full"></div>
+        </div>
+
+        <div class="z-10 flex flex-col text-center max-w-3xl mx-auto relative items-center border border-white/10 bg-black/40 p-16 md:p-24 backdrop-blur-sm rounded-sm">
+            <div class="mb-8">
+                <span class="text-[#FF3344] text-xl">◆</span>
+            </div>
+            <h2 class="font-serif text-6xl md:text-[5.5rem] tracking-tighter text-white font-normal mb-8 leading-[1]">
+                Build Your <span class="font-light italic text-[#FF3344]">Legacy.</span>
+            </h2>
+
+            <p class="font-sans text-lg font-light text-white/60 mb-12 max-w-xl mx-auto leading-relaxed">
+                Let us architect your next digital asset. Book a complimentary technical consultation directly with our lead engineers.
+            </p>
+
+            <a href="#contact" class="group z-10 inline-flex items-center justify-center overflow-hidden transition-all duration-[400ms] hover:border-[#FF3344] hover:text-white text-sm font-medium text-[#1A1A1A] uppercase tracking-widest bg-white border-white border rounded-sm py-4 px-12 relative shadow-[0_0_40px_-10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_-10px_rgba(165,0,32,0.4)]">
+                <span class="[clip-path:circle(0%_at_50%_120%)] transition-[clip-path] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:circle(150%_at_50%_120%)] bg-[#FF3344] -z-10 absolute top-0 right-0 bottom-0 left-0"></span>
+                Book Free Call
+            </a>
+        </div>
+    </section>
+
+    <Footer {site} {business} />
+
+    <!-- Navigation & Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const closeBtn = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (!hamburgerBtn || !closeBtn || !mobileMenu) return;
+
+            const menu = mobileMenu;
+            const mobileLinks = menu.querySelectorAll('a');
+
+            function openMenu() {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        menu.classList.remove('opacity-0');
+                    });
+                });
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenuFunc(callback?: () => void) {
+                menu.classList.add('opacity-0');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                    if (callback) callback();
+                }, 300);
+            }
+
+            hamburgerBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', () => closeMenuFunc());
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        closeMenuFunc(() => {
+                            const target = document.querySelector(href);
+                            if (target) target.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    } else {
+                        closeMenuFunc();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

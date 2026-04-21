@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth scroll-pt-20"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HydraLink | Enterprise Infrastructure for Growth</title>
+<script is:inline src="https://cdn.tailwindcss.com"></script>
+<script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap');
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-sans { font-family: 'Manrope', sans-serif; }
+::selection {
+background-color: #A50020;
+color: #F5F4F2;
+}
+.hover-crimson-lift {
+transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-crimson-lift:hover {
+box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
+border-color: rgba(165, 0, 32, 0.4);
+transform: translateY(-4px);
+}
+.hover-btn-fill {
+position: relative;
+overflow: hidden;
+z-index: 1;
+}
+.hover-btn-fill::before {
+content: '';
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+background-color: #A50020;
+z-index: -1;
+clip-path: circle(0% at 50% 120%);
+transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-btn-fill:hover::before {
+clip-path: circle(150% at 50% 120%);
+}
+.hover-btn-fill:hover {
+color: #F5F4F2 !important;
+border-color: #A50020 !important;
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.animate-on-load {
+animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+opacity: 0;
+}
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+@keyframes pulse-ring {
+0% { transform: scale(1); opacity: 0.6; }
+100% { transform: scale(1.8); opacity: 0; }
+}
+.pulse-ring-anim {
+animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes float-node {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-6px); }
+}
+.float-anim {
+animation: float-node 3s ease-in-out infinite;
+}
+.float-anim-delay { animation-delay: 1s; }
+.float-anim-delay-2 { animation-delay: 2s; }
+@keyframes scroll-reveal {
+from { opacity: 0; transform: translateY(40px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.scroll-reveal {
+opacity: 0;
+transform: translateY(40px);
+transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-reveal.revealed {
+opacity: 1;
+transform: translateY(0);
+}
+.section-divider {
+height: 1px;
+background: linear-gradient(to right, transparent, rgba(165, 0, 32, 0.15), transparent);
+}
+</style></head>
+<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+
+    <!-- Marble Texture Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/[0.06] bg-[#FAFAF9]/80">
+        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
+                HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
+            </a>
+            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
+                <a href="#reliability" class="hover:text-[#A50020] transition-colors">Reliability</a>
+                <a href="#control" class="hover:text-[#A50020] transition-colors">Control</a>
+                <a href="#performance" class="hover:text-[#A50020] transition-colors">Performance</a>
+                <a href="#ownership" class="hover:text-[#A50020] transition-colors">Ownership</a>
+            </div>
+            <a href="#cta" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
+                Get Started
+            </a>
+            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="28" style="stroke-width: 1.5"></iconify-icon>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
+        <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2 focus:outline-none">
+            <iconify-icon icon="solar:close-circle-linear" width="36" style="stroke-width: 1.5"></iconify-icon>
+        </button>
+        <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
+            <a href="#reliability" class="mobile-link hover:text-[#A50020] transition-colors">Reliability</a>
+            <a href="#control" class="mobile-link hover:text-[#A50020] transition-colors">Control</a>
+            <a href="#performance" class="mobile-link hover:text-[#A50020] transition-colors">Performance</a>
+            <a href="#ownership" class="mobile-link hover:text-[#A50020] transition-colors">Ownership</a>
+            <a href="#cta" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg border border-[#1A1A1A]">
+                Get Started
+            </a>
+        </div>
+    </div>
+
+    <!-- SECTION 1: Hero -->
+    <header class="min-h-screen flex overflow-hidden pt-20 relative items-center">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80" alt="Architectural Structure" class="w-full h-full object-cover object-right opacity-20 mix-blend-multiply grayscale">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#FAFAF9] via-[#FAFAF9]/95 md:via-[#FAFAF9]/80 to-[#FAFAF9]/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#FAFAF9]/80 via-transparent to-[#FAFAF9]"></div>
+        </div>
+
+        <div class="z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 relative py-20 lg:py-0">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Text Column -->
+                <div class="flex flex-col justify-center items-center text-center max-w-2xl mx-auto">
+                    <p class="uppercase text-xs sm:text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6 md:mb-8 animate-on-load flex items-center justify-center gap-3">
+                        <span class="w-8 h-px bg-[#A50020]"></span>
+                        HydraLink Infrastructure
+                        <span class="w-8 h-px bg-[#A50020]"></span>
+                    </p>
+                    
+                    <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-[6rem] leading-[1.05] tracking-tighter font-normal text-[#1A1A1A] mb-6 md:mb-8 animate-on-load delay-100">
+                        Infrastructure<br>
+                        <span class="font-light italic text-[#A50020]">Without Compromise.</span>
+                    </h1>
+                    
+                    <p class="font-sans text-lg sm:text-xl md:text-2xl font-light text-[#4A4744] leading-relaxed mb-10 md:mb-12 max-w-lg mx-auto animate-on-load delay-200">
+                        Purpose-built for developers and businesses who demand complete control, absolute reliability, and the freedom to scale on their own terms.
+                    </p>
+                </div>
+
+                <!-- Graphic Column -->
+                <div class="hidden lg:flex items-center justify-center lg:justify-end animate-on-load delay-400 relative">
+                    <div class="relative w-full max-w-md aspect-square">
+                        <div class="absolute inset-0 border border-black/10 rounded-full"></div>
+                        <div class="absolute inset-4 border border-black/5 rounded-full"></div>
+                        <div class="absolute inset-8 border border-dashed border-[#A50020]/15 rounded-full"></div>
+
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-[#1A1A1A] rounded-full flex items-center justify-center shadow-2xl z-10">
+                            <iconify-icon icon="solar:server-square-linear" width="32" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                            <div class="absolute inset-0 rounded-full border border-[#A50020]/30 pulse-ring-anim"></div>
+                        </div>
+
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-12 h-12 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim">
+                            <iconify-icon icon="solar:shield-check-linear" width="20" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay">
+                            <iconify-icon icon="solar:cloud-upload-linear" width="20" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+                        <div class="absolute top-1/2 left-4 -translate-y-1/2 w-12 h-12 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay-2">
+                            <iconify-icon icon="solar:bolt-linear" width="20" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+                        <div class="absolute top-1/2 right-4 -translate-y-1/2 w-12 h-12 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay">
+                            <iconify-icon icon="solar:export-linear" width="20" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+
+                        <div class="absolute top-[15%] right-[15%] w-10 h-10 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay-2">
+                            <iconify-icon icon="solar:database-linear" width="16" style="color: #4A4744; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+                        <div class="absolute bottom-[15%] left-[15%] w-10 h-10 bg-white border border-black/10 rounded-full flex items-center justify-center shadow-sm float-anim">
+                            <iconify-icon icon="solar:code-linear" width="16" style="color: #4A4744; stroke-width: 1.5;"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- SECTION 2: Reliability & Uptime -->
+    <section id="reliability" class="group/section overflow-hidden bg-[#050505] pt-28 sm:pt-36 pb-28 sm:pb-36 px-6 md:px-12 relative" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');" style="--mouse-x: 50%; --mouse-y: 50%;">
+        <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+            <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+            <div class="absolute inset-0 opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%);"></div>
+        </div>
+        <div class="absolute -top-40 left-1/4 w-[600px] h-[400px] bg-[#FF3344] blur-[180px] opacity-[0.06] rounded-full"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[300px] bg-[#FF3344] blur-[150px] opacity-[0.04] rounded-full"></div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24 scroll-reveal">
+                <p class="uppercase text-xs sm:text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-5 md:mb-6">The Core Promise</p>
+                <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter font-normal text-white mb-6 md:mb-8">
+                    Unbreakable by <span class="font-light italic text-[#FF3344]">Design.</span>
+                </h2>
+                <p class="font-sans text-base sm:text-lg md:text-xl font-light text-white/50 leading-relaxed max-w-2xl mx-auto">
+                    Stateless architecture with complete backup readiness means zero downtime and zero data loss. Your digital presence stays permanent.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 mb-5 md:mb-6">
+                <div class="scroll-reveal p-8 sm:p-10 md:p-14 bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col items-center text-center">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344]/60 transition-all duration-500"></div>
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:border-[#FF3344]/40 transition-colors duration-500">
+                        <iconify-icon icon="solar:shield-check-linear" width="32" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                    </div>
+                    <div class="font-serif text-6xl sm:text-7xl md:text-8xl tracking-tighter text-white font-normal mb-3 md:mb-4">100<span class="text-[#FF3344]">%</span></div>
+                    <h3 class="font-serif text-xl sm:text-2xl tracking-tight font-normal text-white mb-3 md:mb-4">Uptime Guarantee</h3>
+                    <p class="font-sans text-base sm:text-lg font-light text-white/40 leading-relaxed max-w-sm">
+                        Our stateless infrastructure distributes your application across redundant nodes. If one fails, another takes over instantly—your users never notice.
+                    </p>
+                </div>
+
+                <div class="scroll-reveal p-8 sm:p-10 md:p-14 bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col items-center text-center" style="transition-delay: 100ms;">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344]/60 transition-all duration-500"></div>
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:border-[#FF3344]/40 transition-colors duration-500">
+                        <iconify-icon icon="solar:cloud-check-linear" width="32" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                    </div>
+                    <div class="font-serif text-6xl sm:text-7xl md:text-8xl tracking-tighter text-white font-normal mb-3 md:mb-4">100<span class="text-[#FF3344]">%</span></div>
+                    <h3 class="font-serif text-xl sm:text-2xl tracking-tight font-normal text-white mb-3 md:mb-4">Backup Ready</h3>
+                    <p class="font-sans text-base sm:text-lg font-light text-white/40 leading-relaxed max-w-sm">
+                        Complete backup readiness at every layer—your code, your content, your data. Restore any version, any time, with zero data loss.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6">
+                <div class="scroll-reveal p-7 sm:p-8 bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344]/60 transition-all duration-500"></div>
+                    <iconify-icon icon="solar:server-minimalistic-linear" width="24" style="color: white; stroke-width: 1.5;" class="mb-4 sm:mb-5 block group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    <h3 class="font-serif text-lg sm:text-xl tracking-tight font-normal text-white mb-2 sm:mb-3">Stateless Architecture</h3>
+                    <p class="font-sans text-base font-light text-white/40 leading-relaxed">No single point of failure. Every request is self-contained and independently recoverable.</p>
+                </div>
+                <div class="scroll-reveal p-7 sm:p-8 bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden" style="transition-delay: 80ms;">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344]/60 transition-all duration-500"></div>
+                    <iconify-icon icon="solar:refresh-circle-linear" width="24" style="color: white; stroke-width: 1.5;" class="mb-4 sm:mb-5 block group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    <h3 class="font-serif text-lg sm:text-xl tracking-tight font-normal text-white mb-2 sm:mb-3">Instant Failover</h3>
+                    <p class="font-sans text-base font-light text-white/40 leading-relaxed">Automatic health checks and instant rerouting keep your application live, always.</p>
+                </div>
+                <div class="scroll-reveal p-7 sm:p-8 bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden" style="transition-delay: 160ms;">
+                    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344]/60 transition-all duration-500"></div>
+                    <iconify-icon icon="solar:lock-linear" width="24" style="color: white; stroke-width: 1.5;" class="mb-4 sm:mb-5 block group-hover:text-[#FF3344] transition-colors"></iconify-icon>
+                    <h3 class="font-serif text-lg sm:text-xl tracking-tight font-normal text-white mb-2 sm:mb-3">Encrypted at Rest</h3>
+                    <p class="font-sans text-base font-light text-white/40 leading-relaxed">All data encrypted at rest and in transit with industry-standard TLS and AES-256.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Content Editability & Control -->
+    <section id="control" class="pt-28 sm:pt-36 pb-28 sm:pb-36 px-6 md:px-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#A50020] blur-[250px] opacity-[0.03] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#A50020] blur-[200px] opacity-[0.02] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                <!-- Left: Interface Mockup -->
+                <div class="order-2 lg:order-1 scroll-reveal">
+                    <div class="bg-white border border-black/[0.08] rounded-sm overflow-hidden shadow-2xl shadow-black/[0.06]">
+                        <div class="flex items-center gap-2 px-5 py-3.5 border-b border-black/[0.06] bg-[#FAFAF9]">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#FF3344]/50"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#4A4744]/15"></div>
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#4A4744]/15"></div>
+                            <div class="ml-4 flex-1 h-7 bg-black/[0.04] rounded-sm flex items-center px-3">
+                                <span class="text-xs font-light text-[#4A4744]/50 font-sans">hydralink.app/editor</span>
+                            </div>
+                        </div>
+                        <div class="p-5 sm:p-6 md:p-8">
+                            <div class="flex gap-2.5 mb-6">
+                                <div class="px-3 py-1.5 bg-[#1A1A1A] text-[#F5F4F2] text-xs font-sans font-light rounded-sm">Content</div>
+                                <div class="px-3 py-1.5 bg-transparent border border-black/[0.08] text-[#4A4744] text-xs font-sans font-light rounded-sm">Media</div>
+                                <div class="px-3 py-1.5 bg-transparent border border-black/[0.08] text-[#4A4744] text-xs font-sans font-light rounded-sm">Settings</div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="p-4 border border-[#A50020]/20 bg-[#A50020]/[0.04] rounded-sm relative">
+                                    <div class="absolute -top-2 -right-2 w-5 h-5 bg-[#A50020] rounded-full flex items-center justify-center shadow-sm">
+                                        <iconify-icon icon="solar:pen-linear" width="10" style="color: white; stroke-width: 1.5;"></iconify-icon>
+                                    </div>
+                                    <div class="h-4 bg-[#1A1A1A]/70 rounded-sm w-3/4 mb-2.5"></div>
+                                    <div class="h-2.5 bg-[#4A4744]/15 rounded-sm w-full mb-1.5"></div>
+                                    <div class="h-2.5 bg-[#4A4744]/15 rounded-sm w-5/6"></div>
+                                </div>
+                                <div class="p-4 border border-black/[0.06] rounded-sm">
+                                    <div class="h-24 bg-black/[0.03] rounded-sm flex items-center justify-center">
+                                        <iconify-icon icon="solar:gallery-add-linear" width="28" style="color: #4A4744; stroke-width: 1.5; opacity: 0.4;"></iconify-icon>
+                                    </div>
+                                </div>
+                                <div class="p-4 border border-black/[0.06] rounded-sm">
+                                    <div class="h-2.5 bg-[#4A4744]/10 rounded-sm w-full mb-1.5"></div>
+                                    <div class="h-2.5 bg-[#4A4744]/10 rounded-sm w-4/5 mb-1.5"></div>
+                                    <div class="h-2.5 bg-[#4A4744]/10 rounded-sm w-2/3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="order-1 lg:order-2 scroll-reveal">
+                    <p class="uppercase text-xs sm:text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-5 md:mb-6 flex items-center gap-3">
+                        <span class="w-8 h-px bg-[#A50020]"></span>
+                        User Empowerment
+                    </p>
+                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter font-normal text-[#1A1A1A] mb-6 md:mb-8">
+                        Edit Everything.<br><span class="font-light italic text-[#A50020]">Own Everything.</span>
+                    </h2>
+                    <p class="font-sans text-lg sm:text-xl md:text-2xl font-light text-[#4A4744] leading-relaxed mb-8 md:mb-10">
+                        Complete content editability means you're never locked into a vendor or dependent on a developer to change a headline. Your business runs on your terms.
+                    </p>
+
+                    <div class="space-y-7 md:space-y-8">
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-white border border-black/[0.08] rounded-sm flex items-center justify-center shadow-sm">
+                                <iconify-icon icon="solar:pen-new-square-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-[#1A1A1A] mb-1">Visual Content Editor</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed">Edit text, images, and layout blocks visually—no code required.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-white border border-black/[0.08] rounded-sm flex items-center justify-center shadow-sm">
+                                <iconify-icon icon="solar:users-group-two-rounded-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-[#1A1A1A] mb-1">Role-Based Access</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed">Grant editors, marketers, and admins exactly the level of control they need.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-white border border-black/[0.08] rounded-sm flex items-center justify-center shadow-sm">
+                                <iconify-icon icon="solar:history-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-[#1A1A1A] mb-1">Version History</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed">Roll back any change instantly. Every edit is tracked and recoverable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- SECTION 4: Performance & Speed -->
+    <section id="performance" class="pt-28 sm:pt-36 pb-28 sm:pb-36 px-6 md:px-12 relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#A50020] blur-[250px] opacity-[0.03] rounded-full pointer-events-none"></div>
+        <div class="absolute top-20 right-20 w-[300px] h-[300px] bg-[#A50020] blur-[200px] opacity-[0.02] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="text-center mb-16 md:mb-24 scroll-reveal">
+                <p class="uppercase text-xs sm:text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-5 md:mb-6">Technical Excellence</p>
+                <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter font-normal text-[#1A1A1A] mb-6 md:mb-8">
+                    Speed That <span class="font-light italic text-[#A50020]">Scales.</span>
+                </h2>
+                <p class="font-sans text-base sm:text-lg md:text-xl font-light text-[#4A4744]/80 leading-relaxed max-w-2xl mx-auto">
+                    Fastest CDN-based deployment combined with state-of-the-art infrastructure delivers unmatched performance from the first request.
+                </p>
+            </div>
+
+            <!-- Performance Metrics Grid -->
+            <div class="scroll-reveal grid grid-cols-2 md:grid-cols-4 gap-0 border border-black/[0.08] bg-white mb-12 md:mb-16 rounded-sm overflow-hidden shadow-lg shadow-black/[0.03]">
+                <div class="p-6 sm:p-8 md:p-10 border-r border-b md:border-b-0 border-black/[0.06] flex flex-col items-center text-center group hover:bg-[#FAFAF9] transition-all">
+                    <div class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-2">&lt;50<span class="text-[#A50020] text-2xl sm:text-3xl">ms</span></div>
+                    <p class="font-sans text-xs font-light text-[#4A4744]/70 tracking-widest uppercase">TTFB Global</p>
+                </div>
+                <div class="p-6 sm:p-8 md:p-10 md:border-r border-b md:border-b-0 border-black/[0.06] flex flex-col items-center text-center group hover:bg-[#FAFAF9] transition-all">
+                    <div class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-2">300<span class="text-[#A50020] text-2xl sm:text-3xl">+</span></div>
+                    <p class="font-sans text-xs font-light text-[#4A4744]/70 tracking-widest uppercase">CDN Nodes</p>
+                </div>
+                <div class="p-6 sm:p-8 md:p-10 border-r border-black/[0.06] flex flex-col items-center text-center group hover:bg-[#FAFAF9] transition-all">
+                    <div class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-2">&lt;3<span class="text-[#A50020] text-2xl sm:text-3xl">s</span></div>
+                    <p class="font-sans text-xs font-light text-[#4A4744]/70 tracking-widest uppercase">Deploy Time</p>
+                </div>
+                <div class="p-6 sm:p-8 md:p-10 flex flex-col items-center text-center group hover:bg-[#FAFAF9] transition-all">
+                    <div class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-2">100</div>
+                    <p class="font-sans text-xs font-light text-[#4A4744]/70 tracking-widest uppercase">Lighthouse Score</p>
+                </div>
+            </div>
+
+            <!-- CDN Network Map -->
+            <div class="scroll-reveal bg-white border border-black/[0.08] rounded-sm p-6 sm:p-8 md:p-12 relative overflow-hidden shadow-lg shadow-black/[0.03]">
+                <div class="flex flex-col md:flex-row gap-10 md:gap-12 items-center">
+                    <div class="flex-1 relative">
+                        <div class="grid grid-cols-5 gap-3 sm:gap-4 max-w-md mx-auto">
+                            <div class="col-span-5 flex justify-center mb-4">
+                                <div class="w-14 h-14 bg-[#1A1A1A] rounded-full flex items-center justify-center shadow-lg">
+                                    <iconify-icon icon="solar:server-square-linear" width="24" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-[#A50020]/30"></div></div>
+                            <div class="flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-[#A50020]/20"></div></div>
+                            <div class="flex items-center justify-center"><div class="w-3 h-3 rounded-full bg-[#A50020]/40"></div></div>
+                            <div class="flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-[#A50020]/20"></div></div>
+                            <div class="flex items-center justify-center"><div class="w-2 h-2 rounded-full bg-[#A50020]/30"></div></div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-9 h-9 bg-[#FAFAF9] border border-black/[0.08] rounded-full flex items-center justify-center shadow-sm float-anim">
+                                    <iconify-icon icon="solar:global-linear" width="14" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-9 h-9 bg-[#FAFAF9] border border-black/[0.08] rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay">
+                                    <iconify-icon icon="solar:global-linear" width="14" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-9 h-9 bg-[#FAFAF9] border border-black/[0.08] rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay-2">
+                                    <iconify-icon icon="solar:global-linear" width="14" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-9 h-9 bg-[#FAFAF9] border border-black/[0.08] rounded-full flex items-center justify-center shadow-sm float-anim">
+                                    <iconify-icon icon="solar:global-linear" width="14" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-9 h-9 bg-[#FAFAF9] border border-black/[0.08] rounded-full flex items-center justify-center shadow-sm float-anim float-anim-delay">
+                                    <iconify-icon icon="solar:global-linear" width="14" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <h3 class="font-serif text-xl sm:text-2xl tracking-tight font-normal text-[#1A1A1A] mb-3 md:mb-4">Global Edge Network</h3>
+                        <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed mb-5 md:mb-6">
+                            Your application is deployed to 300+ edge locations worldwide. Every user gets served from the node closest to them, eliminating latency.
+                        </p>
+                        <div class="space-y-3 sm:space-y-4">
+                            <div class="flex items-center gap-3">
+                                <iconify-icon icon="solar:check-circle-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                <span class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80">Automatic edge caching &amp; invalidation</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <iconify-icon icon="solar:check-circle-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                <span class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80">Smart routing to nearest healthy node</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <iconify-icon icon="solar:check-circle-linear" width="18" style="color: #A50020; stroke-width: 1.5;"></iconify-icon>
+                                <span class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80">Atomic deployments with instant rollback</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- SECTION 5: Growth Partnership -->
+    <section id="growth" class="pt-28 sm:pt-36 pb-28 sm:pb-36 px-6 md:px-12 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#A50020] blur-[300px] opacity-[0.02] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="max-w-2xl mb-16 md:mb-24 scroll-reveal">
+                <p class="uppercase text-xs sm:text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-5 md:mb-6 flex items-center gap-3">
+                    <span class="w-8 h-px bg-[#A50020]"></span>
+                    Long-Term Vision
+                </p>
+                <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter font-normal text-[#1A1A1A] mb-6 md:mb-8">
+                    From Startup to <span class="font-light italic text-[#A50020]">Scale.</span>
+                </h2>
+                <p class="font-sans text-lg sm:text-xl md:text-2xl font-light text-[#4A4744]/80 leading-relaxed">
+                    Your infrastructure matures as your business does. We're not a vendor—we're the engineering partner that grows alongside you.
+                </p>
+            </div>
+
+            <!-- Growth Trajectory Timeline -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 relative">
+                <div class="hidden md:block absolute top-[3.5rem] left-[16.67%] right-[16.67%] h-px bg-gradient-to-r from-black/[0.06] via-[#A50020]/20 to-black/[0.06]"></div>
+
+                <div class="scroll-reveal p-7 sm:p-8 md:p-10 bg-white border border-black/[0.08] rounded-sm md:rounded-none md:rounded-l-sm md:border-r-0 transition-all hover:shadow-lg hover:shadow-black/[0.03] relative">
+                    <div class="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-white border border-black/[0.12] shadow-sm font-serif text-base sm:text-lg font-medium text-[#A50020] mb-7 md:mb-8 relative z-10 rounded-sm">01</div>
+                    <h4 class="font-serif text-xl sm:text-2xl tracking-tight text-[#1A1A1A] mb-3 md:mb-4">Launch</h4>
+                    <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed mb-5 md:mb-6">
+                        Start with the essentials. Your first deployment goes live in minutes—not weeks. Optimized architecture from day one.
+                    </p>
+                    <div class="space-y-2.5 sm:space-y-3">
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Single deployment target
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Core CMS configuration
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            SSL &amp; monitoring included
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal p-7 sm:p-8 md:p-10 bg-white border border-black/[0.08] rounded-sm md:rounded-none md:border-r-0 transition-all hover:shadow-lg hover:shadow-black/[0.03] relative" style="transition-delay: 100ms;">
+                    <div class="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-white border border-[#A50020]/20 shadow-sm font-serif text-base sm:text-lg font-medium text-[#A50020] mb-7 md:mb-8 relative z-10 rounded-sm">02</div>
+                    <h4 class="font-serif text-xl sm:text-2xl tracking-tight text-[#1A1A1A] mb-3 md:mb-4">Grow</h4>
+                    <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed mb-5 md:mb-6">
+                        Add features, integrations, and team members without architectural rework. Your infrastructure adapts automatically.
+                    </p>
+                    <div class="space-y-2.5 sm:space-y-3">
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Multi-environment staging
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            API &amp; integration layer
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Team collaboration tools
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scroll-reveal p-7 sm:p-8 md:p-10 bg-white border border-black/[0.08] rounded-sm md:rounded-none md:rounded-r-sm transition-all hover:shadow-lg hover:shadow-black/[0.03] relative" style="transition-delay: 200ms;">
+                    <div class="inline-flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 bg-[#1A1A1A] shadow-sm font-serif text-base sm:text-lg font-medium text-[#FF3344] mb-7 md:mb-8 relative z-10 rounded-sm">03</div>
+                    <h4 class="font-serif text-xl sm:text-2xl tracking-tight text-[#1A1A1A] mb-3 md:mb-4">Scale</h4>
+                    <p class="font-sans text-base sm:text-lg font-light text-[#4A4744]/80 leading-relaxed mb-5 md:mb-6">
+                        Enterprise-grade scaling with zero architecture changes. Traffic spikes, global expansion—your infrastructure holds.
+                    </p>
+                    <div class="space-y-2.5 sm:space-y-3">
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Auto-scaling infrastructure
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Global edge deployment
+                        </div>
+                        <div class="flex items-center gap-2.5 text-sm sm:text-base font-sans font-light text-[#4A4744]/70">
+                            <span class="w-1.5 h-1.5 bg-[#A50020]/60 rounded-full flex-shrink-0"></span>
+                            Dedicated support channel
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Ownership & Portability -->
+    <section id="ownership" class="group/section overflow-hidden bg-[#050505] pt-28 sm:pt-36 pb-28 sm:pb-36 px-6 md:px-12 relative" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');" style="--mouse-x: 50%; --mouse-y: 50%;">
+        <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+            <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+            <div class="absolute inset-0 opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%);"></div>
+        </div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.06] rounded-full"></div>
+        <div class="absolute -top-20 left-1/3 w-[500px] h-[400px] bg-[#FF3344] blur-[180px] opacity-[0.04] rounded-full"></div>
+
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                <div class="scroll-reveal">
+                    <p class="uppercase text-xs sm:text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-5 md:mb-6">Ultimate Freedom</p>
+                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tighter font-normal text-white mb-6 md:mb-8">
+                        Build With Us.<br><span class="font-light italic text-[#FF3344]">Leave Whenever.</span>
+                    </h2>
+                    <p class="font-sans text-lg sm:text-xl font-light text-white/50 leading-relaxed mb-8 md:mb-10">
+                        We earn your loyalty through quality, not lock-in. Export your frontend code, your data, your entire stack—anytime, no questions asked.
+                    </p>
+
+                    <div class="space-y-7 md:space-y-8 mb-10 md:mb-12">
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 border border-white/[0.08] rounded-sm flex items-center justify-center bg-white/[0.04] backdrop-blur-sm">
+                                <iconify-icon icon="solar:code-file-linear" width="18" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-white mb-1">Frontend Export</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-white/40 leading-relaxed">Download your complete frontend codebase—clean, documented, deployment-ready for any platform.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 border border-white/[0.08] rounded-sm flex items-center justify-center bg-white/[0.04] backdrop-blur-sm">
+                                <iconify-icon icon="solar:database-linear" width="18" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-white mb-1">Data Export</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-white/40 leading-relaxed">Your content, user data, and assets exported in standard formats—JSON, CSV, or SQL.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 sm:gap-5 items-start">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 border border-white/[0.08] rounded-sm flex items-center justify-center bg-white/[0.04] backdrop-blur-sm">
+                                <iconify-icon icon="solar:key-linear" width="18" style="color: #FF3344; stroke-width: 1.5;"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-serif text-lg sm:text-xl tracking-tight text-white mb-1">Zero Lock-In</h4>
+                                <p class="font-sans text-base sm:text-lg font-light text-white/40 leading-relaxed">No proprietary formats, no hidden dependencies. Standard tools, open architectures, your ownership.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex items-center justify-center scroll-reveal">
+                    <div class="relative w-full max-w-sm">
+                        <div class="bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-sm p-10 md:p-12 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#FF3344]/20 to-transparent"></div>
+
+                            <div class="flex flex-col items-center text-center">
+                                <div class="w-24 h-24 border border-white/[0.08] rounded-full flex items-center justify-center mb-8 relative">
+                                    <iconify-icon icon="solar:upload-minimalistic-linear" width="40" style="color: #FF3344; stroke-width: 1.5;" class="float-anim"></iconify-icon>
+                                    <div class="absolute inset-0 border border-[#FF3344]/15 rounded-full pulse-ring-anim"></div>
+                                </div>
+
+                                <p class="font-serif text-xl tracking-tight text-white mb-3">Your Data Flows Free</p>
+                                <p class="font-sans text-base font-light text-white/35 leading-relaxed mb-8">No walls. No gates. No proprietary traps.</p>
+
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1.5 border border-white/[0.08] text-white/40 text-sm font-sans font-light rounded-sm">.JSON</span>
+                                    <span class="px-3 py-1.5 border border-white/[0.08] text-white/40 text-sm font-sans font-light rounded-sm">.CSV</span>
+                                    <span class="px-3 py-1.5 border border-white/[0.08] text-white/40 text-sm font-sans font-light rounded-sm">.SQL</span>
+                                    <span class="px-3 py-1.5 border border-white/[0.08] text-white/40 text-sm font-sans font-light rounded-sm">.HTML</span>
+                                    <span class="px-3 py-1.5 border border-white/[0.08] text-white/40 text-sm font-sans font-light rounded-sm">.ZIP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="group/section overflow-hidden flex md:px-12 bg-[#050505] border-white/[0.06] border-b pt-32 sm:pt-40 pr-6 pb-32 sm:pb-40 pl-6 relative items-center justify-center" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');" style="--mouse-x: 50%; --mouse-y: 50%;" id="cta">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+                <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%);"></div>
+            </div>
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF3344] blur-[180px] opacity-[0.08] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.05] rounded-full"></div>
+        </div>
+
+        <div class="scroll-reveal z-10 flex flex-col text-center max-w-3xl mx-auto relative items-center border border-white/[0.08] bg-white/[0.03] p-10 sm:p-16 md:p-24 backdrop-blur-sm rounded-sm">
+            <div class="mb-6 md:mb-8">
+                <span class="text-[#FF3344] text-lg sm:text-xl">◆</span>
+            </div>
+            <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] tracking-tighter text-white font-normal mb-6 md:mb-8 leading-[1]">
+                Build Your <span class="font-light italic text-[#FF3344]">Legacy.</span>
+            </h2>
+
+            <p class="font-sans text-lg sm:text-xl font-light text-white/50 mb-10 md:mb-12 max-w-xl mx-auto leading-relaxed">
+                Let us architect your next digital asset. Book a complimentary technical consultation directly with our lead engineers.
+            </p>
+
+            <a href="#contact" class="group z-10 inline-flex items-center justify-center overflow-hidden transition-all duration-[400ms] hover:border-[#FF3344] hover:text-white text-sm font-medium text-[#1A1A1A] uppercase tracking-widest bg-white border-white border rounded-sm py-4 px-10 sm:px-12 relative shadow-[0_0_40px_-10px_rgba(255,255,255,0.08)] hover:shadow-[0_0_40px_-10px_rgba(165,0,32,0.4)]">
+                <span class="[clip-path:circle(0%_at_50%_120%)] transition-[clip-path] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:circle(150%_at_50%_120%)] bg-[#FF3344] -z-10 absolute top-0 right-0 bottom-0 left-0"></span>
+                Book Free Call
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#FAFAF9] relative overflow-hidden">
+        <div class="md:px-12 flex flex-col min-h-[400px] md:min-h-[500px] w-full max-w-[1440px] z-10 mx-auto pt-20 md:pt-24 pr-6 pb-10 md:pb-12 pl-6 relative justify-between">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 w-full items-start justify-between relative z-10 border-b border-black/[0.06] pb-16 md:pb-20">
+                <div class="flex flex-col gap-5 md:gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Product
+                    </h4>
+                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
+                        <a href="#reliability" class="hover:text-[#A50020] transition-colors w-fit">Reliability</a>
+                        <a href="#control" class="hover:text-[#A50020] transition-colors w-fit">Content Control</a>
+                        <a href="#performance" class="hover:text-[#A50020] transition-colors w-fit">Performance</a>
+                        <a href="#ownership" class="hover:text-[#A50020] transition-colors w-fit">Portability</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5 md:gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Company
+                    </h4>
+                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">About</a>
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Careers</a>
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Blog</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5 md:gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Connect
+                    </h4>
+                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
+                        <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit">support@hydradyna.com</a>
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">WhatsApp Direct</a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5 md:gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters
+                    </h4>
+                    <div class="flex flex-col gap-1.5 sm:gap-2 font-sans text-sm font-light text-[#4A4744]/60 leading-relaxed uppercase tracking-widest">
+                        <p>Hydra Dynamics Ltd.</p>
+                        <p>Level 35, WTC</p>
+                        <p>Colombo 01, Sri Lanka</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex mt-16 md:mt-20 mb-10 md:mb-12 z-10 w-full relative justify-center overflow-hidden">
+                <h1 class="font-serif text-[#1A1A1A]/[0.04] text-5xl sm:text-7xl md:text-9xl lg:text-[12rem] xl:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none whitespace-nowrap">
+                    HydraLink
+                </h1>
+            </div>
+
+            <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 relative z-10">
+                <p class="font-sans text-xs font-light text-[#4A4744]/60 tracking-widest uppercase">
+                    © Hydra Dynamics, 2025
+                </p>
+                <div class="flex gap-6 sm:gap-8 font-sans text-xs font-light text-[#4A4744]/60 tracking-widest uppercase">
+                    <a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-[#A50020] transition-colors">Terms</a>
+                    <a href="#" class="hover:text-[#A50020] transition-colors">SLA</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const closeBtn = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+
+            function openMenu() {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        mobileMenu.classList.remove('opacity-0');
+                    });
+                });
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenuFunc(callback) {
+                mobileMenu.classList.add('opacity-0');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    if (callback) callback();
+                }, 300);
+            }
+
+            hamburgerBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', () => closeMenuFunc());
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        closeMenuFunc(() => {
+                            const target = document.querySelector(href);
+                            if (target) target.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    } else {
+                        closeMenuFunc();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body></html>

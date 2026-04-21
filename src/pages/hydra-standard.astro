@@ -1,0 +1,1081 @@
+<html lang="en" class="scroll-smooth scroll-pt-20"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydra Dynamics | Engineering Digital Permanence</title>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
+
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .font-sans {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        iconify-icon {
+            stroke-width: 1.5;
+        }
+
+        ::selection {
+            background-color: #A50020;
+            color: #F5F4F2;
+        }
+
+        .hover-crimson-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-crimson-lift:hover {
+            box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
+            border-color: rgba(165, 0, 32, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .hover-btn-fill {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hover-btn-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #A50020;
+            z-index: -1;
+            clip-path: circle(0% at 50% 120%);
+            transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-btn-fill:hover::before {
+            clip-path: circle(150% at 50% 120%);
+        }
+
+        .hover-btn-fill:hover {
+            color: #F5F4F2 !important;
+            border-color: #A50020 !important;
+        }
+
+        .hover-btn-fill-dark::before {
+            background-color: #FF3344;
+        }
+
+        .hover-btn-fill-dark:hover {
+            border-color: #FF3344 !important;
+            color: white !important;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-load {
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .delay-400 {
+            animation-delay: 400ms;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+
+        .accordion-content.open {
+            opacity: 1;
+        }
+
+        .accordion-chevron {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .accordion-chevron.rotated {
+            transform: rotate(180deg);
+        }
+
+        .toggle-content {
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toggle-content.hidden-toggle {
+            opacity: 0;
+            transform: translateY(12px);
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .toggle-content.visible-toggle {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            pointer-events: auto;
+        }
+
+        #floating-toggle {
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #floating-toggle.hidden-float {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+            pointer-events: none;
+        }
+
+        #floating-toggle.visible-float {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+
+    <!-- Floating Toggle -->
+    <div id="floating-toggle" class="fixed bottom-6 left-1/2 z-[90] hidden-float">
+        <div class="relative flex items-center bg-[#1A1A1A]/95 backdrop-blur-xl border border-white/15 rounded-full p-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)]">
+            <div id="toggle-bg" class="absolute top-1.5 left-1.5 h-[calc(100%-12px)] rounded-full bg-[#A50020] shadow-[0_0_20px_-4px_rgba(165,0,32,0.5)] transition-all duration-[400ms] cubic-bezier(0.16,1,0.3,1)" style="width: calc(50% - 6px); transform: translateX(0);"></div>
+            <button id="toggle-website" class="relative z-10 px-6 sm:px-8 py-2.5 text-sm font-medium uppercase tracking-widest transition-colors duration-300 text-white rounded-full whitespace-nowrap">Website</button>
+            <button id="toggle-webapp" class="relative z-10 px-6 sm:px-8 py-2.5 text-sm font-medium uppercase tracking-widest transition-colors duration-300 text-white/50 rounded-full whitespace-nowrap">Web App</button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
+        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">HYDRA
+                <span class="text-[#A50020] font-light italic">Dynamics</span></a>
+            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
+                <a href="#philosophy" class="hover:text-[#A50020] transition-colors">Philosophy</a>
+                <a href="#process" class="hover:text-[#A50020] transition-colors">Process</a>
+                <a href="#superiority" class="hover:text-[#A50020] transition-colors">Craft</a>
+                <a href="#maintenance" class="hover:text-[#A50020] transition-colors">Permanence</a>
+            </div>
+
+  <a href="#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
+                Book Free Call
+            </a>
+
+
+            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="28"></iconify-icon>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
+        <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2 focus:outline-none">
+            <iconify-icon icon="solar:close-circle-linear" width="36"></iconify-icon>
+        </button>
+        <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
+            <a href="#philosophy" class="mobile-link hover:text-[#A50020] transition-colors">Philosophy</a>
+            <a href="#process" class="mobile-link hover:text-[#A50020] transition-colors">Process</a>
+            <a href="#superiority" class="mobile-link hover:text-[#A50020] transition-colors">Craft</a>
+            <a href="#maintenance" class="mobile-link hover:text-[#A50020] transition-colors">Permanence</a>
+            <a href="#maintenance" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 border border-[#1A1A1A]">Partner
+                With Us</a>
+        </div>
+    </div>
+
+    <!-- Section 1: Philosophy Hero -->
+    <header id="philosophy" class="min-h-screen flex items-center pt-32 pb-24 px-6 md:px-12 relative border-b border-black/10 bg-[#FAFAF9] overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80" alt="Architectural Structure" class="w-full h-full object-cover object-right opacity-25 mix-blend-multiply grayscale">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#FAFAF9] via-[#FAFAF9]/95 md:via-[#FAFAF9]/70 to-transparent">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FAFAF9]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#FAFAF9]/80"></div>
+        </div>
+        <div class="max-w-[1440px] mx-auto w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+                <div class="lg:col-span-6">
+                    <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6 animate-on-load">
+                        Our Philosophy</p>
+                    <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.08] tracking-tighter text-[#1A1A1A] font-normal animate-on-load delay-100 mb-8">
+                        Digital foundations<br><span class="italic text-[#A50020] font-light">built to last.</span></h1>
+                    <div class="flex flex-wrap items-center gap-4 animate-on-load delay-200">
+                        <a href="#process" class="inline-flex items-center justify-center text-sm font-medium uppercase tracking-widest bg-[#1A1A1A] text-[#F5F4F2] border border-[#1A1A1A] rounded-sm py-3.5 px-8 shadow-sm hover:shadow-md hover-btn-fill transition-all">See
+                            Our Process</a>
+                        <a href="#maintenance" class="inline-flex items-center justify-center gap-2 text-sm font-medium uppercase tracking-widest text-[#1A1A1A] border border-black/15 rounded-sm py-3.5 px-8 hover:border-[#A50020] hover:text-[#A50020] transition-all bg-white shadow-sm">Partner
+                            With Us <iconify-icon icon="solar:arrow-right-linear" width="16"></iconify-icon></a>
+                    </div>
+                </div>
+                <div class="lg:col-span-6">
+                    <div class="bg-white border border-black/10 rounded-sm p-8 md:p-10 animate-on-load delay-200">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-full bg-[#A50020]/5 border border-[#A50020]/10 flex items-center justify-center flex-shrink-0">
+                                <iconify-icon icon="solar:buildings-3-linear" width="20" class="text-[#A50020]"></iconify-icon>
+                            </div>
+                            <h2 class="font-serif text-xl tracking-tight text-[#1A1A1A]">What We Believe</h2>
+                        </div>
+                        <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-5">Most digital
+                            products decay. They're built on borrowed time — frameworks that shift, code that rots,
+                            decisions optimized for speed over longevity. We reject that entirely.</p>
+                        <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-8">Hydra Dynamics
+                            exists because we believe your digital infrastructure deserves the same structural rigour as
+                            a physical one. An asset, not a liability.</p>
+                        <div class="pt-6 border-t border-black/5 flex items-center gap-4 animate-on-load delay-300">
+                            <span class="w-10 h-[1px] bg-[#A50020]/40"></span>
+                            <p class="font-serif text-lg italic text-[#A50020]">Founded on principle, not trends.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 2: Toggle + Process -->
+    <section id="process" class="bg-[#FAFAF9] pt-24 px-6 md:px-12 pb-32 relative border-b border-black/10">
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div class="mb-32">
+                <div class="max-w-3xl mb-16">
+                    <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6">Why We Use
+                        SOPs</p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-6 leading-[1.1]">
+                        Repeatable excellence, <span class="italic text-[#A50020] font-light">not guesswork.</span></h2>
+                    <p class="font-sans text-xl font-light text-[#4A4744] leading-relaxed">Standard Operating Procedures
+                        aren't red tape — they're the reason every project we deliver meets the same uncompromising
+                        standard.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white border border-black/10 rounded-sm p-8 md:p-10 hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#A50020]/0 to-transparent group-hover:via-[#A50020] transition-all duration-500">
+                        </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-[#A50020]/5 border border-[#A50020]/10 flex items-center justify-center flex-shrink-0">
+                                <iconify-icon icon="solar:copy-linear" width="22" class="text-[#A50020]"></iconify-icon>
+                            </div>
+                            <h3 class="font-serif text-2xl tracking-tight text-[#1A1A1A] leading-snug">Consistency</h3>
+                        </div>
+                        <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed mb-6">Same level of
+                            precision on every project, no matter which team member is executing.</p>
+                        <div class="mt-auto pt-6 border-t border-black/5">
+                            <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon><span class="font-sans text-base font-light text-[#4A4744]">Same quality, every single time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-black/10 rounded-sm p-8 md:p-10 hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#A50020]/0 to-transparent group-hover:via-[#A50020] transition-all duration-500">
+                        </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-[#A50020]/5 border border-[#A50020]/10 flex items-center justify-center flex-shrink-0">
+                                <iconify-icon icon="solar:clock-circle-linear" width="22" class="text-[#A50020]"></iconify-icon></div>
+                            <h3 class="font-serif text-2xl tracking-tight text-[#1A1A1A] leading-snug">Efficiency</h3>
+                        </div>
+                        <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed mb-6">SOPs eliminate
+                            decision fatigue so we can focus on solving your problems, not debating process.</p>
+                        <div class="mt-auto pt-6 border-t border-black/5">
+                            <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon><span class="font-sans text-base font-light text-[#4A4744]">No wasted time, no shortcuts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-black/10 rounded-sm p-8 md:p-10 hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#A50020]/0 to-transparent group-hover:via-[#A50020] transition-all duration-500">
+                        </div>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-[#A50020]/5 border border-[#A50020]/10 flex items-center justify-center flex-shrink-0">
+                                <iconify-icon icon="solar:shield-check-linear" width="22" class="text-[#A50020]"></iconify-icon></div>
+                            <h3 class="font-serif text-2xl tracking-tight text-[#1A1A1A] leading-snug">Accountability
+                            </h3>
+                        </div>
+                        <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed mb-6">Every step is
+                            documented and traceable. Revisions are faster and communication is clearer.</p>
+                        <div class="mt-auto pt-6 border-t border-black/5">
+                            <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon><span class="font-sans text-base font-light text-[#4A4744]">Full transparency at every step</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mb-20">
+                <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-3">What are you
+                    building?</p>
+                <p class="font-sans text-lg font-light text-[#4A4744]">Use the toggle below to switch between Website
+                    and Web App</p>
+            </div>
+
+            <div class="relative">
+                <!-- Website Content -->
+                <div id="content-website" class="toggle-content visible-toggle" data-toggle-group="process">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="text-center mb-16">
+                            <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-4 leading-[1.1]">
+                                Your digital storefront,
+                                <span class="italic text-[#A50020] font-light">perfected.</span></h2>
+                            <p class="font-sans text-xl font-light text-[#4A4744] leading-relaxed max-w-2xl mx-auto">
+                                Hand-crafted, performance-obsessed websites that load instantly and convert
+                                consistently. No templates, no bloat.</p>
+                        </div>
+                        <div class="flex flex-col gap-0 border border-black/10 rounded-sm bg-white overflow-hidden" data-accordion="website">
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">I</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Understanding Your Goals</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Week 1</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                A focused conversation about your business, audience, and what success
+                                                looks like. We map out what your website needs to accomplish.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Brand &amp; audience workshop</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Content &amp; sitemap plan</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">II</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Designing the Experience</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 2–3</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Every page designed in high detail — desktop and mobile. You review
+                                                interactive mockups, not static screenshots.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> High-fidelity designs</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Clickable prototype</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">III</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Building &amp; Testing</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 3–6</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Hand-coded with modern tools. No bloated page builders. Live preview
+                                                access throughout, tested across browsers and devices.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> SEO &amp; speed optimized</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Cross-browser tested</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">IV</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Launch &amp; Handover</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Week 7</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Zero-downtime launch. You own everything — the code, the hosting access,
+                                                the documentation. No subscriptions to cancel.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Full code ownership</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Optional permanence plan</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web App Content -->
+                <div id="content-webapp" class="toggle-content hidden-toggle" data-toggle-group="process">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="text-center mb-16">
+                            <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-4 leading-[1.1]">
+                                Your product, <span class="italic text-[#A50020] font-light">engineered to scale.</span>
+                            </h2>
+                            <p class="font-sans text-xl font-light text-[#4A4744] leading-relaxed max-w-2xl mx-auto">A
+                                tool your users interact with daily. Built to feel fast, handle complexity gracefully,
+                                and grow with your business.</p>
+                        </div>
+                        <div class="flex flex-col gap-0 border border-black/10 rounded-sm bg-white overflow-hidden" data-accordion="webapp">
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">I</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Discovery &amp; Planning</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 1–2</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                We document every feature, user role, and edge case — then distill it
+                                                into a clear blueprint that guides the entire project.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> User flow mapping</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Architecture blueprint</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">II</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Interface Design</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 3–5</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Complete dashboards, workflows, and interactive elements with a full
+                                                design system. You'll test a clickable prototype that behaves like the
+                                                real thing.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Design system</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Interactive prototype</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">III</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Development in Sprints</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 5–14</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Two-week cycles with working features on staging after each sprint. Real
+                                                software you can click through — no slides, no surprises.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Sprint demos</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Live staging environment</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b border-black/10">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">IV</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">QA &amp; Security</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Weeks 14–16</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Peak traffic simulation, security audits, data integrity verification.
+                                                Nothing ships until it survives real-world conditions.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Load testing</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Security audit</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-trigger w-full flex items-center justify-between p-8 md:p-10 text-left group hover:bg-[#FAFAF9]/60 transition-colors">
+                                    <div class="flex items-center gap-6"><span class="font-serif text-2xl text-[#A50020]/20 group-hover:text-[#A50020]/40 transition-colors w-10">V</span><div><h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A]">Launch &amp; Growth</h4><p class="font-sans text-base font-light text-[#4A4744] mt-1">Week 16+</p></div></div>
+                                    <iconify-icon icon="solar:alt-arrow-down-linear" width="22" class="accordion-chevron text-[#4A4744] flex-shrink-0"></iconify-icon>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="px-8 md:px-10 pb-10 pt-0">
+                                        <div class="ml-16 border-l border-black/10 pl-8">
+                                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-6">
+                                                Zero-downtime deployment with full source code transfer. Built so any
+                                                developer can maintain it — but most clients keep us on for new features
+                                                and scaling.</p>
+                                            <div class="flex flex-wrap gap-3">
+                                                <span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Full source code</span><span class="inline-flex items-center gap-2 bg-[#FAFAF9] border border-black/10 rounded-sm px-4 py-2 text-base font-light text-[#4A4744]"><iconify-icon icon="solar:check-read-linear" class="text-[#A50020]" width="14"></iconify-icon> Growth roadmap</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Why We're Different (Dark) -->
+    <section id="superiority" class="bg-[#050505] pt-32 px-6 md:px-12 pb-32 relative border-b border-white/10 group/section overflow-hidden" onmousemove="this.style.setProperty('--mouse-x',(event.clientX-this.getBoundingClientRect().left)+'px');this.style.setProperty('--mouse-y',(event.clientY-this.getBoundingClientRect().top)+'px');">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute inset-0 pointer-events-none" style="mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent);">
+                <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(to right,rgba(255,51,68,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,51,68,0.04) 1px,transparent 1px);background-size:48px 48px;">
+                </div>
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image:linear-gradient(to right,rgba(255,51,68,0.25) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,51,68,0.25) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%),black,transparent 80%);mask-image:radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%),black,transparent 80%);">
+                </div>
+            </div>
+        </div>
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div id="superiority-website" class="toggle-content visible-toggle" data-toggle-group="superiority">
+                <div class="max-w-3xl mb-20">
+                    <p class="uppercase text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-6">Why We're
+                        Different</p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-white font-normal mb-6 leading-[1.1]">
+                        Faster sites. <span class="italic text-[#FF3344] font-light">More customers.</span></h2>
+                    <p class="font-sans text-xl font-light text-white/60 leading-relaxed">We strip away everything that
+                        slows your site down. What's left is a website that loads instantly and turns visitors into
+                        customers.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:bolt-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            100<span class="text-[#FF3344]">/100</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">Google
+                            Speed Score</p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Every site
+                            scores perfectly on Google's speed, accessibility, and SEO tests. This is our baseline, not
+                            a stretch goal.</p>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:code-square-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            &lt;1<span class="text-[#FF3344]">s</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">Load Time
+                        </p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Pages appear
+                            almost instantly. No spinning loaders, no blank screens. Your content is there before
+                            visitors think about leaving.</p>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:chart-2-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            4<span class="text-[#FF3344]">x</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">Faster
+                            Than Average</p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Compared to
+                            typical platforms, ours load four times faster — directly translating to more engagement and
+                            higher conversions.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="superiority-webapp" class="toggle-content hidden-toggle" data-toggle-group="superiority">
+                <div class="max-w-3xl mb-20">
+                    <p class="uppercase text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-6">Why We're
+                        Different</p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-white font-normal mb-6 leading-[1.1]">
+                        Robust systems. <span class="italic text-[#FF3344] font-light">Unbreakable reliability.</span>
+                    </h2>
+                    <p class="font-sans text-xl font-light text-white/60 leading-relaxed">We engineer web applications
+                        that handle real-world complexity — high concurrency, complex workflows, and demanding users —
+                        without breaking a sweat.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:shield-check-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            99.99<span class="text-[#FF3344]">%</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">Uptime
+                            Guarantee</p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Redundant
+                            architecture with automatic failover. Your users never see downtime, even during
+                            deployments.</p>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:server-path-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            &lt;200<span class="text-[#FF3344]">ms</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">API
+                            Response Time</p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Every
+                            interaction feels instant. Optimized queries, edge caching, and intelligent data loading
+                            keep your app snappy.</p>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div><iconify-icon icon="solar:users-group-rounded-linear" width="28" class="text-white/40 group-hover:text-[#FF3344] transition-colors mb-8"></iconify-icon>
+                        <p class="font-serif text-5xl tracking-tight text-white mb-2">
+                            10K<span class="text-[#FF3344]">+</span></p>
+                        <p class="font-sans text-sm font-medium uppercase tracking-widest text-white/80 mb-4">Concurrent
+                            Users</p>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mt-auto">Built from day
+                            one to handle thousands of simultaneous users. Auto-scaling infrastructure grows with your
+                            demand.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Architecture (Light) -->
+    <section id="scalability" class="bg-[#FAFAF9] pt-32 px-6 md:px-12 pb-32 relative border-b border-black/10 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div id="scalability-website" class="toggle-content visible-toggle" data-toggle-group="scalability">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div class="bg-white border border-black/10 rounded-sm p-2 shadow-lg">
+                            <div class="bg-[#1A1A1A] rounded-[2px] p-8 md:p-12 w-full">
+                                <div class="flex items-center gap-2 mb-10">
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <span class="ml-4 font-mono text-xs text-white/30">how-your-site-works</span>
+                                </div>
+                                <svg viewBox="0 0 600 350" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                                    <line x1="300" y1="70" x2="300" y2="130" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="300" y1="210" x2="300" y2="270" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="195" y1="170" x2="110" y2="170" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="405" y1="170" x2="490" y2="170" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <rect x="195" y="130" width="210" height="80" rx="2" fill="#050505" stroke="#FF3344" stroke-width="1.5"></rect><text x="300" y="164" font-family="Manrope" font-size="13" font-weight="600" fill="white" text-anchor="middle" letter-spacing="0.15em">YOUR WEBSITE</text><text x="300" y="182" font-family="Manrope" font-size="9" fill="white" opacity="0.4" text-anchor="middle">Fast · Secure · SEO-ready</text>
+                                    <rect x="220" y="20" width="160" height="50" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="300" y="50" font-family="Manrope" font-size="11" font-weight="500" fill="white" text-anchor="middle" letter-spacing="0.08em">Visitors (Browser)</text>
+                                    <rect x="220" y="270" width="160" height="50" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="300" y="300" font-family="Manrope" font-size="11" font-weight="500" fill="white" text-anchor="middle" letter-spacing="0.08em">Content (CMS)</text>
+                                    <rect x="20" y="140" width="90" height="60" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="65" y="175" font-family="Manrope" font-size="10" font-weight="500" fill="white" text-anchor="middle">Analytics</text>
+                                    <rect x="490" y="140" width="90" height="60" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="535" y="175" font-family="Manrope" font-size="10" font-weight="500" fill="white" text-anchor="middle">Forms</text>
+                                    <circle cx="300" cy="170" r="4" fill="#FF3344">
+                                        <animate attributeName="r" values="3;8;3" dur="2s" repeatCount="indefinite">
+                                        </animate>
+                                        <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"></animate>
+                                    </circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32">
+                        <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6">How It
+                            Works</p>
+                        <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-8 leading-[1.1]">
+                            Simple
+                            architecture,<br><span class="italic text-[#A50020] font-light">maximum performance.</span>
+                        </h2>
+                        <p class="font-sans text-xl font-light text-[#4A4744] leading-relaxed mb-10">Your website is
+                            pre-built and served from the edge — closest to your visitors. Content updates flow through
+                            a headless CMS you control.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="scalability-webapp" class="toggle-content hidden-toggle" data-toggle-group="scalability">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+                    <div class="lg:col-span-7 order-2 lg:order-1">
+                        <div class="bg-white border border-black/10 rounded-sm p-2 shadow-lg">
+                            <div class="bg-[#1A1A1A] rounded-[2px] p-8 md:p-12 w-full">
+                                <div class="flex items-center gap-2 mb-10">
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <div class="w-3 h-3 rounded-full bg-white/20"></div>
+                                    <span class="ml-4 font-mono text-xs text-white/30">how-your-app-works</span>
+                                </div>
+                                <svg viewBox="0 0 600 420" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                                    <line x1="300" y1="80" x2="300" y2="155" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="300" y1="245" x2="300" y2="320" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="195" y1="200" x2="110" y2="200" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <line x1="405" y1="200" x2="490" y2="200" stroke="white" stroke-opacity="0.15" stroke-dasharray="4 4"></line>
+                                    <rect x="195" y="155" width="210" height="90" rx="2" fill="#050505" stroke="#FF3344" stroke-width="1.5"></rect><text x="300" y="192" font-family="Manrope" font-size="13" font-weight="600" fill="white" text-anchor="middle" letter-spacing="0.15em">CENTRAL HUB</text><text x="300" y="210" font-family="Manrope" font-size="9" fill="white" opacity="0.4" text-anchor="middle">Routes requests · Auto-scales</text>
+                                    <rect x="220" y="30" width="160" height="50" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="300" y="60" font-family="Manrope" font-size="11" font-weight="500" fill="white" text-anchor="middle" letter-spacing="0.08em">What Users See</text>
+                                    <rect x="220" y="320" width="160" height="50" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="300" y="350" font-family="Manrope" font-size="11" font-weight="500" fill="white" text-anchor="middle" letter-spacing="0.08em">Your Data (Database)</text>
+                                    <rect x="20" y="170" width="90" height="60" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="65" y="205" font-family="Manrope" font-size="10" font-weight="500" fill="white" text-anchor="middle">Login</text>
+                                    <rect x="490" y="170" width="90" height="60" rx="2" fill="#1A1A1A" stroke="white" stroke-opacity="0.15" stroke-width="1"></rect><text x="535" y="205" font-family="Manrope" font-size="10" font-weight="500" fill="white" text-anchor="middle">Files</text>
+                                    <circle cx="300" cy="200" r="4" fill="#FF3344">
+                                        <animate attributeName="r" values="3;8;3" dur="2s" repeatCount="indefinite">
+                                        </animate>
+                                        <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"></animate>
+                                    </circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32">
+                        <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6">Built
+                            to Scale</p>
+                        <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-[#1A1A1A] font-normal mb-8 leading-[1.1]">
+                            Built to
+                            grow<br><span class="italic text-[#A50020] font-light">without starting over.</span></h2>
+                        <p class="font-sans text-xl font-light text-[#4A4744] leading-relaxed mb-10">We build your app
+                            in independent, connected parts — so when one area needs more capacity, you upgrade just
+                            that piece.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Maintenance Plans (Dark) -->
+    <section id="maintenance" class="bg-[#050505] border-white/10 border-b pt-32 px-6 md:px-12 pb-32 relative group/section overflow-hidden" onmousemove="this.style.setProperty('--mouse-x',(event.clientX-this.getBoundingClientRect().left)+'px');this.style.setProperty('--mouse-y',(event.clientY-this.getBoundingClientRect().top)+'px');">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute inset-0 pointer-events-none" style="mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,black 10%,black 90%,transparent);">
+                <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(to right,rgba(255,51,68,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,51,68,0.04) 1px,transparent 1px);background-size:48px 48px;">
+                </div>
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image:linear-gradient(to right,rgba(255,51,68,0.25) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,51,68,0.25) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%),black,transparent 80%);mask-image:radial-gradient(400px circle at var(--mouse-x,50%) var(--mouse-y,50%),black,transparent 80%);">
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#FF3344] blur-[200px] opacity-[0.06] rounded-full pointer-events-none">
+            </div>
+        </div>
+        <div class="max-w-[1440px] mx-auto relative z-10">
+            <div id="maintenance-website" class="toggle-content visible-toggle" data-toggle-group="maintenance">
+                <div class="max-w-3xl mx-auto text-center mb-20">
+                    <p class="uppercase text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-6">Digital
+                        Permanence</p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-white font-normal mb-6">We stay.
+                        <span class="italic text-[#FF3344] font-light">Your site never rots.</span></h2>
+                    <p class="font-sans text-xl font-light text-white/60 leading-relaxed">Launch is the starting point.
+                        Our permanence plans keep your website secure, fast, and competitive for years to come.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-white/40 mb-6">Foundation</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2">Site Care</h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10">
+                            Essential protection for your website investment.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Monthly
+                                security updates</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> 99.9% uptime
+                                monitoring</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Performance
+                                &amp; speed checks</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> SSL &amp;
+                                backup management</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center transition-all text-sm font-medium text-white/60 hover:text-white uppercase tracking-widest bg-transparent border border-white/20 hover:border-white/40 rounded-sm py-4 px-8 mt-auto">Inquire</a>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-[#FF3344]/40 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col md:-translate-y-4">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-[#FF3344]"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-[#FF3344]/5 to-transparent pointer-events-none">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-[#FF3344] mb-6 relative z-10">
+                            Recommended</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2 relative z-10">Growth &amp;
+                            Optimization</h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10 relative z-10">
+                            Active improvements and content support for growing businesses.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow relative z-10">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Everything in
+                                Site Care</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Monthly
+                                design &amp; content updates</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> SEO
+                                monitoring &amp; improvements</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Conversion
+                                rate optimization</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center hover-btn-fill-dark overflow-hidden transition-all duration-[400ms] text-sm font-medium text-[#1A1A1A] hover:text-white uppercase tracking-widest bg-white border border-white rounded-sm py-4 px-8 mt-auto relative z-10">Get
+                            Started</a>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-white/40 mb-6">Premium</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2">Full Digital Partner</h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10">
+                            Your dedicated web team on retainer.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Everything in
+                                Growth</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> New pages
+                                &amp; features on demand</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Priority
+                                same-day response</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Quarterly
+                                strategy sessions</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center transition-all text-sm font-medium text-white/60 hover:text-white uppercase tracking-widest bg-transparent border border-white/20 hover:border-white/40 rounded-sm py-4 px-8 mt-auto">Schedule
+                            Discussion</a>
+                    </div>
+                </div>
+            </div>
+            <div id="maintenance-webapp" class="toggle-content hidden-toggle" data-toggle-group="maintenance">
+                <div class="max-w-3xl mx-auto text-center mb-20">
+                    <p class="uppercase text-sm font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-6">Digital
+                        Permanence</p>
+                    <h2 class="font-serif text-5xl md:text-6xl tracking-tighter text-white font-normal mb-6">We stay.
+                        <span class="italic text-[#FF3344] font-light">Your asset never rots.</span></h2>
+                    <p class="font-sans text-xl font-light text-white/60 leading-relaxed">Launch is the starting point.
+                        Our permanence plans ensure your digital product remains secure, performant, and competitive for
+                        years.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-white/40 mb-6">Foundation</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2">Core Oversight</h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10">
+                            Essential protection for your technical investment.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Bi-weekly
+                                security patching</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> 99.9% uptime
+                                monitoring</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Monthly
+                                dependency audit</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:shield-check-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Priority
+                                incident response</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center transition-all text-sm font-medium text-white/60 hover:text-white uppercase tracking-widest bg-transparent border border-white/20 hover:border-white/40 rounded-sm py-4 px-8 mt-auto">Inquire</a>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-[#FF3344]/40 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col md:-translate-y-4">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-[#FF3344]"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-[#FF3344]/5 to-transparent pointer-events-none">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-[#FF3344] mb-6 relative z-10">
+                            Recommended</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2 relative z-10">Strategic Growth
+                        </h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10 relative z-10">
+                            Active development capacity for evolving platforms.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow relative z-10">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Everything in
+                                Core Oversight</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Pre-allocated
+                                sprint velocity</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Continuous
+                                feature rollout</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Direct
+                                architect access</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center hover-btn-fill-dark overflow-hidden transition-all duration-[400ms] text-sm font-medium text-[#1A1A1A] hover:text-white uppercase tracking-widest bg-white border border-white rounded-sm py-4 px-8 mt-auto relative z-10">Secure
+                            Capacity</a>
+                    </div>
+                    <div class="p-10 bg-black/40 border border-white/10 backdrop-blur-sm rounded-sm hover-crimson-lift group relative overflow-hidden flex flex-col">
+                        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#FF3344]/0 to-transparent group-hover:via-[#FF3344] transition-all duration-500">
+                        </div>
+                        <p class="font-sans text-sm uppercase tracking-widest text-white/40 mb-6">Enterprise</p>
+                        <h3 class="font-serif text-2xl tracking-tight text-white mb-2">Full Partnership</h3>
+                        <p class="font-sans text-lg font-light text-white/40 leading-relaxed mb-8 pb-8 border-b border-white/10">
+                            Embedded engineering team operating as your CTO office.</p>
+                        <ul class="space-y-4 font-sans text-lg font-light text-white/60 mb-10 flex-grow">
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Everything in
+                                Strategic Growth</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Dedicated
+                                engineering pod</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Custom SLA
+                                &amp; response times</li>
+                            <li class="flex items-start gap-3"><iconify-icon icon="solar:check-circle-linear" class="text-[#FF3344] mt-0.5 flex-shrink-0" width="16"></iconify-icon> Technical
+                                advisory board seat</li>
+                        </ul><a href="mailto:engineering@hydradynamics.com" class="w-full inline-flex items-center justify-center transition-all text-sm font-medium text-white/60 hover:text-white uppercase tracking-widest bg-transparent border border-white/20 hover:border-white/40 rounded-sm py-4 px-8 mt-auto">Schedule
+                            Discussion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#FAFAF9] relative overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none"><img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&amp;w=2021&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover opacity-[0.03] mix-blend-multiply" alt="">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#FAFAF9]/40 to-[#FAFAF9]"></div>
+        </div>
+        <div class="md:px-12 flex flex-col min-h-[550px] w-full max-w-[1440px] z-10 mx-auto pt-24 pr-6 pb-12 pl-6 relative justify-between">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
+                <div class="flex flex-col gap-6"><a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">HYDRA
+                        <span class="text-[#A50020] font-light italic">Dynamics</span></a>
+                    <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed max-w-xs">Engineering digital
+                        permanence. Resilient foundations that scale gracefully, built by principled architects.</p>
+                </div>
+                <div class="flex flex-col gap-6 lg:ml-auto">
+                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Navigate</h4>
+                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744]"><a href="#philosophy" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Philosophy</a><a href="#process" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Process</a><a href="#superiority" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Craft</a><a href="#maintenance" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Permanence</a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6 lg:ml-auto">
+                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Connect</h4>
+                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744]"><a href="#" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit flex items-center gap-2"><iconify-icon icon="solar:phone-linear"></iconify-icon> WhatsApp Direct</a><a href="mailto:engineering@hydradynamics.com" class="hover:text-[#A50020] tracking-widest transition-colors w-fit flex items-center gap-2"><iconify-icon icon="solar:letter-linear"></iconify-icon> engineering@hydradynamics.com</a></div>
+                </div>
+                <div class="flex flex-col gap-6 lg:ml-auto">
+                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters</h4>
+                    <div class="flex flex-col gap-2 font-sans text-base font-light text-[#4A4744] uppercase tracking-widest leading-relaxed">
+                        <p>Hydra Dynamics Ltd.</p>
+                        <p>Level 35, WTC</p>
+                        <p>Colombo 01, Sri Lanka</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex mt-16 mb-8 z-10 w-full relative justify-center">
+                <h1 class="font-serif text-[#1A1A1A]/5 text-7xl sm:text-9xl md:text-[12rem] lg:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none">
+                    Permanence</h1>
+            </div>
+            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 pt-4 relative z-10">
+                <p class="font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase">© Hydra Dynamics, 2025
+                </p>
+                <div class="flex gap-8 font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase"><a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a><a href="#" class="hover:text-[#A50020] transition-colors">Terms</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+    // --- Mobile Menu ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenuBtn = document.getElementById('close-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    if (!mobileMenu) return;
+    const mobileMenuEl = mobileMenu;
+
+    function openMenu() {
+        mobileMenuEl.style.display = 'flex';
+        requestAnimationFrame(() => { mobileMenuEl.style.opacity = '1'; });
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+        mobileMenuEl.style.opacity = '0';
+        setTimeout(() => { mobileMenuEl.style.display = 'none'; document.body.style.overflow = ''; }, 300);
+    }
+    if (hamburgerBtn) hamburgerBtn.addEventListener('click', openMenu);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    // --- Floating Toggle Visibility ---
+    const floatingToggle = document.getElementById('floating-toggle');
+    const processSection = document.getElementById('process');
+    const contactSection = document.getElementById('contact');
+
+    function updateFloatingToggleVisibility() {
+        if (!processSection || !floatingToggle) return;
+        const processRect = processSection.getBoundingClientRect();
+        const contactRect = contactSection ? contactSection.getBoundingClientRect() : null;
+        const showStart = processRect.top < -200;
+        const hideAtEnd = contactRect && contactRect.top < window.innerHeight * 0.5;
+        if (showStart && !hideAtEnd) {
+            floatingToggle.classList.remove('hidden-float');
+            floatingToggle.classList.add('visible-float');
+        } else {
+            floatingToggle.classList.remove('visible-float');
+            floatingToggle.classList.add('hidden-float');
+        }
+    }
+    window.addEventListener('scroll', updateFloatingToggleVisibility, { passive: true });
+    updateFloatingToggleVisibility();
+
+    // --- Toggle (Website / Web App) ---
+    const toggleWebsiteBtn = document.getElementById('toggle-website');
+    const toggleWebappBtn = document.getElementById('toggle-webapp');
+    const toggleBg = document.getElementById('toggle-bg');
+    let currentToggle: 'website' | 'webapp' = 'website';
+
+    function setToggle(mode: 'website' | 'webapp') {
+        if (!toggleBg || !toggleWebsiteBtn || !toggleWebappBtn) return;
+        if (currentToggle === mode) return;
+        currentToggle = mode;
+        if (mode === 'website') {
+            toggleBg.style.transform = 'translateX(0)';
+            toggleWebsiteBtn.style.color = 'white';
+            toggleWebappBtn.style.color = 'rgba(255,255,255,0.5)';
+        } else {
+            toggleBg.style.transform = 'translateX(100%)';
+            toggleWebappBtn.style.color = 'white';
+            toggleWebsiteBtn.style.color = 'rgba(255,255,255,0.5)';
+        }
+        // Switch all toggle content groups
+        const groups = ['process', 'superiority', 'scalability', 'maintenance'];
+        groups.forEach(group => {
+            const allInGroup = document.querySelectorAll(`[data-toggle-group="${group}"]`);
+            allInGroup.forEach(el => {
+                const isWebsite = el.id.includes('website') || el.id === 'content-website';
+                const isWebapp  = el.id.includes('webapp')  || el.id === 'content-webapp';
+                if (mode === 'website') {
+                    if (isWebsite) { el.classList.remove('hidden-toggle'); el.classList.add('visible-toggle'); }
+                    if (isWebapp)  { el.classList.remove('visible-toggle'); el.classList.add('hidden-toggle'); }
+                } else {
+                    if (isWebapp)  { el.classList.remove('hidden-toggle'); el.classList.add('visible-toggle'); }
+                    if (isWebsite) { el.classList.remove('visible-toggle'); el.classList.add('hidden-toggle'); }
+                }
+            });
+        });
+    }
+
+    if (toggleWebsiteBtn) toggleWebsiteBtn.addEventListener('click', () => setToggle('website'));
+    if (toggleWebappBtn)  toggleWebappBtn.addEventListener('click',  () => setToggle('webapp'));
+
+    // --- Accordion ---
+    const accordionTriggers = document.querySelectorAll<HTMLElement>('.accordion-trigger');
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(this: HTMLElement) {
+            const item = this.closest('.accordion-item');
+            if (!item) return;
+            const content = item.querySelector<HTMLElement>('.accordion-content');
+            const chevron = this.querySelector<HTMLElement>('.accordion-chevron');
+            const parent = this.closest('[data-accordion]');
+            if (!content || !chevron) return;
+
+            if (parent) {
+                parent.querySelectorAll('.accordion-item').forEach((sibling: Element) => {
+                    if (sibling !== item) {
+                        const sibContent = sibling.querySelector<HTMLElement>('.accordion-content');
+                        const sibChevron = sibling.querySelector<HTMLElement>('.accordion-chevron');
+                        if (sibContent) { sibContent.style.maxHeight = '0'; sibContent.classList.remove('open'); }
+                        if (sibChevron) { sibChevron.classList.remove('rotated'); }
+                    }
+                });
+            }
+
+            if (content.classList.contains('open')) {
+                content.style.maxHeight = '0';
+                content.classList.remove('open');
+                chevron.classList.remove('rotated');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.classList.add('open');
+                chevron.classList.add('rotated');
+            }
+        });
+    });
+
+    // --- Scroll animations ---
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target as HTMLElement;
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll<HTMLElement>('.hover-crimson-lift').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.4s cubic-bezier(0.16,1,0.3,1)';
+        observer.observe(el);
+    });
+
+    // --- Nav shadow on scroll ---
+    const nav = document.querySelector<HTMLElement>('nav');
+    window.addEventListener('scroll', () => {
+        if (!nav) return;
+        nav.style.boxShadow = window.scrollY > 100 ? '0 1px 3px rgba(0,0,0,0.05)' : 'none';
+    }, { passive: true });
+
+});
+    </script>
+
+
+</body></html>

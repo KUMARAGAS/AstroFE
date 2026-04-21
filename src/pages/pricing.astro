@@ -1,0 +1,1240 @@
+<html lang="en" class="scroll-smooth scroll-pt-20"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Hydra Dynamics</title>
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-sans {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        ::selection {
+            background-color: #A50020;
+            color: #F5F4F2;
+        }
+
+        .hover-crimson-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-crimson-lift:hover {
+            box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
+            border-color: rgba(165, 0, 32, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .hover-btn-fill {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hover-btn-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #A50020;
+            z-index: -1;
+            clip-path: circle(0% at 50% 120%);
+            transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-btn-fill:hover::before {
+            clip-path: circle(150% at 50% 120%);
+        }
+
+        .hover-btn-fill:hover {
+            color: #F5F4F2 !important;
+            border-color: #A50020 !important;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-load {
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .delay-400 {
+            animation-delay: 400ms;
+        }
+
+        .calc-toggle {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .calc-toggle.active {
+            background-color: #050505;
+            color: #F5F4F2;
+            border-color: #050505;
+        }
+
+        .calc-toggle:not(.active):hover {
+            border-color: rgba(165, 0, 32, 0.4);
+            color: #1A1A1A;
+        }
+
+        .mode-toggle-btn {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mode-toggle-btn.active {
+            color: #F5F4F2;
+        }
+
+        .mode-toggle-btn:not(.active) {
+            color: #4A4744;
+        }
+
+        .mode-toggle-btn:not(.active):hover {
+            color: #1A1A1A;
+        }
+
+        .scope-chip {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .scope-chip.active {
+            background-color: #1A1A1A;
+            color: #F5F4F2;
+            border-color: #1A1A1A;
+        }
+
+        .scope-chip.active .addon-label {
+            color: #F5F4F2;
+        }
+
+        .scope-chip.active .addon-desc {
+            color: rgba(245, 244, 242, 0.6);
+        }
+
+        .scope-chip.active .addon-price {
+            color: #FF6B7A;
+        }
+
+        .scope-chip.active .addon-icon {
+            color: rgba(245, 244, 242, 0.7);
+        }
+
+        .scope-chip:not(.active):hover {
+            border-color: rgba(165, 0, 32, 0.4);
+            background-color: rgba(165, 0, 32, 0.02);
+        }
+
+        .branding-option {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .branding-option.active {
+            background-color: #1A1A1A;
+            color: #F5F4F2;
+            border-color: #1A1A1A;
+        }
+
+        .branding-option.active .branding-label {
+            color: #F5F4F2;
+        }
+
+        .branding-option.active .branding-desc {
+            color: rgba(245, 244, 242, 0.6);
+        }
+
+        .branding-option.active .branding-price {
+            color: #FF6B7A;
+        }
+
+        .branding-option.active .branding-icon {
+            color: rgba(245, 244, 242, 0.7);
+        }
+
+        .branding-option.active .branding-feature {
+            color: rgba(245, 244, 242, 0.5);
+        }
+
+        .branding-option.active .branding-feature iconify-icon {
+            color: #FF6B7A;
+        }
+
+        .branding-option:not(.active):hover {
+            border-color: rgba(165, 0, 32, 0.4);
+            background-color: rgba(165, 0, 32, 0.02);
+        }
+
+        .stepper-btn {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stepper-btn:hover {
+            background-color: #1A1A1A;
+            color: #F5F4F2;
+            border-color: #1A1A1A;
+        }
+
+        .stepper-btn:active {
+            transform: scale(0.92);
+        }
+
+        .crud-chip {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .crud-chip.active {
+            background-color: #1A1A1A;
+            color: #F5F4F2;
+            border-color: #1A1A1A;
+        }
+
+        .crud-chip.active .crud-label {
+            color: #F5F4F2;
+        }
+
+        .crud-chip.active .crud-desc {
+            color: rgba(245, 244, 242, 0.6);
+        }
+
+        .crud-chip.active .crud-price {
+            color: #FF6B7A;
+        }
+
+        .crud-chip.active .crud-icon {
+            color: rgba(245, 244, 242, 0.7);
+        }
+
+        .crud-chip.active .crud-monthly-tag {
+            background-color: rgba(255, 107, 122, 0.15);
+            color: #FF6B7A;
+            border-color: rgba(255, 107, 122, 0.3);
+        }
+
+        .crud-chip:not(.active):hover {
+            border-color: rgba(165, 0, 32, 0.4);
+            background-color: rgba(165, 0, 32, 0.02);
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .price-animate {
+            animation: countUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Style-only polish for better fit across breakpoints */
+        body {
+            line-height: 1.55;
+            text-wrap: pretty;
+        }
+
+        @media (max-width: 1024px) {
+            h2.font-serif {
+                line-height: 1.12;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1.font-serif {
+                font-size: clamp(2.2rem, 10vw, 3.4rem) !important;
+                line-height: 1.08 !important;
+            }
+
+            h2.font-serif {
+                font-size: clamp(1.9rem, 8vw, 2.8rem) !important;
+                line-height: 1.12 !important;
+            }
+
+            p.font-sans {
+                line-height: 1.68;
+            }
+
+            #mobile-menu .mobile-link {
+                letter-spacing: 0.06em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1.font-serif {
+                letter-spacing: -0.02em;
+            }
+
+            h2.font-serif {
+                letter-spacing: -0.015em;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+
+    <!-- Texture Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
+        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
+                HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
+            </a>
+            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
+                <a href="#" class="hover:text-[#A50020] transition-colors">Services</a>
+                <a href="#" class="hover:text-[#A50020] transition-colors">Methodology</a>
+                <a href="#" class="text-[#A50020] transition-colors">Pricing</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
+                Book Free Call
+            </a>
+            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
+                <iconify-icon icon="solar:hamburger-menu-linear" width="28" style="stroke-width:1.5"></iconify-icon>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
+        <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2">
+            <iconify-icon icon="solar:close-circle-linear" width="36" style="stroke-width:1.5"></iconify-icon>
+        </button>
+        <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
+            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Services</a>
+            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Methodology</a>
+            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Pricing</a>
+            <a href="#contact" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg border border-[#1A1A1A]">Book
+                Free Call</a>
+        </div>
+    </div>
+
+    <!-- SECTION 1: Pricing Hero -->
+    <section class="relative overflow-hidden border-b border-white/10 pt-20">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <img src="https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&q=80" alt="Architectural Structure" class="w-full h-full object-cover object-right opacity-25 mix-blend-multiply grayscale">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#FAFAF9] via-[#FAFAF9]/95 md:via-[#FAFAF9]/70 to-transparent">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FAFAF9]"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-[#FAFAF9]/80"></div>
+        </div>
+
+        <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 pt-28 pb-28 md:pt-36 md:pb-36 flex flex-col items-start md:items-start text-left md:max-w-none">
+            <div class="max-w-3xl">
+                <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6 animate-on-load">
+                    Pricing Framework
+                </p>
+                <h1 class="font-serif text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.05] tracking-tighter font-normal mb-6 animate-on-load delay-100 text-[#1A1A1A]">
+                    Start Where You Are.<br>
+                    <span class="font-light italic text-[#A50020]">Grow Into What You Need.</span>
+                </h1>
+                <p class="font-sans text-xl md:text-2xl font-light leading-relaxed max-w-xl animate-on-load delay-200">
+                    This is not a fixed price list. It is a modular system engineered for businesses at different stages
+                    — scope what you need today, expand when you're ready.
+                </p>
+                <div class="mt-10 animate-on-load delay-300">
+                    <iconify-icon icon="solar:arrow-down-linear" width="24" class="text-[#1A1A1A]/20" style="stroke-width:1.5"></iconify-icon>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 & 3: Calculator + Scope Categories -->
+    <section class="relative bg-[#FAFAF9] border-b border-black/10 py-24 md:py-32">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-12">
+
+            <div class="max-w-2xl mb-16">
+                <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6">
+                    <span class="text-[#A50020] text-[8px] mr-2">◆</span> Cost Calculator
+                </p>
+                <h2 class="font-serif text-4xl md:text-5xl tracking-tighter font-normal text-[#1A1A1A] mb-6">
+                    See Your Price <span class="font-light italic text-[#A50020]">Before</span> You Speak to Anyone
+                </h2>
+                <p class="font-sans text-lg md:text-xl font-light text-[#4A4744] leading-relaxed">
+                    Select your architecture, toggle the services you need, and watch the estimate update in real time.
+                    No forms. No discovery calls. Just honest numbers.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- LEFT: Inputs -->
+                <div class="lg:col-span-2 flex flex-col gap-6">
+
+                    <!-- Delivery Mode Toggle (Inline) -->
+                    <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                            <div>
+                                <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                    Project type
+                                </p>
+                                <p class="font-sans text-lg font-light text-[#4A4744]">Select the fundamental
+                                    architecture of your project.</p>
+                            </div>
+                            <div class="relative flex items-center bg-[#1A1A1A]/95 backdrop-blur-xl border border-white/15 rounded-full p-1.5 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.05)] flex-shrink-0">
+                                <div id="mode-slider" class="absolute top-1.5 left-1.5 h-[calc(100%-12px)] rounded-full bg-[#A50020] shadow-[0_0_20px_-4px_rgba(165,0,32,0.5)] transition-all duration-[400ms] cubic-bezier(0.16,1,0.3,1)" style="width: calc(50% - 6px); transform: translateX(0);"></div>
+                                <button id="toggle-website" class="mode-toggle-btn active relative z-10 px-6 sm:px-8 py-2.5 text-sm font-medium uppercase tracking-widest transition-colors duration-300 text-white rounded-full whitespace-nowrap">Website</button>
+                                <button id="toggle-webapp" class="mode-toggle-btn relative z-10 px-6 sm:px-8 py-2.5 text-sm font-medium uppercase tracking-widest transition-colors duration-300 text-white/50 rounded-full whitespace-nowrap">Web App</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================================== -->
+                    <!-- WEBSITE CONTENT -->
+                    <!-- ==================================== -->
+                    <div id="content-website" class="flex flex-col gap-6">
+
+                        <!-- Website Features (Multi-select) -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                Website Features
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] mb-6">Select all that apply to your
+                                project scope.</p>
+                            <div class="flex flex-wrap gap-3" id="website-features">
+                                <button data-label="Landing Page" data-price="800" class="calc-toggle multi px-6 py-3.5 border border-black/20 rounded-sm text-sm font-sans font-light tracking-widest uppercase text-[#4A4744]">CMS</button>
+                                <button data-label="Multi-Page Site" data-price="2400" class="calc-toggle multi px-6 py-3.5 border border-black/20 rounded-sm text-sm font-sans font-light tracking-widest uppercase text-[#4A4744]">User Account</button>
+                                <button data-label="E-Commerce" data-price="4000" class="calc-toggle multi px-6 py-3.5 border border-black/20 rounded-sm text-sm font-sans font-light tracking-widest uppercase text-[#4A4744]">E-Commerce</button>
+                            </div>
+                        </div>
+
+                        <!-- Page & Section Calculator -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                Page Structure
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] mb-8">Define the scale and depth of
+                                your website's page architecture.</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <div class="flex flex-col items-center p-6 border border-black/8 rounded-sm bg-[#FAFAF9]/60">
+                                    <p class="font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1">
+                                        Normal Pages</p>
+                                    <p class="font-sans text-lg font-light text-[#4A4744] mb-6">Primary Digital Site Pages</p>
+                                    <div class="flex items-center gap-5">
+                                        <button class="stepper-btn decrement w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="page-count-value">
+                                            <iconify-icon icon="solar:minus-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                        <span id="page-count-value" class="font-serif text-5xl tracking-tighter text-[#1A1A1A] leading-none min-w-[3ch] text-center select-none" data-value="5" data-min="1" data-max="30" data-unit-cost="80" data-unit-name="Normal Page">5</span>
+                                        <button class="stepper-btn increment w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="page-count-value">
+                                            <iconify-icon icon="solar:add-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                    </div>
+                                    <p class="font-sans text-sm font-light text-[#4A4744]/60 mt-4 tracking-wider uppercase">
+                                        $80 per page</p>
+                                </div>
+                                <div class="flex flex-col items-center p-6 border border-black/8 rounded-sm bg-[#FAFAF9]/60">
+                                    <p class="font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1">
+                                        Landing Pages</p>
+                                    <p class="font-sans text-lg font-light text-[#4A4744] mb-6">High-impact conversion
+                                        pages</p>
+                                    <div class="flex items-center gap-5">
+                                        <button class="stepper-btn decrement w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="landing-count-value">
+                                            <iconify-icon icon="solar:minus-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                        <span id="landing-count-value" class="font-serif text-5xl tracking-tighter text-[#1A1A1A] leading-none min-w-[3ch] text-center select-none" data-value="1" data-min="0" data-max="10" data-unit-cost="200" data-unit-name="Landing Page">1</span>
+                                        <button class="stepper-btn increment w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="landing-count-value">
+                                            <iconify-icon icon="solar:add-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                    </div>
+                                    <p class="font-sans text-sm font-light text-[#4A4744]/60 mt-4 tracking-wider uppercase">
+                                        $200 per page</p>
+                                </div>
+                                <div class="flex flex-col items-center p-6 border border-black/8 rounded-sm bg-[#FAFAF9]/60">
+                                    <p class="font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1">
+                                        Sections per Page</p>
+                                    <p class="font-sans text-lg font-light text-[#4A4744] mb-6">Average, excl. header
+                                        &amp; footer</p>
+                                    <div class="flex items-center gap-5">
+                                        <button class="stepper-btn decrement w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="section-count-value">
+                                            <iconify-icon icon="solar:minus-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                        <span id="section-count-value" class="font-serif text-5xl tracking-tighter text-[#1A1A1A] leading-none min-w-[3ch] text-center select-none" data-value="4" data-min="1" data-max="15" data-unit-cost="60" data-unit-name="Section">4</span>
+                                        <button class="stepper-btn increment w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="section-count-value">
+                                            <iconify-icon icon="solar:add-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                    </div>
+                                    <p class="font-sans text-sm font-light text-[#4A4744]/60 mt-4 tracking-wider uppercase">
+                                        $60 per section</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2.5 mt-6 pt-5 border-t border-black/5">
+                                <iconify-icon icon="solar:info-circle-linear" width="16" class="text-[#A50020]/60 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                <p class="font-sans text-lg font-light text-[#4A4744]/70 leading-relaxed">A global
+                                    header and footer are already included with every website — no additional charge.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Branding Tier Selection -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                Branding Package
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-8">
+                                Choose your branding tier. Select one — or skip this entirely if you already have
+                                established brand assets.
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="branding-options">
+                                <!-- Foundational Branding -->
+                                <div data-price="1200" data-label="Foundational Branding" class="branding-option active flex flex-col p-6 border border-black/10 rounded-sm">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <iconify-icon icon="solar:palette-linear" width="24" class="branding-icon text-[#4A4744]" style="stroke-width:1.5"></iconify-icon>
+                                            <p class="branding-label font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase">
+                                                Foundational Branding</p>
+                                        </div>
+                                    </div>
+                                    <p class="branding-desc font-sans text-base font-light text-[#4A4744] leading-relaxed mb-4 flex-1">
+                                        Logo design, color palette, typography selection, and a concise brand style
+                                        guide.
+                                    </p>
+                                    <ul class="flex flex-col gap-2 mb-5">
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Logo + Wordmark
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Color System
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Typography Pairing
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Basic Style Guide
+                                        </li>
+                                    </ul>
+                                    <p class="branding-price font-serif text-xl text-[#A50020]">+$1,200</p>
+                                </div>
+
+                                <!-- Elite Branding -->
+                                <div data-price="3500" data-label="Elite Branding" class="branding-option flex flex-col p-6 border border-black/10 rounded-sm">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <iconify-icon icon="solar:crown-linear" width="24" class="branding-icon text-[#4A4744]" style="stroke-width:1.5"></iconify-icon>
+                                            <p class="branding-label font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase">
+                                                Elite Branding</p>
+                                        </div>
+                                    </div>
+                                    <p class="branding-desc font-sans text-base font-light text-[#4A4744] leading-relaxed mb-4 flex-1">
+                                        Full identity system with strategy, extensive guidelines, collateral templates,
+                                        and brand narrative.
+                                    </p>
+                                    <ul class="flex flex-col gap-2 mb-5">
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Everything in Foundational
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Brand Strategy &amp; Positioning
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Collateral Templates
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Comprehensive Brand Book
+                                        </li>
+                                        <li class="branding-feature flex items-center gap-2 font-sans text-base font-light text-[#4A4744]/70">
+                                            <iconify-icon icon="solar:check-circle-linear" width="16" class="text-[#A50020]/50 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>Social Media Kit
+                                        </li>
+                                    </ul>
+                                    <p class="branding-price font-serif text-xl text-[#A50020]">+$3,500</p>
+                                </div>
+                            </div>
+
+                            <!-- Note -->
+                            <div class="flex items-center gap-2.5 mt-6 pt-5 border-t border-black/5">
+                                <iconify-icon icon="solar:info-circle-linear" width="16" class="text-[#A50020]/60 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                <p class="font-sans text-lg font-light text-[#4A4744]/70 leading-relaxed">Branding is
+                                    optional. If you already have brand assets, skip this step — we'll work with what
+                                    you have. Click again to deselect.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================================== -->
+                    <!-- WEB APP CONTENT -->
+                    <!-- ==================================== -->
+                    <div id="content-webapp" class="flex flex-col gap-6 hidden">
+
+                        <!-- Web App Architecture -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                Product Type
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] mb-6">Select the application
+                                frameworks required.</p>
+                            <div class="flex flex-wrap gap-3" id="webapp-features">
+                                <button data-label="Mobile App" data-price="4000" class="calc-toggle multi active px-6 py-3.5 border border-black/20 rounded-sm text-sm font-sans font-light tracking-widest uppercase text-[#4A4744]">Mobile App</button>
+                                <button data-label="Web App" data-price="6000" class="calc-toggle multi px-6 py-3.5 border border-black/20 rounded-sm text-sm font-sans font-light tracking-widest uppercase text-[#4A4744]">Web App</button>
+                            </div>
+                        </div>
+
+                        <!-- Engineering Scope & Duration -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                Engineering Scope &amp; Timeline
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] mb-8">Review the included feature
+                                allocation and set your expected project duration.</p>
+
+                            <!-- Comprehensive CRUD Information Card -->
+                            <div class="p-8 md:p-10 bg-[#1A1A1A] border border-[#1A1A1A] rounded-sm mb-8 relative overflow-hidden shadow-lg">
+                                <!-- Decorative elements -->
+                                <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#A50020] opacity-[0.15] blur-[100px] rounded-full pointer-events-none">
+                                </div>
+                                <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-white opacity-[0.03] blur-[80px] rounded-full pointer-events-none">
+                                </div>
+
+                                <div class="flex items-center gap-3 mb-6 relative z-10">
+                                    <iconify-icon icon="solar:code-square-linear" width="32" class="text-[#FF3344]" style="stroke-width:1.5"></iconify-icon>
+                                    <h4 class="font-serif text-3xl tracking-tight text-white">Monthly Engineering Scope
+                                    </h4>
+                                </div>
+
+                                <p class="font-sans text-lg font-light text-white/70 mb-8 leading-relaxed max-w-xl relative z-10">
+                                    To maintain high engineering standards, we assign a dedicated team to your project,
+                                    guaranteeing robust development and immediate scalability.
+                                </p>
+
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 relative z-10">
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">For one month, individual resources are allocated</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Our CRUD feature count cap is 15 features</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Integrated notifications &amp; email handling</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Row-level security (RLS) included if needed</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Comprehensive testing &amp; QA included</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Full design system &amp; component management</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 md:col-span-2">
+                                        <iconify-icon icon="solar:check-circle-linear" width="22" class="text-[#FF3344] mt-0.5 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                        <span class="font-sans text-base font-light text-white/90 leading-relaxed">Scalability maintenance is structurally built-in</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Duration Stepper -->
+                            <div class="p-6 bg-[#FAFAF9]/80 border border-black/8 rounded-sm">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                                    <div>
+                                        <p class="font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1">
+                                            Project Duration
+                                        </p>
+                                        <p class="font-sans text-sm font-light text-[#4A4744] leading-relaxed max-w-md">
+                                            Adjust the estimated months required. Allocation automatically renews
+                                            monthly.
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-5 flex-shrink-0">
+                                        <button class="stepper-btn decrement w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="duration-months-value">
+                                            <iconify-icon icon="solar:minus-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                        <div class="flex items-baseline gap-2">
+                                            <span id="duration-months-value" class="font-serif text-5xl tracking-tighter text-[#1A1A1A] leading-none min-w-[3ch] text-center select-none" data-value="1" data-min="1" data-max="36" data-unit-cost="0" data-unit-name="Month">1</span>
+                                            <span class="font-sans text-sm font-light text-[#4A4744]/60 tracking-wider uppercase">months</span>
+                                        </div>
+                                        <button class="stepper-btn increment w-10 h-10 flex items-center justify-center border border-black/15 rounded-sm text-[#1A1A1A] bg-white" data-target="duration-months-value">
+                                            <iconify-icon icon="solar:add-circle-linear" width="20" style="stroke-width:1.5"></iconify-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2.5 mt-6 pt-5 border-t border-black/5">
+                                <iconify-icon icon="solar:info-circle-linear" width="16" class="text-[#A50020]/60 flex-shrink-0" style="stroke-width:1.5"></iconify-icon>
+                                <p class="font-sans text-sm font-light text-[#4A4744]/70 leading-relaxed">Core
+                                    navigation shell, authentication wrapper, and layout framework are included with
+                                    every web application independently of the feature cap.</p>
+                            </div>
+                        </div>
+
+                        <!-- Web App Functionality Add-ons -->
+                        <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm">
+                            <p class="uppercase text-lg font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans mb-2 flex items-center gap-2">
+                                 Functionality Add-ons
+                            </p>
+                            <p class="font-sans text-lg font-light text-[#4A4744] leading-relaxed mb-8">
+                                Toggle specific engineering requirements to refine your application's baseline cost.
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div data-price="800" data-monthly="false" class="scope-chip flex items-start gap-4 p-6 border border-black/10 rounded-sm">
+                                    <div class="flex-shrink-0 mt-0.5"><iconify-icon icon="solar:lock-keyhole-linear" width="24" class="addon-icon text-[#4A4744]" style="stroke-width:1.5"></iconify-icon></div>
+                                    <div class="flex-1">
+                                        <p class="addon-label font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1.5">
+                                            User Auth</p>
+                                        <p class="addon-desc font-sans text-base font-light text-[#4A4744] leading-relaxed">
+                                            Secure registration, login, RBAC, and session management.</p>
+                                        <p class="addon-price font-serif text-xl text-[#A50020] mt-3">+$800</p>
+                                    </div>
+                                    <div class="flex-shrink-0 w-6 h-6 border-2 border-black/15 rounded-sm flex items-center justify-center mt-0.5 check-indicator transition-all">
+                                    </div>
+                                </div>
+
+                                <div data-price="2500" data-monthly="false" class="scope-chip flex items-start gap-4 p-6 border border-black/10 rounded-sm">
+                                    <div class="flex-shrink-0 mt-0.5"><iconify-icon icon="solar:server-path-linear" width="24" class="addon-icon text-[#4A4744]" style="stroke-width:1.5"></iconify-icon></div>
+                                    <div class="flex-1">
+                                        <p class="addon-label font-sans text-sm font-medium text-[#1A1A1A] tracking-wide uppercase mb-1.5">
+                                            Custom API</p>
+                                        <p class="addon-desc font-sans text-base font-light text-[#4A4744] leading-relaxed">
+                                            REST/GraphQL API endpoints for external integrations.</p>
+                                        <p class="addon-price font-serif text-xl text-[#A50020] mt-3">+$2,500</p>
+                                    </div>
+                                    <div class="flex-shrink-0 w-6 h-6 border-2 border-black/15 rounded-sm flex items-center justify-center mt-0.5 check-indicator transition-all">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Price Output (Sticky) -->
+                <div class="lg:col-span-1">
+                    <div class="lg:sticky lg:top-28">
+                        <div class="p-8 md:p-10 bg-[#1A1A1A] border border-white/10 rounded-sm text-center flex flex-col items-center">
+                            <p class="uppercase text-xs font-semibold text-[#FF3344] tracking-[0.3em] font-sans mb-8">
+                                Your Estimate
+                            </p>
+
+                            <div class="mb-8 w-full">
+                                <p class="font-sans text-sm font-light text-white/40 tracking-widest uppercase mb-3">
+                                    One-Time Investment
+                                </p>
+                                <div class="flex items-baseline justify-center gap-1">
+                                    <span class="font-sans text-base font-light text-white/50">$</span>
+                                    <span id="price-onetime" class="font-serif text-6xl md:text-7xl tracking-tighter text-white font-normal leading-none">1,600</span>
+                                </div>
+                            </div>
+
+                            <div class="w-full border-t border-white/10 pt-8 mb-8">
+                                <p class="font-sans text-sm font-light text-white/40 tracking-widest uppercase mb-3">
+                                    Monthly
+                                </p>
+                                <div class="flex items-baseline justify-center gap-1">
+                                    <span class="font-sans text-base font-light text-white/50">$</span>
+                                    <span id="price-monthly" class="font-serif text-4xl tracking-tighter text-white/80 font-normal leading-none">0</span>
+                                    <span class="font-sans text-sm font-light text-white/40">/mo</span>
+                                </div>
+                            </div>
+
+                            <!-- Total over duration (shown for webapp with CRUD) -->
+                            <div id="total-over-duration" class="w-full border-t border-white/10 pt-8 mb-8 hidden">
+                                <p class="font-sans text-sm font-light text-white/40 tracking-widest uppercase mb-3">
+                                    Total over <span id="duration-label">6</span> months
+                                </p>
+                                <div class="flex items-baseline justify-center gap-1">
+                                    <span class="font-sans text-base font-light text-[#FF3344]/70">$</span>
+                                    <span id="price-total-duration" class="font-serif text-4xl tracking-tighter text-[#FF3344] font-normal leading-none">0</span>
+                                </div>
+                                <p class="font-sans text-xs font-light text-white/25 mt-2">one-time + (monthly × months)
+                                </p>
+                            </div>
+
+                            <div class="w-full border-t border-white/10 pt-6 mb-8 text-left">
+                                <p class="font-sans text-sm font-light text-white/40 tracking-widest uppercase mb-4">
+                                    Includes
+                                </p>
+                                <ul id="summary-list" class="flex flex-col gap-3">
+                                </ul>
+                            </div>
+
+                            <a href="#contact" class="w-full group inline-flex items-center justify-center overflow-hidden transition-all duration-[400ms] hover:border-[#FF3344] hover:text-white text-sm font-medium text-[#1A1A1A] uppercase tracking-widest bg-white border border-white rounded-sm py-4 px-8 relative shadow-[0_0_40px_-10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_-10px_rgba(165,0,32,0.4)]">
+                                <span class="[clip-path:circle(0%_at_50%_120%)] transition-[clip-path] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:circle(150%_at_50%_120%)] bg-[#FF3344] -z-10 absolute top-0 right-0 bottom-0 left-0"></span>
+                                Book a Call
+                            </a>
+
+                            <p class="font-sans text-base font-light text-white/30 mt-6 leading-relaxed">
+                                Final pricing confirmed after a 15-minute scope review. No obligations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Value Bundle -->
+    <section class="relative bg-[#FAFAF9] border-b border-black/10 py-24 md:py-32">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-12">
+
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <p class="uppercase text-sm font-semibold text-[#A50020] tracking-[0.3em] font-sans mb-6">
+                    <span class="text-[#A50020] text-[8px] mr-2">◆</span> Included at No Extra Cost
+                </p>
+                <h2 class="font-serif text-4xl md:text-5xl tracking-tighter font-normal text-[#1A1A1A]">
+                    What Competitors <span class="font-light italic text-[#A50020]">Charge Extra</span> For
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm transition-all hover:bg-white/80 flex flex-col">
+                    <div class="flex items-center justify-between mb-8">
+                        <iconify-icon icon="solar:settings-minimalistic-linear" width="28" class="text-[#4A4744]" style="stroke-width:1.5"></iconify-icon>
+                        <span class="inline-flex items-center px-3 py-1 border border-[#A50020]/20 rounded-sm font-sans text-xs font-medium text-[#A50020] tracking-widest uppercase">Free</span>
+                    </div>
+                    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-4">Maintenance on Hosting</h4>
+                    <p class="font-sans text-lg md:text-xl font-light text-[#4A4744] leading-relaxed flex-1">
+                        Every hosting plan includes ongoing maintenance — security patches, CMS updates, performance
+                        monitoring. You will never receive an invoice for "fixing what should have worked."
+                    </p>
+                </div>
+
+                <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm transition-all hover:bg-white/80 flex flex-col">
+                    <div class="flex items-center justify-between mb-8">
+                        <iconify-icon icon="solar:server-square-linear" width="28" class="text-[#4A4744]" style="stroke-width:1.5"></iconify-icon>
+                        <span class="inline-flex items-center px-3 py-1 border border-[#A50020]/20 rounded-sm font-sans text-xs font-medium text-[#A50020] tracking-widest uppercase">Standard</span>
+                    </div>
+                    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-4">Unbeatable Infrastructure</h4>
+                    <p class="font-sans text-lg md:text-xl font-light text-[#4A4744] leading-relaxed flex-1">
+                        Edge-deployed, globally distributed, auto-scaling architecture. Your site loads in under a
+                        second from anywhere. No surprise infrastructure bills post-launch.
+                    </p>
+                </div>
+
+                <div class="p-8 md:p-10 bg-white border border-black/10 rounded-sm transition-all hover:bg-white/80 flex flex-col">
+                    <div class="flex items-center justify-between mb-8">
+                        <iconify-icon icon="solar:link-round-linear" width="28" class="text-[#4A4744]" style="stroke-width:1.5"></iconify-icon>
+                        <span class="inline-flex items-center px-3 py-1 border border-[#A50020]/20 rounded-sm font-sans text-xs font-medium text-[#A50020] tracking-widest uppercase">Included</span>
+                    </div>
+                    <h4 class="font-serif text-2xl tracking-tight text-[#1A1A1A] mb-4">HydraLink Access</h4>
+                    <p class="font-sans text-lg md:text-xl font-light text-[#4A4744] leading-relaxed flex-1">
+                        Our proprietary client portal for real-time project tracking, asset management, and direct
+                        communication with your engineering team. No additional license fee.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Villain -->
+    <section class="relative overflow-hidden bg-[#050505] border-b border-white/10" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');" style="--mouse-x: 50%; --mouse-y: 50%;">
+        <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);">
+            <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;">
+            </div>
+            <div class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), black, transparent 80%);">
+            </div>
+        </div>
+        <div class="absolute bottom-[-20%] left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#FF3344] blur-[180px] opacity-[0.06] rounded-full pointer-events-none">
+        </div>
+
+        <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 py-32 md:py-40">
+            <div class="max-w-3xl mx-auto text-center mb-20">
+                <h2 class="font-serif text-4xl md:text-6xl tracking-tighter font-light text-white leading-[1.1]">
+                    What Other Options Do You Have<br>
+                    <span class="italic text-white/40">at This Price Range?</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <div class="p-8 border border-white/[0.06] rounded-sm bg-white/[0.02]">
+                    <div class="flex items-start gap-4">
+                        <span class="font-serif text-3xl text-white leading-none font-light">01</span>
+                        <div>
+                            <p class="font-sans text-lg md:text-xl font-light text-white leading-relaxed">
+                                Bloated WordPress sites that need a developer for every text change and a plugin for
+                                every feature.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-white/[0.06] rounded-sm bg-white/[0.02]">
+                    <div class="flex items-start gap-4">
+                        <span class="font-serif text-3xl text-white leading-none font-light">02</span>
+                        <div>
+                            <p class="font-sans text-lg md:text-xl font-light text-white leading-relaxed">
+                                Templated solutions that look identical to every competitor in your market. Same layout.
+                                Same stock photos. Same nothing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-white/[0.06] rounded-sm bg-white/[0.02]">
+                    <div class="flex items-start gap-4">
+                        <span class="font-serif text-3xl text-white leading-none font-light">03</span>
+                        <div>
+                            <p class="font-sans text-lg md:text-xl font-light text-white leading-relaxed">
+                                Cheap infrastructure that buckles under traffic, goes down during launches, and costs
+                                you customers in the moments that matter most.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-white/[0.06] rounded-sm bg-white/[0.02]">
+                    <div class="flex items-start gap-4">
+                        <span class="font-serif text-3xl text-white leading-none font-light">04</span>
+                        <div>
+                            <p class="font-sans text-lg md:text-xl font-light text-white leading-relaxed">
+                                Uneditable, developer-dependent systems where every content update requires a billable
+                                hour and a three-day turnaround.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto text-center mt-20">
+                <p class="font-sans text-xl md:text-2xl font-light text-white leading-relaxed mb-10">
+                    You already know what those options feel like. You've seen them. You've lived with them. The
+                    calculator above prices something different.
+                </p>
+                <a href="#contact" class="group inline-flex items-center justify-center overflow-hidden transition-all duration-[400ms] hover:border-[#FF3344] hover:text-white text-sm font-medium text-[#1A1A1A] uppercase tracking-widest bg-white border border-white rounded-sm py-4 px-12 relative shadow-[0_0_40px_-10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_-10px_rgba(165,0,32,0.4)]">
+                    <span class="[clip-path:circle(0%_at_50%_120%)] transition-[clip-path] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:circle(150%_at_50%_120%)] bg-[#FF3344] -z-10 absolute top-0 right-0 bottom-0 left-0"></span>
+                    Book a Free Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="group/section overflow-hidden flex md:px-12 bg-[#050505] border-white/10 border-b pt-40 pr-6 pb-40 pl-6 relative items-center justify-center" id="contact" onmousemove="this.style.setProperty('--mouse-x', (event.clientX - this.getBoundingClientRect().left) + 'px'); this.style.setProperty('--mouse-y', (event.clientY - this.getBoundingClientRect().top) + 'px');">
+        <div class="absolute inset-0 pointer-events-none z-0">
+            <div class="absolute inset-0 pointer-events-none" style="mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);">
+                <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.04) 1px, transparent 1px); background-size: 48px 48px;">
+                </div>
+                <div class="absolute inset-0 pointer-events-none opacity-0 group-hover/section:opacity-100 transition-opacity duration-700" style="background-image: linear-gradient(to right, rgba(255,51,68, 0.25) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,51,68, 0.25) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%); mask-image: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black, transparent 80%);">
+                </div>
+            </div>
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#FF3344] blur-[180px] opacity-[0.12] rounded-full">
+            </div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#FF3344] blur-[150px] opacity-[0.08] rounded-full">
+            </div>
+        </div>
+
+        <div class="z-10 flex flex-col text-center max-w-3xl mx-auto relative items-center border border-white/10 bg-black/40 p-16 md:p-24 backdrop-blur-sm rounded-sm">
+            <div class="mb-8">
+                <span class="text-[#FF3344] text-xl">◆</span>
+            </div>
+            <h2 class="font-serif text-6xl md:text-[5.5rem] tracking-tighter text-white font-normal mb-8 leading-[1]">
+                Build Your <span class="font-light italic text-[#FF3344]">Legacy.</span>
+            </h2>
+            <p class="font-sans text-xl md:text-2xl font-light text-white/60 mb-12 max-w-xl mx-auto leading-relaxed">
+                Let us architect your next digital asset. Book a complimentary technical consultation directly with our
+                lead engineers.
+            </p>
+            <a href="#contact" class="group z-10 inline-flex items-center justify-center overflow-hidden transition-all duration-[400ms] hover:border-[#FF3344] hover:text-white text-sm font-medium text-[#1A1A1A] uppercase tracking-widest bg-white border-white border rounded-sm py-4 px-12 relative shadow-[0_0_40px_-10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_-10px_rgba(165,0,32,0.4)]">
+                <span class="[clip-path:circle(0%_at_50%_120%)] transition-[clip-path] duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:[clip-path:circle(150%_at_50%_120%)] bg-[#FF3344] -z-10 absolute top-0 right-0 bottom-0 left-0"></span>
+                Book Free Call
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#FAFAF9] relative overflow-hidden">
+        <div class="md:px-12 flex flex-col min-h-[500px] w-full max-w-[1440px] z-10 mr-auto ml-auto pt-24 pr-6 pb-12 pl-6 relative justify-between">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-full -z-10 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#FAFAF9] to-[#FAFAF9]"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
+                <div class="flex flex-col gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Directory
+                    </h4>
+                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744] uppercase tracking-widest">
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Services</a>
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Methodology</a>
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Pricing</a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Client Portal
+                    </h4>
+                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744] uppercase tracking-widest">
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Client Login</a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Connect
+                    </h4>
+                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744]">
+                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">WhatsApp
+                            Direct</a>
+                        <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">support@hydradyna.com</a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters
+                    </h4>
+                    <div class="flex flex-col gap-2 font-sans text-base font-light text-[#4A4744] opacity-80 leading-relaxed uppercase tracking-widest">
+                        <p>Hydra Dynamics Ltd.</p>
+                        <p>Level 35, WTC</p>
+                        <p>Colombo 01, Sri Lanka</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex mt-20 mb-12 z-10 w-full relative justify-center">
+                <h1 class="font-serif text-[#1A1A1A]/5 text-7xl sm:text-9xl md:text-[12rem] lg:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none">
+                    HydraDyna
+                </h1>
+            </div>
+
+            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 pt-4 relative z-10">
+                <p class="font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase">© Hydra Dynamics, 2025
+                </p>
+                <div class="flex gap-8 font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase">
+                    <a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-[#A50020] transition-colors">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const closeBtn = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            function openMenu() { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); requestAnimationFrame(() => { requestAnimationFrame(() => { mobileMenu.classList.remove('opacity-0'); }); }); document.body.style.overflow = 'hidden'; }
+            function closeMenuFunc(cb) { mobileMenu.classList.add('opacity-0'); document.body.style.overflow = ''; setTimeout(() => { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); if (cb) cb(); }, 300); }
+            hamburgerBtn.addEventListener('click', openMenu);
+            closeBtn.addEventListener('click', () => closeMenuFunc());
+            mobileLinks.forEach(l => { l.addEventListener('click', (e) => { const h = l.getAttribute('href'); if (h && h.startsWith('#')) { e.preventDefault(); closeMenuFunc(() => { const t = document.querySelector(h); if (t) t.scrollIntoView({ behavior: 'smooth' }); }); } else closeMenuFunc(); }); });
+
+            const contentWebsite = document.getElementById('content-website');
+            const contentWebapp = document.getElementById('content-webapp');
+            const priceOnetimeEl = document.getElementById('price-onetime');
+            const priceMonthlyEl = document.getElementById('price-monthly');
+            const summaryList = document.getElementById('summary-list');
+            const totalOverDuration = document.getElementById('total-over-duration');
+            const priceTotalDuration = document.getElementById('price-total-duration');
+            const durationLabel = document.getElementById('duration-label');
+
+            let currentMode = 'website';
+
+            const toggleWebsite = document.getElementById('toggle-website');
+            const toggleWebapp = document.getElementById('toggle-webapp');
+            const modeSlider = document.getElementById('mode-slider');
+
+            toggleWebsite.addEventListener('click', () => setMode('website'));
+            toggleWebapp.addEventListener('click', () => setMode('webapp'));
+
+            function setMode(mode) {
+                currentMode = mode;
+                if (mode === 'website') {
+                    modeSlider.style.transform = 'translateX(0)';
+                    toggleWebsite.classList.add('active');
+                    toggleWebapp.classList.remove('active');
+                    contentWebsite.classList.remove('hidden');
+                    contentWebapp.classList.add('hidden');
+                } else {
+                    modeSlider.style.transform = 'translateX(100%)';
+                    toggleWebapp.classList.add('active');
+                    toggleWebsite.classList.remove('active');
+                    contentWebapp.classList.remove('hidden');
+                    contentWebsite.classList.add('hidden');
+                }
+                recalc();
+            }
+
+            document.querySelectorAll('.calc-toggle.multi').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+                    recalc();
+                });
+            });
+
+            document.querySelectorAll('.stepper-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.dataset.target;
+                    const targetEl = document.getElementById(targetId);
+                    let val = parseInt(targetEl.dataset.value);
+                    const min = parseInt(targetEl.dataset.min);
+                    const max = parseInt(targetEl.dataset.max);
+
+                    if (btn.classList.contains('increment')) {
+                        val = Math.min(val + 1, max);
+                    } else {
+                        val = Math.max(val - 1, min);
+                    }
+                    targetEl.dataset.value = val;
+                    targetEl.textContent = val;
+                    recalc();
+                });
+
+                let holdTimer = null;
+                let holdInterval = null;
+                btn.addEventListener('mousedown', () => {
+                    holdTimer = setTimeout(() => {
+                        holdInterval = setInterval(() => { btn.click(); }, 80);
+                    }, 400);
+                });
+                btn.addEventListener('mouseup', () => { clearTimeout(holdTimer); clearInterval(holdInterval); });
+                btn.addEventListener('mouseleave', () => { clearTimeout(holdTimer); clearInterval(holdInterval); });
+                btn.addEventListener('touchstart', (e) => {
+                    holdTimer = setTimeout(() => {
+                        holdInterval = setInterval(() => { btn.click(); }, 80);
+                    }, 400);
+                });
+                btn.addEventListener('touchend', () => { clearTimeout(holdTimer); clearInterval(holdInterval); });
+            });
+
+            document.querySelectorAll('.scope-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                    const indicator = chip.querySelector('.check-indicator');
+                    if(chip.classList.contains('active')) {
+                        indicator.innerHTML = '<iconify-icon icon="solar:check-read-linear" width="16" class="text-white" style="stroke-width:1.5"></iconify-icon>';
+                    } else {
+                        indicator.innerHTML = '';
+                    }
+                    recalc();
+                });
+            });
+
+            const brandingOptions = document.querySelectorAll('#branding-options .branding-option');
+            brandingOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const wasActive = option.classList.contains('active');
+                    brandingOptions.forEach(o => o.classList.remove('active'));
+                    if (!wasActive) option.classList.add('active');
+                    recalc();
+                });
+            });
+
+            function recalc() {
+                const activeContainer = currentMode === 'website' ? contentWebsite : contentWebapp;
+
+                let onetime = 0;
+                let monthly = 0;
+                let summaryItems = [];
+
+                // Multi-select toggles
+                activeContainer.querySelectorAll('.calc-toggle.multi.active').forEach(btn => {
+                    onetime += parseInt(btn.dataset.price);
+                    summaryItems.push(btn.dataset.label);
+                });
+
+                // Steppers (excluding duration-months-value which doesn't directly compute to onetime)
+                activeContainer.querySelectorAll('[id$="-value"]').forEach(stepper => {
+                    if (stepper.id === 'duration-months-value') return; 
+                    const val = parseInt(stepper.dataset.value);
+                    const unitCost = parseInt(stepper.dataset.unitCost);
+                    const unitName = stepper.dataset.unitName;
+                    const stepperCost = val * unitCost;
+                    onetime += stepperCost;
+                    if (val > 0) summaryItems.push(`${val} ${unitName}${val !== 1 ? 's' : ''}`);
+                });
+
+                // Scope chips (add-ons)
+                activeContainer.querySelectorAll('.scope-chip.active').forEach(chip => {
+                    const price = parseInt(chip.dataset.price);
+                    const isMonthly = chip.dataset.monthly === 'true';
+                    const label = chip.querySelector('.addon-label').innerText;
+
+                    if (isMonthly) monthly += price;
+                    else onetime += price;
+                    summaryItems.push(label);
+                });
+
+                if (currentMode === 'webapp') {
+                    const durationEl = document.getElementById('duration-months-value');
+                    const months = parseInt(durationEl.dataset.value);
+
+                    if (months > 0) summaryItems.push(`${months} Month Allocation`);
+
+                    if (monthly > 0) {
+                        totalOverDuration.classList.remove('hidden');
+                        durationLabel.textContent = months;
+                        const totalDuration = onetime + (monthly * months);
+                        priceTotalDuration.textContent = totalDuration.toLocaleString();
+                    } else {
+                        totalOverDuration.classList.add('hidden');
+                    }
+                } else {
+                    totalOverDuration.classList.add('hidden');
+                }
+
+                // Branding (website only)
+                if (currentMode === 'website') {
+                    const activeBranding = activeContainer.querySelector('#branding-options .branding-option.active');
+                    if (activeBranding) {
+                        onetime += parseInt(activeBranding.dataset.price);
+                        summaryItems.push(activeBranding.dataset.label);
+                    }
+                }
+
+                priceOnetimeEl.textContent = onetime.toLocaleString();
+                priceMonthlyEl.textContent = monthly.toLocaleString();
+
+                summaryList.innerHTML = '';
+                function addSummaryItem(text) {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-center gap-2.5 font-sans text-base font-light text-white/60';
+                    li.innerHTML = `<iconify-icon icon="solar:check-circle-linear" width="18" class="text-[#FF3344] flex-shrink-0" style="stroke-width:1.5"></iconify-icon><span>${text}</span>`;
+                    summaryList.appendChild(li);
+                }
+
+                summaryItems.forEach(item => addSummaryItem(item));
+
+                if (currentMode === 'website') addSummaryItem('Header & Footer');
+                if (currentMode === 'webapp') addSummaryItem('Nav Shell & Layout');
+            }
+
+            recalc();
+        });
+    </script>
+
+
+</body></html>

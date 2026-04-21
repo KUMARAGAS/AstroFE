@@ -1,7 +1,7 @@
 ---
 interface Props {
-  site: any;
-  business: any;
+  site?: any;
+  business?: any;
 }
 
 const { site, business } = Astro.props;
@@ -15,188 +15,91 @@ function asset(id: string | null | undefined): string {
 }
 ---
 
----
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
+<footer class="footer bg-[#FAFAF9] relative overflow-hidden">
+  <div class="md:px-12 flex flex-col min-h-[600px] w-full max-w-[1440px] z-10 mr-auto ml-auto pt-24 pr-6 pb-12 pl-6 relative justify-between">
+    <!-- Background Image & Gradient Layers -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-full -z-10 pointer-events-none">
+      <img src="https://img.freepik.com/free-photo/grungy-gray-marble-textured-background_53876-108405.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Marble Background" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-white/100"></div>
+    </div>
 
-      <div class="footer-brand">
-        
-<a href="/" class="footer-logo">
-  {site?.core_logo_dark ? (
-    <img
-      src={asset(site.core_logo_dark)}
-      alt={site.core_site_name}
-      height="40"
-    />
-  ) : (
-    <span>{site?.core_site_name}</span>
-  )}
-</a>
-
-
-<p class="footer-tagline">Bold flavors. Street style. Premium quality.</p>
-        <div class="footer-social">
-          {business.core_instagram_url && (
-            <a href={business.core_instagram_url} target="_blank" rel="noopener noreferrer">Instagram</a>
-          )}
-          {business.core_facebook_url && (
-            <a href={business.core_facebook_url} target="_blank" rel="noopener noreferrer">Facebook</a>
-          )}
-          {business.core_x_url && (
-            <a href={business.core_x_url} target="_blank" rel="noopener noreferrer">X</a>
-          )}
+    <!-- Top Directory Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
+      <!-- Directory Links -->
+      <div class="flex flex-col gap-6">
+        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+          <span class="text-[#A50020] text-[8px]">◆</span> Directory
+        </h4>
+        <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
+          <a href="#services" class="hover:text-[#A50020] transition-colors w-fit">Services</a>
+          <a href="#process" class="hover:text-[#A50020] transition-colors w-fit">Methodology</a>
+          <a href="#works" class="hover:text-[#A50020] transition-colors w-fit">Works</a>
         </div>
       </div>
 
-      <div class="footer-contact">
-        <span class="footer-heading">Contact</span>
-        {business.core_email && (
-          <a href={`mailto:${business.core_email}`}>{business.core_email}</a>
-        )}
-        {business.core_contact_number && (
-          <a href={`tel:${business.core_contact_number}`}>{business.core_contact_number}</a>
-        )}
-        {business.core_address && (
-          <p>{business.core_address}</p>
-        )}
-        {business.core_business_hours && (
-          <p>{business.core_business_hours}</p>
-        )}
+      <!-- Client Links -->
+      <div class="flex flex-col gap-6">
+        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+          <span class="text-[#A50020] text-[8px]">◆</span> Client Portal
+        </h4>
+        <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
+          <a href="#login" class="hover:text-[#A50020] transition-colors w-fit">Client Login</a>
+        </div>
       </div>
 
-      <div class="footer-links">
-        <span class="footer-heading">Quick Links</span>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/privacy-policy">Privacy Policy</a>
-        <a href="/terms-of-service">Terms of Service</a>
+      <!-- Contact Info -->
+      <div class="flex flex-col gap-6">
+        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+          <span class="text-[#A50020] text-[8px]">◆</span> Connect
+        </h4>
+        <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744]">
+          <a href="#" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">WhatsApp Direct</a>
+          <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">support@hydradyna.com</a>
+        </div>
       </div>
 
-      <div class="footer-order">
-        <span class="footer-heading">Order Now</span>
-        {business.core_whatsapp_url && (
-          <a href={business.core_whatsapp_url} target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
-            WhatsApp Order
-          </a>
-        )}
-        <a href="/contact" class="contact-btn">Contact Us</a>
+      <!-- Company Address -->
+      <div class="flex flex-col gap-6">
+        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+          <span class="text-[#A50020] text-[8px]">◆</span> Headquarters
+        </h4>
+        <div class="flex flex-col gap-2 font-sans text-sm font-light text-[#4A4744] opacity-80 leading-relaxed uppercase tracking-widest">
+          <p class="">Hydra Dynamics Ltd.</p>
+          <p class="">Level 35, WTC</p>
+          <p>Colombo 01, Sri Lanka</p>
+        </div>
       </div>
-
     </div>
 
-    <div class="footer-bottom">
-      <p>© {new Date().getFullYear()} {site.core_site_name}. All rights reserved.</p>
-      <div class="footer-legal">
-        <a href="/privacy-policy">Privacy</a>
-        <a href="/terms-of-service">Terms</a>
+    <!-- Giant Centered Wordmark -->
+    <div class="flex mt-20 mb-12 z-10 w-full relative justify-center">
+      <h1 class="font-serif text-[#1A1A1A]/5 text-7xl sm:text-9xl md:text-[12rem] lg:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none">
+        HydraDyna
+      </h1>
+    </div>
+
+    <!-- Bottom Copyright -->
+    <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 pt-4 relative z-10">
+      <p class="font-sans text-xs font-light text-[#4A4744] tracking-widest uppercase">
+        © Hydra Dynamics, 2025
+      </p>
+      <div class="flex gap-8 font-sans text-xs font-light text-[#4A4744] tracking-widest uppercase">
+        <a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a>
+        <a href="#" class="hover:text-[#A50020] transition-colors">Terms</a>
       </div>
     </div>
   </div>
 </footer>
 
-<style>
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
+
+  .font-serif { font-family: 'Cormorant Garamond', serif; }
+  .font-sans { font-family: 'Outfit', sans-serif; }
+
   .footer {
-    background: #050505;
-    border-top: 1px solid #1a1a1a;
-    padding: 80px 0 0;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 60px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid #1a1a1a;
-  }
-  .footer-name {
-    font-size: 24px;
-    color: var(--gold);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 12px;
-  }
-  .footer-tagline {
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.6;
-    font-style: italic;
-    margin-bottom: 20px;
-  }
-  .footer-social { display: flex; gap: 16px; }
-  .footer-social a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .footer-social a:hover { color: var(--gold); }
-  .footer-heading {
-    display: block;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-  .footer-contact, .footer-links, .footer-order {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .footer-contact a, .footer-contact p,
-  .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
-  }
-  .footer-contact a:hover, .footer-links a:hover { color: var(--gold); }
-  .whatsapp-btn {
-    background: #25D366;
-    color: #fff;
-    padding: 12px 20px;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-align: center;
-    transition: opacity 0.3s;
-  }
-  .whatsapp-btn:hover { opacity: 0.85; }
-  .contact-btn {
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 12px 20px;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-align: center;
-    transition: all 0.3s;
-  }
-  .contact-btn:hover { background: var(--gold); color: var(--dark); }
-  .footer-bottom {
-    padding: 24px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-bottom p { color: var(--text-muted); font-size: 13px; }
-  .footer-legal { display: flex; gap: 20px; }
-  .footer-legal a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.3s;
-  }
-  .footer-legal a:hover { color: var(--gold); }
-  @media (max-width: 768px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  }
-  @media (max-width: 480px) {
-    .footer-grid { grid-template-columns: 1fr; }
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 </style>

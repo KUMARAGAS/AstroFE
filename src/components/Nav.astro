@@ -54,217 +54,164 @@ function getUrl(item: NavItem): string {
 const currentPath = Astro.url.pathname;
 ---
 
-<nav class="nav">
-  <div class="nav-inner">
-    
-    <!-- Logo -->
-  {siteSettings?.core_logo_light ? (
-      <img
-        src={asset(siteSettings.core_logo_light)}
-        alt={siteSettings.core_site_name}
-        height="40"
-      />
-    ) : (
-      <span class="nav-logo-text">{siteSettings?.core_site_name}</span>
-    )}
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
 
-    <!-- Desktop Menu -->
-    <ul class="nav-menu">
-      {topLevel.map((item: NavItem) => {
-        const url = getUrl(item);
-        return (
-          <li class="nav-item">
+<nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
+  <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
+    <a href="/" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
+      {siteSettings?.core_logo_light ? (
+        <img
+          src={asset(siteSettings.core_logo_light)}
+          alt={siteSettings.core_site_name}
+          class="h-10 w-auto"
+        />
+      ) : (
+        <>
+          HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
+        </>
+      )}
+    </a>
+
+    <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
+      {topLevel.length > 0 ? (
+        topLevel.map((item: NavItem) => {
+          const url = getUrl(item);
+          const isActive = currentPath === url;
+          return (
             <a
               href={url}
-              class={`nav-link ${currentPath === url ? 'active' : ''}`}
+              class={`transition-colors ${isActive ? 'text-[#A50020]' : 'hover:text-[#A50020]'}`}
               target={item.core_open_in_new_tab ? '_blank' : '_self'}
+              rel={item.core_open_in_new_tab ? 'noopener noreferrer' : undefined}
             >
               {item.core_label}
             </a>
-          </li>
-        );
-      })}
-    </ul>
+          );
+        })
+      ) : (
+        <>
+          <a href="#services" class="hover:text-[#A50020] transition-colors">Services</a>
+          <a href="#process" class="hover:text-[#A50020] transition-colors">Methodology</a>
+          <a href="#login" class="hover:text-[#A50020] transition-colors">Client Login</a>
+        </>
+      )}
+    </div>
 
-    <!-- CTA -->
-    <a href="/contact" class="nav-cta">Order Now</a>
+    <a href="#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
+      Book Free Call
+    </a>
 
-    <!-- Mobile Toggle -->
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
+    <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors" aria-label="Open menu">
+      <iconify-icon icon="solar:hamburger-menu-linear" width="28"></iconify-icon>
     </button>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div class="nav-mobile" id="navMobile">
-    <ul class="nav-mobile-menu">
-      {topLevel.map((item: NavItem) => (
-        <li>
-          <a
-            href={getUrl(item)}
-            class="nav-mobile-link"
-            target={item.core_open_in_new_tab ? '_blank' : '_self'}
-          >
-            {item.core_label}
-          </a>
-        </li>
-      ))}
-      <li>
-        <a href="/contact" class="nav-mobile-cta">Order Now</a>
-      </li>
-    </ul>
   </div>
 </nav>
 
-<style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid #1a1a1a;
+<div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
+  <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2 focus:outline-none" aria-label="Close menu">
+    <iconify-icon icon="solar:close-circle-linear" width="36"></iconify-icon>
+  </button>
+
+  <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
+    {topLevel.length > 0 ? (
+      topLevel.map((item: NavItem) => (
+        <a
+          href={getUrl(item)}
+          class="mobile-link hover:text-[#A50020] transition-colors"
+          target={item.core_open_in_new_tab ? '_blank' : '_self'}
+          rel={item.core_open_in_new_tab ? 'noopener noreferrer' : undefined}
+        >
+          {item.core_label}
+        </a>
+      ))
+    ) : (
+      <>
+        <a href="#services" class="mobile-link hover:text-[#A50020] transition-colors">Services</a>
+        <a href="#process" class="mobile-link hover:text-[#A50020] transition-colors">Methodology</a>
+        <a href="#login" class="mobile-link hover:text-[#A50020] transition-colors">Client Login</a>
+      </>
+    )}
+
+    <a href="#contact" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg">
+      Book Free Call
+    </a>
+  </div>
+</div>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
+
+  .font-serif { font-family: 'Cormorant Garamond', serif; }
+  .font-sans { font-family: 'Outfit', sans-serif; }
+
+  .hover-btn-fill {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
   }
 
-  .nav-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
+  .hover-btn-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #A50020;
+    z-index: -1;
+    clip-path: circle(0% at 50% 120%);
+    transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .nav-logo {
-    text-decoration: none;
-    flex-shrink: 0;
+  .hover-btn-fill:hover::before {
+    clip-path: circle(150% at 50% 120%);
   }
 
-  .nav-logo-text {
-    font-size: 22px;
-    color: var(--gold);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  .nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 8px;
-    flex: 1;
-  }
-
-  .nav-link {
-    display: block;
-    padding: 8px 14px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--gold);
-  }
-
-  .nav-cta {
-    background: var(--gold);
-    color: var(--dark);
-    padding: 10px 24px;
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    transition: background 0.3s;
-  }
-
-  .nav-cta:hover {
-    background: var(--gold-light);
-  }
-
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: auto;
-  }
-
-  .nav-toggle span {
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .nav-mobile {
-    display: none;
-    background: #111;
-    border-top: 1px solid #1a1a1a;
-  }
-
-  .nav-mobile.open {
-    display: block;
-  }
-
-  .nav-mobile-menu {
-    list-style: none;
-    padding: 16px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .nav-mobile-link {
-    display: block;
-    padding: 12px 0;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-bottom: 1px solid #1a1a1a;
-    transition: color 0.3s;
-  }
-
-  .nav-mobile-link:hover {
-    color: var(--gold);
-  }
-
-  .nav-mobile-cta {
-    display: block;
-    margin-top: 16px;
-    padding: 14px;
-    background: var(--gold);
-    color: var(--dark);
-    text-align: center;
-    text-decoration: none;
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 768px) {
-    .nav-menu,
-    .nav-cta {
-      display: none;
-    }
-
-    .nav-toggle {
-      display: flex;
-    }
+  .hover-btn-fill:hover {
+    color: #F5F4F2 !important;
+    border-color: #A50020 !important;
   }
 </style>
 
 <script>
-  document.getElementById('navToggle')?.addEventListener('click', () => {
-    document.getElementById('navMobile')?.classList.toggle('open');
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const closeBtn = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (!hamburgerBtn || !closeBtn || !mobileMenu) return;
+
+    const menu = mobileMenu;
+    const mobileLinks = menu.querySelectorAll('a');
+
+    function openMenu() {
+      menu.classList.remove('hidden');
+      menu.classList.add('flex');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          menu.classList.remove('opacity-0');
+        });
+      });
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenuFunc(callback?: () => void) {
+      menu.classList.add('opacity-0');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        if (callback) callback();
+      }, 300);
+    }
+
+    hamburgerBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', () => closeMenuFunc());
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenuFunc();
+      });
+    });
   });
 </script>
