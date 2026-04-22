@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth scroll-pt-20"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HydraLink | Enterprise Infrastructure for Growth</title>
-<script is:inline src="https://cdn.tailwindcss.com"></script>
-<script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-<style>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="HydraLink | Enterprise Infrastructure & Growth Solutions" description="HydraLink: Enterprise-grade infrastructure solutions for business growth. Scalable systems, reliable performance, and strategic partnerships with Hydra Dynamics.">
+
+<style is:global>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Manrope:wght@300;400;500;600&display=swap');
 .font-serif { font-family: 'Playfair Display', serif; }
 .font-sans { font-family: 'Manrope', sans-serif; }
@@ -86,48 +86,10 @@ transform: translateY(0);
 height: 1px;
 background: linear-gradient(to right, transparent, rgba(165, 0, 32, 0.15), transparent);
 }
-</style></head>
-<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+</style>
 
     <!-- Marble Texture Overlay -->
     <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/[0.06] bg-[#FAFAF9]/80">
-        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
-            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
-                HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
-            </a>
-            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
-                <a href="#reliability" class="hover:text-[#A50020] transition-colors">Reliability</a>
-                <a href="#control" class="hover:text-[#A50020] transition-colors">Control</a>
-                <a href="#performance" class="hover:text-[#A50020] transition-colors">Performance</a>
-                <a href="#ownership" class="hover:text-[#A50020] transition-colors">Ownership</a>
-            </div>
-            <a href="#cta" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
-                Get Started
-            </a>
-            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
-                <iconify-icon icon="solar:hamburger-menu-linear" width="28" style="stroke-width: 1.5"></iconify-icon>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
-        <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2 focus:outline-none">
-            <iconify-icon icon="solar:close-circle-linear" width="36" style="stroke-width: 1.5"></iconify-icon>
-        </button>
-        <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
-            <a href="#reliability" class="mobile-link hover:text-[#A50020] transition-colors">Reliability</a>
-            <a href="#control" class="mobile-link hover:text-[#A50020] transition-colors">Control</a>
-            <a href="#performance" class="mobile-link hover:text-[#A50020] transition-colors">Performance</a>
-            <a href="#ownership" class="mobile-link hover:text-[#A50020] transition-colors">Ownership</a>
-            <a href="#cta" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg border border-[#1A1A1A]">
-                Get Started
-            </a>
-        </div>
-    </div>
 
     <!-- SECTION 1: Hero -->
     <header class="min-h-screen flex overflow-hidden pt-20 relative items-center">
@@ -673,74 +635,6 @@ background: linear-gradient(to right, transparent, rgba(165, 0, 32, 0.15), trans
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#FAFAF9] relative overflow-hidden">
-        <div class="md:px-12 flex flex-col min-h-[400px] md:min-h-[500px] w-full max-w-[1440px] z-10 mx-auto pt-20 md:pt-24 pr-6 pb-10 md:pb-12 pl-6 relative justify-between">
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 w-full items-start justify-between relative z-10 border-b border-black/[0.06] pb-16 md:pb-20">
-                <div class="flex flex-col gap-5 md:gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Product
-                    </h4>
-                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
-                        <a href="#reliability" class="hover:text-[#A50020] transition-colors w-fit">Reliability</a>
-                        <a href="#control" class="hover:text-[#A50020] transition-colors w-fit">Content Control</a>
-                        <a href="#performance" class="hover:text-[#A50020] transition-colors w-fit">Performance</a>
-                        <a href="#ownership" class="hover:text-[#A50020] transition-colors w-fit">Portability</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5 md:gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Company
-                    </h4>
-                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">About</a>
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Careers</a>
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Blog</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5 md:gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Connect
-                    </h4>
-                    <div class="flex flex-col gap-3 sm:gap-4 font-sans text-sm font-light text-[#4A4744]/70 uppercase tracking-widest">
-                        <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit">support@hydradyna.com</a>
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">WhatsApp Direct</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5 md:gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters
-                    </h4>
-                    <div class="flex flex-col gap-1.5 sm:gap-2 font-sans text-sm font-light text-[#4A4744]/60 leading-relaxed uppercase tracking-widest">
-                        <p>Hydra Dynamics Ltd.</p>
-                        <p>Level 35, WTC</p>
-                        <p>Colombo 01, Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex mt-16 md:mt-20 mb-10 md:mb-12 z-10 w-full relative justify-center overflow-hidden">
-                <h1 class="font-serif text-[#1A1A1A]/[0.04] text-5xl sm:text-7xl md:text-9xl lg:text-[12rem] xl:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none whitespace-nowrap">
-                    HydraLink
-                </h1>
-            </div>
-
-            <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 relative z-10">
-                <p class="font-sans text-xs font-light text-[#4A4744]/60 tracking-widest uppercase">
-                    © Hydra Dynamics, 2025
-                </p>
-                <div class="flex gap-6 sm:gap-8 font-sans text-xs font-light text-[#4A4744]/60 tracking-widest uppercase">
-                    <a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-[#A50020] transition-colors">Terms</a>
-                    <a href="#" class="hover:text-[#A50020] transition-colors">SLA</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <script is:inline>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -799,4 +693,4 @@ background: linear-gradient(to right, transparent, rgba(165, 0, 32, 0.15), trans
         });
     </script>
 
-</body></html>
+</BaseLayout>

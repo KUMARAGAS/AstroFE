@@ -1,18 +1,4 @@
 ---
-interface Props {
-  site?: any;
-  business?: any;
-}
-
-const { site, business } = Astro.props;
-
-const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
-const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN;
-
-function asset(id: string | null | undefined): string {
-  if (!id) return '';
-  return `${DIRECTUS_URL}/assets/${id}?access_token=${DIRECTUS_TOKEN}`;
-}
 ---
 
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
@@ -27,36 +13,41 @@ function asset(id: string | null | undefined): string {
 
     <!-- Top Directory Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
-      <!-- Directory Links -->
+      <!-- Navigate Section -->
       <div class="flex flex-col gap-6">
         <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-          <span class="text-[#A50020] text-[8px]">◆</span> Directory
+          <span class="text-[#A50020] text-[8px]">◆</span> Navigate
         </h4>
         <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
-          <a href="#services" class="hover:text-[#A50020] transition-colors w-fit">Services</a>
-          <a href="#process" class="hover:text-[#A50020] transition-colors w-fit">Methodology</a>
-          <a href="#works" class="hover:text-[#A50020] transition-colors w-fit">Works</a>
+          <a href="/" class="hover:text-[#A50020] transition-colors w-fit">Home</a>
+                    <a href="/pricing" class="hover:text-[#A50020] transition-colors w-fit">Pricing</a>
+          <a href="/hydra-standard" class="hover:text-[#A50020] transition-colors w-fit">Our Philosophy</a>
+                <a href="/digital-landscape" class="hover:text-[#A50020] transition-colors">How We Design</a>
+          <a href="/hydra-link" class="hover:text-[#A50020] transition-colors w-fit">HydraLinks</a>
         </div>
       </div>
 
-      <!-- Client Links -->
-      <div class="flex flex-col gap-6">
-        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-          <span class="text-[#A50020] text-[8px]">◆</span> Client Portal
-        </h4>
-        <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
-          <a href="#login" class="hover:text-[#A50020] transition-colors w-fit">Client Login</a>
-        </div>
-      </div>
-
-      <!-- Contact Info -->
+      <!-- Connect Info -->
       <div class="flex flex-col gap-6">
         <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
           <span class="text-[#A50020] text-[8px]">◆</span> Connect
         </h4>
         <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744]">
-          <a href="#" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">WhatsApp Direct</a>
+          <a href="https://wa.me/YOUR_NUMBER" target="_blank" rel="noopener noreferrer" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">WhatsApp Direct</a>
           <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">support@hydradyna.com</a>
+        </div>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex flex-col gap-6">
+        <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
+          <span class="text-[#A50020] text-[8px]">◆</span> Social Links
+        </h4>
+        <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#A50020] transition-colors w-fit">Instagram</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#A50020] transition-colors w-fit">Facebook</a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#A50020] transition-colors w-fit">X</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-[#A50020] transition-colors w-fit">LinkedIn</a>
         </div>
       </div>
 

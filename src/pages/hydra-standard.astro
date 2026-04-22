@@ -1,65 +1,12 @@
-<html lang="en" class="scroll-smooth scroll-pt-20"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydra Dynamics | Engineering Digital Permanence</title>
-    <script is:inline src="https://cdn.tailwindcss.com"></script>
-    <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
 
-        .font-serif {
-            font-family: 'Cormorant Garamond', serif;
-        }
+<BaseLayout title="Our Philosophy | Digital Permanence & Engineering Standards" description="Discover Hydra Dynamics philosophy on building digital infrastructure built to last. Explore our engineering standards, process, and commitment to digital permanence.">
 
-        .font-sans {
-            font-family: 'Outfit', sans-serif;
-        }
-
+    <style is:global>
         iconify-icon {
             stroke-width: 1.5;
-        }
-
-        ::selection {
-            background-color: #A50020;
-            color: #F5F4F2;
-        }
-
-        .hover-crimson-lift {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hover-crimson-lift:hover {
-            box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
-            border-color: rgba(165, 0, 32, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .hover-btn-fill {
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .hover-btn-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #A50020;
-            z-index: -1;
-            clip-path: circle(0% at 50% 120%);
-            transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hover-btn-fill:hover::before {
-            clip-path: circle(150% at 50% 120%);
-        }
-
-        .hover-btn-fill:hover {
-            color: #F5F4F2 !important;
-            border-color: #A50020 !important;
         }
 
         .hover-btn-fill-dark::before {
@@ -69,39 +16,6 @@
         .hover-btn-fill-dark:hover {
             border-color: #FF3344 !important;
             color: white !important;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-on-load {
-            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-        }
-
-        .delay-100 {
-            animation-delay: 100ms;
-        }
-
-        .delay-200 {
-            animation-delay: 200ms;
-        }
-
-        .delay-300 {
-            animation-delay: 300ms;
-        }
-
-        .delay-400 {
-            animation-delay: 400ms;
         }
 
         .accordion-content {
@@ -157,9 +71,6 @@
             pointer-events: auto;
         }
     </style>
-</head>
-
-<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
 
     <!-- Floating Toggle -->
     <div id="floating-toggle" class="fixed bottom-6 left-1/2 z-[90] hidden-float">
@@ -170,28 +81,6 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
-        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
-            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">HYDRA
-                <span class="text-[#A50020] font-light italic">Dynamics</span></a>
-            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
-                <a href="#philosophy" class="hover:text-[#A50020] transition-colors">Philosophy</a>
-                <a href="#process" class="hover:text-[#A50020] transition-colors">Process</a>
-                <a href="#superiority" class="hover:text-[#A50020] transition-colors">Craft</a>
-                <a href="#maintenance" class="hover:text-[#A50020] transition-colors">Permanence</a>
-            </div>
-
-  <a href="#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
-                Book Free Call
-            </a>
-
-
-            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
-                <iconify-icon icon="solar:hamburger-menu-linear" width="28"></iconify-icon>
-            </button>
-        </div>
-    </nav>
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
@@ -883,51 +772,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#FAFAF9] relative overflow-hidden">
-        <div class="absolute inset-0 z-0 pointer-events-none"><img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&amp;w=2021&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover opacity-[0.03] mix-blend-multiply" alt="">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#FAFAF9]/40 to-[#FAFAF9]"></div>
-        </div>
-        <div class="md:px-12 flex flex-col min-h-[550px] w-full max-w-[1440px] z-10 mx-auto pt-24 pr-6 pb-12 pl-6 relative justify-between">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
-                <div class="flex flex-col gap-6"><a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">HYDRA
-                        <span class="text-[#A50020] font-light italic">Dynamics</span></a>
-                    <p class="font-sans text-base font-light text-[#4A4744] leading-relaxed max-w-xs">Engineering digital
-                        permanence. Resilient foundations that scale gracefully, built by principled architects.</p>
-                </div>
-                <div class="flex flex-col gap-6 lg:ml-auto">
-                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Navigate</h4>
-                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744]"><a href="#philosophy" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Philosophy</a><a href="#process" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Process</a><a href="#superiority" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Craft</a><a href="#maintenance" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit">Permanence</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-6 lg:ml-auto">
-                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Connect</h4>
-                    <div class="flex flex-col gap-4 font-sans text-base font-light text-[#4A4744]"><a href="#" class="hover:text-[#A50020] uppercase tracking-widest transition-colors w-fit flex items-center gap-2"><iconify-icon icon="solar:phone-linear"></iconify-icon> WhatsApp Direct</a><a href="mailto:engineering@hydradynamics.com" class="hover:text-[#A50020] tracking-widest transition-colors w-fit flex items-center gap-2"><iconify-icon icon="solar:letter-linear"></iconify-icon> engineering@hydradynamics.com</a></div>
-                </div>
-                <div class="flex flex-col gap-6 lg:ml-auto">
-                    <h4 class="uppercase text-xs font-medium text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters</h4>
-                    <div class="flex flex-col gap-2 font-sans text-base font-light text-[#4A4744] uppercase tracking-widest leading-relaxed">
-                        <p>Hydra Dynamics Ltd.</p>
-                        <p>Level 35, WTC</p>
-                        <p>Colombo 01, Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flex mt-16 mb-8 z-10 w-full relative justify-center">
-                <h1 class="font-serif text-[#1A1A1A]/5 text-7xl sm:text-9xl md:text-[12rem] lg:text-[15rem] leading-none tracking-tighter font-normal select-none pointer-events-none">
-                    Permanence</h1>
-            </div>
-            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 pt-4 relative z-10">
-                <p class="font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase">© Hydra Dynamics, 2025
-                </p>
-                <div class="flex gap-8 font-sans text-sm font-light text-[#4A4744] tracking-widest uppercase"><a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a><a href="#" class="hover:text-[#A50020] transition-colors">Terms</a></div>
-            </div>
-        </div>
-    </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -1077,5 +921,4 @@
 });
     </script>
 
-
-</body></html>
+</BaseLayout>

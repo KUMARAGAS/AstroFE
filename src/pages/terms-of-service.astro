@@ -1,11 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLegalContent } from '../lib/directus.js';
-const legal = await getLegalContent();
+
 ---
-<BaseLayout title="Terms of Service">
+<BaseLayout title="Terms of Service | Hydra Dynamics" description="Terms of Service for Hydra Dynamics. Review our service agreements, terms, and conditions for using our web development and engineering services.">
   <section class="page-hero"><span class="label">Legal</span><h1>Terms of Service</h1></section>
-  <section class="legal"><div class="container"><div class="content" set:html={legal.core_terms_of_service}/></div></section>
 </BaseLayout>
 <style>
   .legal { padding: 80px 0; background: var(--dark-2); }

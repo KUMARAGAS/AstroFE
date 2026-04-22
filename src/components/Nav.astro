@@ -1,57 +1,4 @@
 ---
-import { getNavigation } from '../lib/directus.js';
-
-type NavItem = {
-  core_label: string;
-  core_parent?: string | null;
-  core_url_nature: string;
-  core_external_url?: string;
-  core_open_in_new_tab?: boolean;
-  core_page?: {
-    core_page_slug: string;
-  };
-};
-
-type SiteSettings = {
-  core_logo_light?: string | null;
-  core_site_name?: string;
-};
-
-interface Props {
-  siteSettings: SiteSettings;
-}
-
-const { siteSettings } = Astro.props;
-
-const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
-
-console.log('Site Settings:', siteSettings);
-console.log('Directus URL:', DIRECTUS_URL);
-
-// Fetch navigation
-const items: NavItem[] = await getNavigation('header');
-
-// Top-level items
-const topLevel = items.filter((i: NavItem) => !i.core_parent);
-
-// helper function for Directus assets (include token for non-public assets)
-const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN;
-function asset(id: string | null | undefined): string {
-  if (!id) return '';
-  const url = `${DIRECTUS_URL}/assets/${id}?access_token=${DIRECTUS_TOKEN}`;
-  console.log('Asset URL:', url);
-  return url;
-}
-// URL builder
-function getUrl(item: NavItem): string {
-  if (item.core_url_nature === 'external') {
-    return item.core_external_url || '#';
-  }
-  return `/${item.core_page?.core_page_slug || ''}`;
-}
-
-// Current path
-const currentPath = Astro.url.pathname;
 ---
 
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
@@ -59,45 +6,17 @@ const currentPath = Astro.url.pathname;
 <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
   <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
     <a href="/" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
-      {siteSettings?.core_logo_light ? (
-        <img
-          src={asset(siteSettings.core_logo_light)}
-          alt={siteSettings.core_site_name}
-          class="h-10 w-auto"
-        />
-      ) : (
-        <>
-          HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
-        </>
-      )}
+      HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
     </a>
 
     <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
-      {topLevel.length > 0 ? (
-        topLevel.map((item: NavItem) => {
-          const url = getUrl(item);
-          const isActive = currentPath === url;
-          return (
-            <a
-              href={url}
-              class={`transition-colors ${isActive ? 'text-[#A50020]' : 'hover:text-[#A50020]'}`}
-              target={item.core_open_in_new_tab ? '_blank' : '_self'}
-              rel={item.core_open_in_new_tab ? 'noopener noreferrer' : undefined}
-            >
-              {item.core_label}
-            </a>
-          );
-        })
-      ) : (
-        <>
-          <a href="#services" class="hover:text-[#A50020] transition-colors">Services</a>
-          <a href="#process" class="hover:text-[#A50020] transition-colors">Methodology</a>
-          <a href="#login" class="hover:text-[#A50020] transition-colors">Client Login</a>
-        </>
-      )}
+      <a href="/" class="hover:text-[#A50020] transition-colors">Home</a>
+      <a href="/pricing" class="hover:text-[#A50020] transition-colors">Pricing</a>
+      <a href="/hydra-standard" class="hover:text-[#A50020] transition-colors">Our Philosophy</a>
+      <a href="/digital-landscape" class="hover:text-[#A50020] transition-colors">How We Design</a>
     </div>
 
-    <a href="#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
+    <a href="/#contact" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
       Book Free Call
     </a>
 
@@ -113,26 +32,13 @@ const currentPath = Astro.url.pathname;
   </button>
 
   <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
-    {topLevel.length > 0 ? (
-      topLevel.map((item: NavItem) => (
-        <a
-          href={getUrl(item)}
-          class="mobile-link hover:text-[#A50020] transition-colors"
-          target={item.core_open_in_new_tab ? '_blank' : '_self'}
-          rel={item.core_open_in_new_tab ? 'noopener noreferrer' : undefined}
-        >
-          {item.core_label}
-        </a>
-      ))
-    ) : (
-      <>
-        <a href="#services" class="mobile-link hover:text-[#A50020] transition-colors">Services</a>
-        <a href="#process" class="mobile-link hover:text-[#A50020] transition-colors">Methodology</a>
-        <a href="#login" class="mobile-link hover:text-[#A50020] transition-colors">Client Login</a>
-      </>
-    )}
+    <a href="/" class="mobile-link hover:text-[#A50020] transition-colors">Home</a>
+    <a href="/pricing" class="mobile-link hover:text-[#A50020] transition-colors">Pricing</a>
+    <a href="/hydra-standard" class="mobile-link hover:text-[#A50020] transition-colors">Our Philosophy</a>
+    <a href="/hydra-link" class="mobile-link hover:text-[#A50020] transition-colors">HydraLinks</a>
+    <a href="/digital-landscape" class="mobile-link hover:text-[#A50020] transition-colors">How We Design</a>
 
-    <a href="#contact" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg">
+    <a href="/#contact" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg">
       Book Free Call
     </a>
   </div>
@@ -208,9 +114,18 @@ const currentPath = Astro.url.pathname;
     hamburgerBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', () => closeMenuFunc());
 
-    mobileLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        closeMenuFunc();
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          closeMenuFunc(() => {
+            const target = document.querySelector(href);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          });
+        } else {
+          closeMenuFunc();
+        }
       });
     });
   });

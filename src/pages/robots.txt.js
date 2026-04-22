@@ -1,15 +1,25 @@
 export const prerender = false;
-import { getSiteSettings } from '../lib/directus.js';
 
 export async function GET() {
-  try {
-    const site = await getSiteSettings();
-    return new Response(site.core_robots_txt || 'User-agent: *\nAllow: /', {
-      headers: { 'Content-Type': 'text/plain' }
-    });
-  } catch (e) {
-    return new Response('User-agent: *\nAllow: /', {
-      headers: { 'Content-Type': 'text/plain' }
-    });
-  }
+  const robotsTxt = `User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*sort=
+Crawl-delay: 1
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+Sitemap: https://kade.lk/sitemap-index.xml`;
+
+  return new Response(robotsTxt, {
+    headers: { 'Content-Type': 'text/plain' }
+  });
 }

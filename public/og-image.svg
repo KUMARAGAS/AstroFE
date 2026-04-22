@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#FAFAF9"/>
+  <circle cx="1010" cy="120" r="280" fill="#A50020" fill-opacity="0.08"/>
+  <circle cx="180" cy="540" r="240" fill="#1A1A1A" fill-opacity="0.05"/>
+  <path d="M120 110H1080" stroke="#1A1A1A" stroke-opacity="0.08"/>
+  <path d="M120 520H1080" stroke="#1A1A1A" stroke-opacity="0.08"/>
+  <text x="120" y="220" fill="#1A1A1A" font-family="Georgia, 'Times New Roman', serif" font-size="84" font-weight="400" letter-spacing="-1.5">Hydra Dynamics</text>
+  <text x="120" y="300" fill="#A50020" font-family="Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5">ENGINEERING DIGITAL PERMANENCE</text>
+  <text x="120" y="382" fill="#4A4744" font-family="Arial, sans-serif" font-size="28" font-weight="400">Elite-grade web development, applications, and digital engineering.</text>
+  <text x="120" y="436" fill="#4A4744" font-family="Arial, sans-serif" font-size="28" font-weight="400">Built with Astro, Next.js, and modern frameworks.</text>
+  <rect x="120" y="486" width="260" height="62" rx="10" fill="#1A1A1A"/>
+  <text x="170" y="526" fill="#F5F4F2" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2">HYDRA DYNAMICS</text>
+</svg>

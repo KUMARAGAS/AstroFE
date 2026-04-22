@@ -1,75 +1,150 @@
 ---
-import { getSiteSettings, getBusinessDetails } from '../lib/directus.js';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const site = await getSiteSettings();
-const business = await getBusinessDetails();
-const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
-const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN;
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  keywords?: string;
+}
 
 const {
-  
-  title = site.core_meta_title,
-  description = site.core_meta_description,
-  ogImage = site.core_og_image
+  title = 'Hydra Dynamics | Engineering Digital Permanence',
+  description = 'Elite-grade engineering without the agency tax.',
+  image = 'https://kade.lk/og-image.svg',
+  keywords = 'web development, Astro, Next.js, full-stack engineering, digital permanence'
 } = Astro.props;
 
-function asset(id: string | null | undefined): string {
-  if (!id) return '';
-  return `${DIRECTUS_URL}/assets/${id}?access_token=${DIRECTUS_TOKEN}`;
-}
+const siteUrl = Astro.site?.origin ?? 'https://kade.lk';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const pageName = title.split('|')[0]?.trim() ?? 'Hydra Dynamics';
+const isHomePage = Astro.url.pathname === '/';
+const structuredData = [
+  {
+    '@type': 'ProfessionalService',
+    '@id': `${siteUrl}/#business`,
+    name: 'Hydra Dynamics',
+    alternateName: 'Hydra Dynamics Ltd.',
+    url: siteUrl,
+    description,
+    image,
+    logo: `${siteUrl}/favicon.svg`,
+    email: 'support@hydradyna.com',
+    priceRange: '$$',
+    areaServed: {
+      '@type': 'Country',
+      name: 'Sri Lanka'
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Colombo',
+      addressCountry: 'LK'
+    },
+    knowsAbout: [
+      'Astro',
+      'Next.js',
+      'Web Development',
+      'Web Applications',
+      'Digital Engineering',
+      'AI Automation'
+    ]
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    url: siteUrl,
+    name: 'Hydra Dynamics',
+    description,
+    publisher: {
+      '@id': `${siteUrl}/#business`
+    },
+    inLanguage: 'en-US'
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${canonicalURL.href}#webpage`,
+    url: canonicalURL.href,
+    name: title,
+    description,
+    isPartOf: {
+      '@id': `${siteUrl}/#website`
+    },
+    about: {
+      '@id': `${siteUrl}/#business`
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: image
+    },
+    inLanguage: 'en-US'
+  },
+  ...(isHomePage
+    ? []
+    : [
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${canonicalURL.href}#breadcrumb`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: siteUrl
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: pageName,
+              item: canonicalURL.href
+            }
+          ]
+        }
+      ])
+];
 ---
 
 <html lang="en" class="scroll-smooth scroll-pt-20">
 <head>
+  <!-- Essential Meta Tags -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-   <!-- SEO -->
   <title>{title}</title>
   <meta name="description" content={description}/>
+  <meta name="keywords" content={keywords}/>
+  <link rel="canonical" href={canonicalURL}/>
+  <meta name="author" content="Hydra Dynamics"/>
+  <meta name="theme-color" content="#A50020"/>
+  <meta name="language" content="English"/>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:large"/>
 
-<!<link rel="canonical" href={canonicalURL}/>/>
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"/>
 
-   <!-- OG Tags -->
+  <!-- Open Graph Tags (Social Media) -->
   <meta property="og:title" content={title}/>
   <meta property="og:description" content={description}/>
-  <meta property="og:image" content={asset(ogImage)}/>
+  <meta property="og:image" content={image}/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
   <meta property="og:type" content="website"/>
+  <meta property="og:url" content={canonicalURL}/>
+  <meta property="og:site_name" content="Hydra Dynamics"/>
+  <meta property="og:locale" content="en_US"/>
 
-  <!-- Favicon -->
-  <link rel="icon" href={asset(site.core_favicon_light)} media="(prefers-color-scheme: light)"/>
-  <link rel="icon" href={asset(site.core_favicon_dark)} media="(prefers-color-scheme: dark)"/>
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content={title}/>
+  <meta name="twitter:description" content={description}/>
+  <meta name="twitter:image" content={image}/>
+  <meta name="twitter:site" content="@hydradynamics"/>
+  <meta name="twitter:creator" content="@hydradynamics"/>
 
-  <!-- Google Search Console -->
-  {site.core_google_search_console_verification && (
-    <meta name="google-site-verification" content={site.core_google_search_console_verification}/>
-  )}
+  <!-- Additional SEO Meta Tags -->
+  <meta name="revisit-after" content="7 days"/>
 
-  <!-- Google Analytics -->
-  {site.core_google_analytics_id && (
-    <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.core_google_analytics_id}`}></script>
-      <script define:vars={{ gaId: site.core_google_analytics_id }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', gaId);
-      </script>
-    </>
-
-  )}
-
-
-<!-- Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": site.core_site_name,
-    "description": site.core_meta_description,
-    "url": "https://hydradynamics.lk"
-  })}/>
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@graph": structuredData })}></script>
 
   <!-- Tailwind CSS & Icon Library -->
   <script src="https://cdn.tailwindcss.com" is:inline></script>
@@ -144,10 +219,10 @@ function asset(id: string | null | undefined): string {
   <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');">
   </div>
 
-  <Nav siteSettings={site}/>
+  <Nav/>
   <main>
     <slot/>
   </main>
-  <Footer site={site} business={business}/>
+  <Footer/>
 </body>
 </html>

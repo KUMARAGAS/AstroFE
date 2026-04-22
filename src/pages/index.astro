@@ -1,37 +1,10 @@
 ---
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import { getSiteSettings, getBusinessDetails } from '../lib/directus.js';
-
-const site = await getSiteSettings();
-const business = await getBusinessDetails();
-
-const siteSettings = {
-  core_logo_light: site?.core_logo_light,
-  core_site_name: site?.core_site_name || 'HYDRA Dynamics'
-};
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en" class="scroll-smooth scroll-pt-20">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hydra Dynamics | Engineering Digital Permanence</title>
-    <script src="https://cdn.tailwindcss.com" is:inline></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" is:inline></script>
+<BaseLayout title="Hydra Dynamics | Elite Web Development & Engineering" description="Elite-grade web development, applications, and digital engineering without the agency tax. Fast, scalable solutions built with Astro, Next.js, and modern frameworks.">
+
     <style is:global>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap');
-
-        /* Base Typography */
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .font-sans { font-family: 'Outfit', sans-serif; }
-
-        /* Custom Utilities & Animations */
-        ::selection {
-            background-color: #A50020;
-            color: #F5F4F2;
-        }
-
         .hover-crimson-lift {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -75,14 +48,10 @@ const siteSettings = {
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
     </style>
-</head>
-<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
 
     <!-- Marble Texture Overlay (Global) -->
     <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');">
     </div>
-
-    <Nav siteSettings={siteSettings} />
 
     <!-- Hero Section -->
     <header class="min-h-screen flex overflow-hidden border-black/10 border-b pt-20 relative items-center">
@@ -446,9 +415,6 @@ const siteSettings = {
         </div>
     </section>
 
-    <Footer {site} {business} />
-
-    <!-- Navigation & Mobile Menu Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -500,5 +466,5 @@ const siteSettings = {
             });
         });
     </script>
-</body>
-</html>
+
+</BaseLayout>

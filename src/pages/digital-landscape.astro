@@ -1,136 +1,9 @@
-<html lang="en" class="scroll-smooth scroll-pt-20"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Integrated Design &amp; Experience | Hydra Dynamics</title>
-<script is:inline src="https://cdn.tailwindcss.com"></script>
-<script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
-.font-serif { font-family: 'Playfair Display', serif; }
-.font-sans { font-family: 'Manrope', sans-serif; }
-::selection {
-background-color: #A50020;
-color: #F5F4F2;
-}
-.hover-crimson-lift {
-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hover-crimson-lift:hover {
-box-shadow: 0 20px 40px -15px rgba(165, 0, 32, 0.2);
-border-color: rgba(165, 0, 32, 0.4);
-transform: translateY(-4px);
-}
-.hover-btn-fill {
-position: relative;
-overflow: hidden;
-z-index: 1;
-}
-.hover-btn-fill::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background-color: #A50020;
-z-index: -1;
-clip-path: circle(0% at 50% 120%);
-transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hover-btn-fill:hover::before {
-clip-path: circle(150% at 50% 120%);
-}
-.hover-btn-fill:hover {
-color: #F5F4F2 !important;
-border-color: #A50020 !important;
-}
-.hover-btn-fill-red {
-position: relative;
-overflow: hidden;
-z-index: 1;
-}
-.hover-btn-fill-red::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background-color: #FF3344;
-z-index: -1;
-clip-path: circle(0% at 50% 120%);
-transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.hover-btn-fill-red:hover::before {
-clip-path: circle(150% at 50% 120%);
-}
-.hover-btn-fill-red:hover {
-color: #F5F4F2 !important;
-border-color: #FF3344 !important;
-}
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.animate-on-load {
-animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-opacity: 0;
-}
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.scroll-reveal {
-opacity: 0;
-transform: translateY(30px);
-transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.scroll-reveal.revealed {
-opacity: 1;
-transform: translateY(0);
-}
-@keyframes pulseRing {
-0%, 100% { transform: scale(1); opacity: 0.3; }
-50% { transform: scale(1.15); opacity: 0.08; }
-}
-@keyframes drawLine {
-from { height: 0; }
-to { height: 100%; }
-}
-</style></head>
-<body class="antialiased overflow-x-hidden text-[#4A4744] font-sans bg-[#FAFAF9]">
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
 
-    <!-- Subtle Texture Overlay -->
-    <div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.015%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+<BaseLayout title="How We Design | Integrated Brand & Product Experience" description="Discover our integrated design approach to brand, design systems, and product experience. Learn how we create cohesive digital experiences that drive results.">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-2xl border-b border-black/10 bg-[#FAFAF9]/80">
-        <div class="flex h-20 max-w-[1440px] mx-auto px-6 md:px-12 items-center justify-between">
-            <a href="#" class="font-serif text-2xl tracking-tighter text-[#1A1A1A] font-medium flex items-center gap-2">
-                HYDRA <span class="text-[#A50020] font-light italic">Dynamics</span>
-            </a>
-            <div class="hidden md:flex items-center gap-10 text-sm font-light tracking-widest uppercase text-[#4A4744]">
-                <a href="#" class="hover:text-[#A50020] transition-colors">Services</a>
-                <a href="#" class="hover:text-[#A50020] transition-colors">Methodology</a>
-                <a href="#" class="hover:text-[#A50020] transition-colors">Client Login</a>
-            </div>
-            <a href="#pricing" class="hidden md:inline-flex items-center justify-center hover-btn-fill transition-all text-sm font-medium text-[#F5F4F2] uppercase tracking-widest bg-[#1A1A1A] rounded-sm py-3 px-8 shadow-sm hover:shadow-md border border-[#1A1A1A]">
-                Book Free Call
-            </a>
-            <button id="hamburger-btn" class="md:hidden text-[#1A1A1A] hover:text-[#A50020] transition-colors">
-                <iconify-icon icon="solar:hamburger-menu-linear" width="28" style="stroke-width: 1.5"></iconify-icon>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 z-[100] hidden flex-col justify-center items-center backdrop-blur-3xl bg-[#FAFAF9]/95 transition-opacity duration-300 opacity-0">
-        <button id="close-menu" class="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#A50020] transition-colors p-2">
-            <iconify-icon icon="solar:close-circle-linear" width="36" style="stroke-width: 1.5"></iconify-icon>
-        </button>
-        <div class="flex flex-col items-center justify-center h-full w-full gap-8 text-2xl font-serif font-light tracking-wide text-[#1A1A1A] uppercase">
-            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Services</a>
-            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Methodology</a>
-            <a href="#" class="mobile-link hover:text-[#A50020] transition-colors">Client Login</a>
-            <a href="#pricing" class="mobile-link mt-6 inline-flex items-center justify-center hover-btn-fill transition-all text-lg font-medium text-[#F5F4F2] tracking-widest bg-[#1A1A1A] rounded-sm py-4 px-12 shadow-lg border border-[#1A1A1A]">
-                Book Free Call
-            </a>
-        </div>
-    </div>
 
     <!-- ====================================== -->
     <!-- SECTION 1: Digital Landscape Introduction -->
@@ -802,78 +675,42 @@ to { height: 100%; }
     </section>
 
 
-
-
-
-
-    <!-- Footer -->
-    <footer class="bg-[#FAFAF9] border-t border-black/10 relative overflow-hidden">
-        <div class="md:px-12 flex flex-col min-h-[400px] w-full max-w-[1440px] z-10 mx-auto pt-24 px-6 pb-12 relative justify-between">
-
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-full -z-10 pointer-events-none">
-                <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-white/100"></div>
-            </div>
-
-            <!-- Footer Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full items-start justify-between relative z-10 border-b border-black/10 pb-20">
-                <div class="flex flex-col gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Directory
-                    </h4>
-                    <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Services</a>
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Methodology</a>
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Works</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Client Portal
-                    </h4>
-                    <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744] uppercase tracking-widest">
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit">Client Login</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Connect
-                    </h4>
-                    <div class="flex flex-col gap-4 font-sans text-sm font-light text-[#4A4744]">
-                        <a href="#" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">WhatsApp Direct</a>
-                        <a href="mailto:support@hydradyna.com" class="hover:text-[#A50020] transition-colors w-fit uppercase tracking-widest">support@hydradyna.com</a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-6">
-                    <h4 class="uppercase text-xs font-semibold text-[#1A1A1A] tracking-[0.25em] font-sans flex items-center gap-2">
-                        <span class="text-[#A50020] text-[8px]">◆</span> Headquarters
-                    </h4>
-                    <div class="flex flex-col gap-2 font-sans text-sm font-light text-[#4A4744] opacity-80 leading-relaxed uppercase tracking-widest">
-                        <p>Hydra Dynamics Ltd.</p>
-                        <p>Level 35, WTC</p>
-                        <p>Colombo 01, Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Giant Wordmark -->
-            <div class="flex mt-16 mb-10 z-10 w-full relative justify-center">
-                <h1 class="font-serif text-[#1A1A1A]/5 text-7xl sm:text-9xl md:text-[10rem] lg:text-[13rem] leading-none tracking-tighter font-normal select-none pointer-events-none">
-                    Integrated
-                </h1>
-            </div>
-
-            <!-- Copyright -->
-            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 pt-4 relative z-10">
-                <p class="font-sans text-xs font-light text-[#4A4744] tracking-widest uppercase">
-                    © Hydra Dynamics, 2025
-                </p>
-                <div class="flex gap-8 font-sans text-xs font-light text-[#4A4744] tracking-widest uppercase">
-                    <a href="#" class="hover:text-[#A50020] transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-[#A50020] transition-colors">Terms</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <style is:global>
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes pulseRing {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.15); opacity: 0.08; }
+        }
+        .hover-btn-fill-red {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .hover-btn-fill-red::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #FF3344;
+            z-index: -1;
+            clip-path: circle(0% at 50% 120%);
+            transition: clip-path 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-btn-fill-red:hover::before {
+            clip-path: circle(150% at 50% 120%);
+        }
+        .hover-btn-fill-red:hover {
+            color: #F5F4F2 !important;
+            border-color: #FF3344 !important;
+        }
+    </style>
 
     <script>
         // Mobile Menu
@@ -942,5 +779,4 @@ to { height: 100%; }
             });
         });
     </script>
-
-</body></html>
+</BaseLayout>

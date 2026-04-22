@@ -1,17 +1,101 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLegalContent } from '../lib/directus.js';
-const legal = await getLegalContent();
-
-console.log('Legal Content:', legal);
 ---
-<BaseLayout title="Privacy Policy">
+<BaseLayout title="Privacy Policy | Hydra Dynamics" description="Privacy Policy for Hydra Dynamics. Learn how we collect, use, and protect your personal information and data.">
+  <style is:global>
+    .page-hero {
+      padding: 120px 40px;
+      background: linear-gradient(135deg, #FAFAF9 0%, #f5f5f5 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .page-hero span.label {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: #A50020;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .page-hero h1 {
+      font-size: 3rem;
+      color: #1A1A1A;
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .legal {
+      padding: 80px 40px;
+      background: #FAFAF9;
+    }
+    .legal .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .legal .content {
+      color: #4A4744;
+      line-height: 1.9;
+      font-size: 16px;
+      font-family: 'Outfit', sans-serif;
+    }
+    .legal .content h2 {
+      color: #1A1A1A;
+      font-size: 24px;
+      font-weight: 400;
+      margin: 40px 0 16px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .legal .content a {
+      color: #A50020;
+      text-decoration: none;
+    }
+    .legal .content a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
   <section class="page-hero"><span class="label">Legal</span><h1>Privacy Policy</h1></section>
-  <section class="legal"><div class="container"><div class="content" set:html={legal.core_privacy_policy}/></div></section>
+  <section class="legal">
+    <div class="container">
+      <div class="content">
+        <h2>Privacy Policy</h2>
+        <p>Last Updated: 2025</p>
+
+        <h2>1. Introduction</h2>
+        <p>Hydra Dynamics Ltd. ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.</p>
+
+        <h2>2. Information We Collect</h2>
+        <p>We may collect information about you in a variety of ways. The information we may collect on the site includes:</p>
+        <ul>
+          <li><strong>Personal Data:</strong> Name, email address, phone number, and other contact information you provide.</li>
+          <li><strong>Technical Data:</strong> IP address, browser type, operating system, and browsing behavior.</li>
+          <li><strong>Cookies:</strong> We may use cookies to enhance your experience.</li>
+        </ul>
+
+        <h2>3. Use of Your Information</h2>
+        <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the site to:</p>
+        <ul>
+          <li>Process your requests and inquiries</li>
+          <li>Improve our website and services</li>
+          <li>Send periodic emails regarding your inquiry</li>
+          <li>Follow up with you after correspondence</li>
+        </ul>
+
+        <h2>4. Disclosure of Your Information</h2>
+        <p>We may share your information with third parties only as necessary to provide our services, comply with the law, or protect our rights.</p>
+
+        <h2>5. Security of Your Information</h2>
+        <p>We use administrative, technical, and physical security measures to protect your personal information. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have questions or comments about this Privacy Policy, please contact us at:</p>
+        <p>
+          <strong>Hydra Dynamics Ltd.</strong><br>
+          Level 35, WTC<br>
+          Colombo 01, Sri Lanka<br>
+          <a href="mailto:support@hydradyna.com">support@hydradyna.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
-<style>
-  .legal { padding: 80px 0; background: var(--dark-2); }
-  .content { max-width: 800px; margin: 0 auto; color: var(--text-muted); line-height: 1.9; font-size: 16px; }
-  .content h2 { color: var(--text); font-size: 24px; font-weight: 400; margin: 40px 0 16px; }
-  .content a { color: var(--gold); text-decoration: none; }
-</style>
