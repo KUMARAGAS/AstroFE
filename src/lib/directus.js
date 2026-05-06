@@ -1,5 +1,6 @@
-const DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL;
-const DIRECTUS_TOKEN = import.meta.env.PUBLIC_DIRECTUS_TOKEN;
+// Replace the top lines with the actual strings
+const DIRECTUS_URL = "https://hydra-agency.hydradyna.link"; 
+const DIRECTUS_TOKEN = "DE5nybkMUvH4nRwTfEE4v9bvb_zkSyXg";
 
 console.log("My Token is:", DIRECTUS_TOKEN);
 
