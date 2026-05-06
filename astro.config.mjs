@@ -1,30 +1,18 @@
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  // Server-side rendering (SSR)
   output: 'server',
-
   adapter: cloudflare({
-    // 1. Node.js built-in modules (util, path) 
-    nodeCompat: true, 
-    
-    // 2. Local development Cloudflare simulate 
     platformProxy: {
-      enabled: true,
+      enabled: true, // This helps with local development
     },
+    // Enable Node.js compatibility for axios and other Node.js libraries
+    nodejsCompat: true,
   }),
-
   vite: {
     ssr: {
-      // 'path' 'util' 'url'
-      external: ['node:path', 'node:util', 'node:url'],
-    },
-    resolve: {
-      // modules  browser polyfills
-      alias: {
-        util: 'util',
-      },
+      external: ['node:util', 'node:stream', 'node:path', 'node:http', 'node:https', 'node:url', 'node:fs', 'node:crypto', 'node:assert', 'node:tty', 'node:http2', 'node:zlib', 'node:events'],
     },
   },
 });
