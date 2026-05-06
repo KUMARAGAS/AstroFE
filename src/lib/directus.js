@@ -1,21 +1,33 @@
 import axios from 'axios';
 
 const directus = axios.create({
-  baseURL: import.meta.env.DIRECTUS_URL,
+  baseURL: import.meta.env.PUBLIC_DIRECTUS_URL, 
   headers: {
-    Authorization: `Bearer ${import.meta.env.DIRECTUS_TOKEN}`
+    Authorization: `Bearer ${import.meta.env.PUBLIC_DIRECTUS_TOKEN}`
   }
 });
 
+console.log("My Token is:", import.meta.env.PUBLIC_DIRECTUS_TOKEN);
+
+export async function getSiteSettings() {
+  try {
+    const res = await directus.get('/items/core_site_settings');
+    console.log('Site settings:', res.data.data);
+    return res.data.data;
+  } catch (error) {
+    console.error("Directus Fetch Error:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
 export async function getBusinessDetails() {
   const res = await directus.get('/items/core_business_details');
+    console.log('Business details:', res.data.data);
+
   return res.data.data;
 }
 
-export async function getSiteSettings() {
-  const res = await directus.get('/items/core_site_settings');
-  return res.data.data;
-}
+
 
 export async function getPages() {
   const res = await directus.get('/items/core_pages', {
@@ -23,6 +35,7 @@ export async function getPages() {
       filter: { core_status: { _eq: 'published' } }
     }
   });
+  console.log('Pages:', res.data.data);
   return res.data.data;
 }
 
