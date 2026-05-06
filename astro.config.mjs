@@ -1,21 +1,30 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
-
-//import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
+  // Server-side rendering (SSR)
   output: 'server',
 
-  adapter: node({
-    mode: 'standalone'
+  adapter: cloudflare({
+    // 1. Node.js built-in modules (util, path) 
+    nodeCompat: true, 
+    
+    // 2. Local development Cloudflare simulate 
+    platformProxy: {
+      enabled: true,
+    },
   }),
 
   vite: {
     ssr: {
-      external: ['path']
-    }
+      // 'path' 'util' 'url'
+      external: ['node:path', 'node:util', 'node:url'],
+    },
+    resolve: {
+      // modules  browser polyfills
+      alias: {
+        util: 'util',
+      },
+    },
   },
-
-  /*site: 'https://kade.lk',
-  integrations: [sitemap()],*/
 });
